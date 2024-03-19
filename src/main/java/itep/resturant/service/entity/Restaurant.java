@@ -1,4 +1,4 @@
-package itep.resturant.service.demo.entity;
+package itep.resturant.service.entity;
 
 
 import java.time.LocalDateTime;
@@ -22,24 +22,14 @@ public class Restaurant{
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
     public long Id;
-
     public String name;
-
-    public String location;    
-
-    public int phone;    
-
+    public String location;
+    public int phone;
     public String latitude;
-
     public String longitude;
-
     public boolean isOnline;
-
     public int CreatedBy;
-
     public int UpdatedBy;
-    
     public LocalDateTime CreatedAt ;
-
     public LocalDateTime UpdatedAt;
 }

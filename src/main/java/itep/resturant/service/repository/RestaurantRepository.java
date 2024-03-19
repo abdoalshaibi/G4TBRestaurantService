@@ -1,10 +1,10 @@
-package itep.resturant.service.demo.repository;
+package itep.resturant.service.repository;
 
+import itep.resturant.service.entity.Restaurant;
 import org.springframework.data.jpa.repository.JpaRepository;
-
-import itep.resturant.service.demo.entity.Restaurant;
-
+import org.springframework.stereotype.Repository;
 
 
-public interface RestaurantRepository extends JpaRepository<Restaurant, Integer> {
+@Repository
+public interface RestaurantRepository extends JpaRepository<Restaurant, Long> {
 }

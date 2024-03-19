@@ -1,54 +1,36 @@
-package itep.resturant.service.demo.controller;
+package itep.resturant.service.controller;
+
+import itep.resturant.service.service.RestaurantRequestDto;
+import itep.resturant.service.service.RestaurantResponstDto;
+import itep.resturant.service.service.RestaurantService;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
-
-import org.springframework.web.bind.annotation.DeleteMapping;
-import org.springframework.web.bind.annotation.GetMapping;
-import org.springframework.web.bind.annotation.PathVariable;
-import org.springframework.web.bind.annotation.PostMapping;
-import org.springframework.web.bind.annotation.PutMapping;
-import org.springframework.web.bind.annotation.RequestBody;
-import org.springframework.web.bind.annotation.RequestMapping;
-import org.springframework.web.bind.annotation.RestController;
-
-import itep.resturant.service.demo.entity.Restaurant;
-import itep.resturant.service.demo.repository.RestaurantRepository;
 
 @RestController
 @RequestMapping("/api/v1/Restaurants")
 public class RestaurantController {
 
-     private final RestaurantRepository restaurantRepository;
+    @Autowired
+     private  RestaurantService service;
 
-     public RestaurantController(RestaurantRepository RestaurantInterface) {
-        this.restaurantRepository = RestaurantInterface;
-    }
+
 
      @PostMapping
-    public Restaurant createRestaurant(@RequestBody Restaurant Restaurant) {
-        return restaurantRepository.save(Restaurant);
+    public RestaurantResponstDto Creat(@RequestBody RestaurantRequestDto request) {
+        return service.Create(request);
     }
 
    @GetMapping
-    public List<Restaurant> getAllRestaurants() {
-        return restaurantRepository.findAll();
+    public List<RestaurantResponstDto> getAll() {
+        return service.GetAll();
     }
 
-    @GetMapping("/{id}")
-    public Restaurant getRestaurantById(@PathVariable int id) {
-        return restaurantRepository.findById(id).orElseThrow(() -> new RuntimeException("Restaurant not found"));
-    }
 
      @PutMapping("/{id}")
-    public Restaurant updateRestaurant(@PathVariable int id, @RequestBody Restaurant Restaurant) {
-        Restaurant.Id = id;
-        return restaurantRepository.save(Restaurant);
+    public RestaurantResponstDto update(@PathVariable long id, @RequestBody RestaurantRequestDto request) {
+        return service.Update(id,request);
     }
 
-    @DeleteMapping("/{id}")
-    public void deleteRestaurant(@PathVariable int id) {
-        restaurantRepository.deleteById(id);
-    }
-
-    
 }
