@@ -1,7 +1,5 @@
 package itep.resturant.service.entity;
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.Id;
+import jakarta.persistence.*;
 
 @Entity
 public class Menu {
@@ -9,13 +7,11 @@ public class Menu {
     @Id
     @GeneratedValue
     private String id;
-    private String restaurantId;
-
+    @ManyToOne
+    @JoinColumn(name="restaurant_id", nullable=false)
+    private Restaurant restaurant;
     private String name;
-
     private String description;
-
     private double price;
-
 
 }

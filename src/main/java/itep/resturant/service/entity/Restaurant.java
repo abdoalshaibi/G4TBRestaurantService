@@ -2,14 +2,11 @@ package itep.resturant.service.entity;
 
 
 import java.time.LocalDateTime;
+import java.util.Set;
 
-import jakarta.persistence.Entity;
-import jakarta.persistence.GeneratedValue;
-import jakarta.persistence.GenerationType;
+import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import jakarta.persistence.Id;
 
 @Entity
 @Builder
@@ -32,4 +29,6 @@ public class Restaurant{
     public int UpdatedBy;
     public LocalDateTime CreatedAt ;
     public LocalDateTime UpdatedAt;
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Menu> menu;
 }
