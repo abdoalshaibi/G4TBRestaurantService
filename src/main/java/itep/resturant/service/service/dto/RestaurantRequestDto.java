@@ -1,10 +1,10 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.dto;
 
 import lombok.Data;
 
 @Data
-public class RestaurantResponstDto {
-    public long Id;
+public class  RestaurantRequestDto {
+
     public String name;
     public String location;
     public int phone;

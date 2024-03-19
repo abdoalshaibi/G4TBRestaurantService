@@ -1,4 +1,7 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.restaurant;
+
+import itep.resturant.service.service.dto.RestaurantRequestDto;
+import itep.resturant.service.service.dto.RestaurantResponstDto;
 
 import java.util.List;
 

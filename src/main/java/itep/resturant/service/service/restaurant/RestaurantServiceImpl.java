@@ -1,8 +1,10 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.restaurant;
 
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.RestaurantRepository;
-import jakarta.persistence.EntityExistsException;
+import itep.resturant.service.service.dto.RestaurantRequestDto;
+import itep.resturant.service.service.dto.RestaurantResponstDto;
+import itep.resturant.service.service.restaurant.RestaurantService;
 import org.modelmapper.ModelMapper;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
@@ -10,7 +12,7 @@ import org.springframework.stereotype.Service;
 import java.util.List;
 
 @Service
-public class RestaurantServiceImpl implements RestaurantService{
+public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     RestaurantRepository repository;

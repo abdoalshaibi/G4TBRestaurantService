@@ -1,8 +1,8 @@
 package itep.resturant.service.controller;
 
-import itep.resturant.service.service.RestaurantRequestDto;
-import itep.resturant.service.service.RestaurantResponstDto;
-import itep.resturant.service.service.RestaurantService;
+import itep.resturant.service.service.dto.RestaurantRequestDto;
+import itep.resturant.service.service.dto.RestaurantResponstDto;
+import itep.resturant.service.service.restaurant.RestaurantService;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
@@ -19,7 +19,8 @@ public class RestaurantController {
 
      @PostMapping
     public RestaurantResponstDto Creat(@RequestBody RestaurantRequestDto request) {
-        return service.Create(request);
+
+         return service.Create(request);
     }
 
    @GetMapping
