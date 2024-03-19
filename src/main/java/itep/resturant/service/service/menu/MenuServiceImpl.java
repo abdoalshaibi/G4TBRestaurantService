@@ -44,4 +44,12 @@ public class MenuServiceImpl implements MenuService {
         menu.setRestaurant(restaurantRepository.findById(id).get());
         return mapper.map(repository.save(menu),MenuResponseDto.class);
     }
+
+    @Override
+    public void Delete(long id) {
+
+        var menu = repository.findById(id).orElseThrow();
+         repository.delete(menu);
+    }
+
 }

@@ -30,4 +30,9 @@ public class MenuController {
     public MenuResponseDto update(@PathVariable long id,MenuRequestDto request){
         return service.Update(id,request);
     }
+
+    @DeleteMapping("/{id}")
+    public void update(@PathVariable long id){
+         service.Delete(id);
+    }
 }

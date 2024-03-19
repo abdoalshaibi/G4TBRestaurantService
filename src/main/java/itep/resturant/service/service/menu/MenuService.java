@@ -11,4 +11,5 @@ public interface MenuService {
     MenuResponseDto Create(long restaurant_id,MenuRequestDto request);
     List<MenuResponseDto> GetById(long id);
     MenuResponseDto Update(long id, MenuRequestDto request);
+    void Delete(long id);
 }
