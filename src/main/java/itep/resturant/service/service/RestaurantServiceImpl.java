@@ -46,4 +46,11 @@ public class RestaurantServiceImpl implements RestaurantService{
 
          return mapper.map(repository.save(restaurant),RestaurantResponstDto.class);
     }
+
+    @Override
+    public RestaurantResponstDto ChangeStatus(long id, boolean status) {
+        var restaurant = repository.findById(id).get();
+        restaurant.isOnline = status;
+        return mapper.map(repository.save(restaurant),RestaurantResponstDto.class);
+    }
 }

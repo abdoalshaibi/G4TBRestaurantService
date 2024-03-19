@@ -6,4 +6,6 @@ public interface RestaurantService {
     RestaurantResponstDto Create(RestaurantRequestDto request);
     List<RestaurantResponstDto> GetAll();
     RestaurantResponstDto Update(long id, RestaurantRequestDto request);
+    RestaurantResponstDto ChangeStatus(long id, boolean status);
+
 }

@@ -33,4 +33,9 @@ public class RestaurantController {
         return service.Update(id,request);
     }
 
+    @PutMapping()
+    public RestaurantResponstDto ChangeStatus(@RequestParam long id, @RequestParam boolean status) {
+        return service.ChangeStatus(id,status);
+    }
+
 }
