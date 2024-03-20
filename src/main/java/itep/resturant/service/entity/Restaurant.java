@@ -1,35 +1,36 @@
 package itep.resturant.service.entity;
-
-
 import java.time.LocalDateTime;
-
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.GenerationType;
+import jakarta.persistence.Id;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
-
-import jakarta.persistence.Id;
+import lombok.Getter;
+import lombok.NoArgsConstructor;
+import lombok.Setter;
 
 @Entity
 @Builder
+@NoArgsConstructor
 @AllArgsConstructor
-public class Restaurant{
+@Getter
+@Setter
+public class Restaurant {
 
-    public Restaurant() {
-    }
-   
     @Id
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public long Id;
-    public String name;
-    public String location;
-    public int phone;
-    public String latitude;
-    public String longitude;
-    public boolean isOnline;
-    public int CreatedBy;
-    public int UpdatedBy;
-    public LocalDateTime CreatedAt ;
-    public LocalDateTime UpdatedAt;
+    private long id;
+    
+    private String name;
+    private String location;
+    private int phone;
+    private String latitude;
+    private String longitude;
+    private boolean isOnline;
+    private int createdBy;
+    private int updatedBy;
+    private LocalDateTime createdAt;
+    private LocalDateTime updatedAt;
+    
 }
