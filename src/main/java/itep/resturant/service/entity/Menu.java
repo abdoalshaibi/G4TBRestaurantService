@@ -1,9 +1,7 @@
 package itep.resturant.service.entity;
-import jakarta.persistence.*;
-import lombok.AllArgsConstructor;
-import lombok.Builder;
-import lombok.Data;
-import lombok.NoArgsConstructor;
+import jakarta.persistence.Entity;
+import jakarta.persistence.GeneratedValue;
+import jakarta.persistence.Id;
 
 @Entity
 @Builder
@@ -12,11 +10,11 @@ import lombok.NoArgsConstructor;
 public class Menu {
 
     @Id
-    @GeneratedValue
-    private String id;
-    @ManyToOne
-    @JoinColumn(name="restaurant_id", nullable=false)
-    private Restaurant restaurant;
+    @GeneratedValue(strategy=GenerationType.AUTO)
+    private Long id;
+
+    private Long restaurantId;
+
     private String name;
     private String image;
     private String description;

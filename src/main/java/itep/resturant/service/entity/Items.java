@@ -2,24 +2,22 @@ package itep.resturant.service.entity;
 import jakarta.persistence.Entity;
 import jakarta.persistence.GeneratedValue;
 import jakarta.persistence.Id;
-import lombok.Data;
-
 import java.time.LocalDateTime;
 
 @Entity
-@Data
 public class Items {
     @Id
-    @GeneratedValue
-    private Long id;
-    private Long MenuId;
-    private String name;
-    private String image;
-    private double price;
-    private LocalDateTime CreatedAt;
-    private LocalDateTime CreatedBy;
-    private LocalDateTime UpdateAt;
-    private LocalDateTime UpdateBy;
+     @GeneratedValue(strategy=GenerationType.AUTO)
+     private Long id;
+
+     private Long MenuId;
+     private String name;
+     private String image;
+     private double price;
+     private int CreatedBy;
+     private int UpdateBy;
+     private LocalDateTime UpdateAt;
+     private LocalDateTime CreatedAt;
 
     public Items() {
     }
