@@ -2,8 +2,6 @@ package itep.resturant.service.service.menu;
 
 import itep.resturant.service.service.dto.MenuRequestDto;
 import itep.resturant.service.service.dto.MenuResponseDto;
-import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponstDto;
 
 import java.util.List;
 

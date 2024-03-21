@@ -1,9 +1,8 @@
 package itep.resturant.service.controller;
 
 import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponstDto;
+import itep.resturant.service.service.dto.RestaurantResponseDto;
 import itep.resturant.service.service.restaurant.RestaurantService;
-import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -18,24 +17,24 @@ public class RestaurantController {
      private  RestaurantService service;
 
      @PostMapping
-    public ResponseEntity<RestaurantResponstDto> Creat(@RequestBody  RestaurantRequestDto request) {
+    public ResponseEntity<RestaurantResponseDto> Creat(@RequestBody  RestaurantRequestDto request) {
 
          return ResponseEntity.ok(service.Create(request));
     }
 
    @GetMapping
-    public List<RestaurantResponstDto> getAll() {
+    public List<RestaurantResponseDto> getAll() {
         return service.GetAll();
     }
 
 
      @PutMapping("/{id}")
-    public RestaurantResponstDto update(@PathVariable long id, @RequestBody RestaurantRequestDto request) {
+    public RestaurantResponseDto update(@PathVariable long id, @RequestBody RestaurantRequestDto request) {
         return service.Update(id,request);
     }
 
     @PutMapping()
-    public RestaurantResponstDto ChangeStatus(@RequestParam long id, @RequestParam boolean status) {
+    public RestaurantResponseDto ChangeStatus(@RequestParam long id, @RequestParam boolean status) {
         return service.ChangeStatus(id,status);
     }
 

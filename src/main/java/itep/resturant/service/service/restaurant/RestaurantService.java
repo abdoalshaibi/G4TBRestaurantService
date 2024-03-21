@@ -1,14 +1,14 @@
 package itep.resturant.service.service.restaurant;
 
 import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponstDto;
+import itep.resturant.service.service.dto.RestaurantResponseDto;
 
 import java.util.List;
 
 public interface RestaurantService {
-    RestaurantResponstDto Create(RestaurantRequestDto request);
-    List<RestaurantResponstDto> GetAll();
-    RestaurantResponstDto Update(long id, RestaurantRequestDto request);
-    RestaurantResponstDto ChangeStatus(long id, boolean status);
+    RestaurantResponseDto Create(RestaurantRequestDto request);
+    List<RestaurantResponseDto> GetAll();
+    RestaurantResponseDto Update(long id, RestaurantRequestDto request);
+    RestaurantResponseDto ChangeStatus(long id, boolean status);
 
 }
