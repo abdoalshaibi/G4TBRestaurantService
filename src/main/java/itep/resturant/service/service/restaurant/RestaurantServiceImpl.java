@@ -1,4 +1,4 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.restaurant;
 
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.RestaurantRepository;
@@ -13,7 +13,7 @@ import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
-public class RestaurantServiceImpl implements RestaurantService{
+public class RestaurantServiceImpl implements RestaurantService {
 
     @Autowired
     RestaurantRepository repository;
