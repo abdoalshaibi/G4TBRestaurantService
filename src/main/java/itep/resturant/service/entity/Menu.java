@@ -14,7 +14,6 @@ import java.util.Set;
 public class Menu {
 
     @Id
-    @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
     @ManyToOne

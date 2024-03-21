@@ -3,7 +3,6 @@ package itep.resturant.service.controller;
 import itep.resturant.service.service.dto.MenuRequestDto;
 import itep.resturant.service.service.dto.MenuResponseDto;
 import itep.resturant.service.service.menu.MenuService;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -12,8 +11,12 @@ import java.util.List;
 @RequestMapping("/api/v1/menu")
 public class MenuController {
 
-    @Autowired
+
     MenuService service;
+
+    public MenuController(MenuService service) {
+        this.service = service;
+    }
 
     @PostMapping(value = "/{id}",name = "id is restaurant identity")
     public MenuResponseDto Create(@PathVariable long id, @RequestBody MenuRequestDto request)

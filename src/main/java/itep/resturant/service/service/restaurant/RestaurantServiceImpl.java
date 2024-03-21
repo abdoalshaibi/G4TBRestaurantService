@@ -5,7 +5,6 @@ import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.dto.RestaurantResponseDto;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -14,10 +13,14 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-    @Autowired
+
     RestaurantRepository repository;
-    @Autowired
     ModelMapper mapper;
+
+    public RestaurantServiceImpl(RestaurantRepository repository, ModelMapper mapper) {
+        this.repository = repository;
+        this.mapper = mapper;
+    }
 
     @Override
     public RestaurantResponseDto Create(RestaurantRequestDto request) {
@@ -41,16 +44,26 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public RestaurantResponseDto Update(long id, RestaurantRequestDto request) {
 
-        var restaurant = repository.findById(id).get();
+        var restaurant = repository.findById(id);
+
+        if (restaurant.isEmpty())
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+
+
         mapper.map(request,restaurant);
-        restaurant.UpdatedAt=LocalDateTime.now();
-         return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
+        restaurant.get().UpdatedAt=LocalDateTime.now();
+         return mapper.map(repository.save(restaurant.get()), RestaurantResponseDto.class);
     }
 
     @Override
     public RestaurantResponseDto ChangeStatus(long id, boolean status) {
-        var restaurant = repository.findById(id).get();
-        restaurant.isOnline = status;
-        return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
+        var restaurant = repository.findById(id);
+
+        if (restaurant.isEmpty())
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+
+        restaurant.get().isOnline = status;
+
+        return mapper.map(repository.save(restaurant.get()), RestaurantResponseDto.class);
     }
 }

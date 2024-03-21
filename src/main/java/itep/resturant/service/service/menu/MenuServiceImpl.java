@@ -6,7 +6,6 @@ import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.MenuRequestDto;
 import itep.resturant.service.service.dto.MenuResponseDto;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 
 import java.util.List;
@@ -14,17 +13,26 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    @Autowired
+
     MenuRepository repository;
-    @Autowired
     RestaurantRepository restaurantRepository;
-    @Autowired
     ModelMapper mapper;
 
+    public MenuServiceImpl(MenuRepository repository, RestaurantRepository restaurantRepository, ModelMapper mapper) {
+        this.repository = repository;
+        this.restaurantRepository = restaurantRepository;
+        this.mapper = mapper;
+    }
+
     @Override
-    public MenuResponseDto Create(long restaurant_id,MenuRequestDto request) {
+    public MenuResponseDto Create(long id,MenuRequestDto request) {
         var menu = mapper.map(request, Menu.class);
-        menu.setRestaurant(restaurantRepository.findById(restaurant_id).get());
+
+        var restaurant=restaurantRepository.findById(id);
+        if (restaurant.isEmpty())
+                throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+        menu.setRestaurant(restaurant.get());
+
         return mapper.map(repository.save(menu),MenuResponseDto.class);
     }
 
@@ -40,17 +48,25 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuResponseDto Update(long id, MenuRequestDto request) {
 
-        var menu = repository.findById(id).get();
+        var menu = repository.findById(id);
+
+        if (menu.isEmpty())
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+
         mapper.map(request,menu);
-        //menu.setRestaurant(restaurantRepository.findById(id).get());
-        return mapper.map(repository.save(menu),MenuResponseDto.class);
+
+        return mapper.map(repository.save(menu.get()),MenuResponseDto.class);
     }
 
     @Override
     public void Delete(long id) {
 
-        var menu = repository.findById(id).get();
-         repository.delete(menu);
+        var menu = repository.findById(id);
+
+        if (menu.isEmpty())
+            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+
+        repository.delete(menu.get());
     }
 
 }

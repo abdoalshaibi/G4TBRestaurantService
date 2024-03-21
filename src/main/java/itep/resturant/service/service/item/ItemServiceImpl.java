@@ -25,19 +25,26 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ItemResponseDto Create(long id ,ItemRequestDto request) {
 
+        var menu= menuRepository.findById(id);
+
+        if (menu.isEmpty())
+             throw new IllegalArgumentException("Item not found with ID: " + id);
+
         var item = mapper.map(request, Item.class);
-        var menu=menuRepository.findById(id).get();
-         item.setMenu(menu);
+
+         item.setMenu(menu.get());
         return mapper.map(repository.save(item),ItemResponseDto.class);
     }
 
-
-
     @Override
     public ItemResponseDto Update(long id,ItemRequestDto request) {
-        var item= repository.findById(id).get();
+        var item= repository.findById(id);
+
+        if (item.isEmpty())
+            throw new IllegalArgumentException("Item not found with ID: " + id);
+
         mapper.map(request,item);
-        return mapper.map(repository.save(item),ItemResponseDto.class);
+        return mapper.map(repository.save(item.get()),ItemResponseDto.class);
     }
 
 }
