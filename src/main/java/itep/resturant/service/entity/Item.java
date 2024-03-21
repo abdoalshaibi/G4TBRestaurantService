@@ -13,8 +13,9 @@ import java.time.LocalDateTime;
 @AllArgsConstructor
 public class Item {
 
-    @EmbeddedId
-    private CompositeKeyItem id;
+    @Id
+    @GeneratedValue(strategy = GenerationType.AUTO)
+    private long id;
     private String name;
     private String image;
     private double price;
@@ -23,13 +24,8 @@ public class Item {
     private LocalDateTime UpdateAt;
     private LocalDateTime UpdateBy;
 
-    @ManyToOne
-    @MapsId("restaurantId")
-    @JoinColumn(name = "restaurant_id")
-    private Restaurant restaurant;
 
     @ManyToOne
-    @MapsId("menuId")
     @JoinColumn(name = "menu_id")
     private Menu menu;
 

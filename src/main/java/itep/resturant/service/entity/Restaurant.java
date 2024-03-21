@@ -38,6 +38,4 @@ public class Restaurant{
     @OneToMany(mappedBy = "restaurant")
     private Set<Menu> menu;
 
-    @OneToMany(mappedBy = "restaurant")
-    private Set<Item> items;
 }
