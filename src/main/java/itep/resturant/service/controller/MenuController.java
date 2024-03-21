@@ -9,30 +9,31 @@ import org.springframework.web.bind.annotation.*;
 import java.util.List;
 
 @RestController
-@RequestMapping("api/v1/menu")
+@RequestMapping("/api/v1/menu")
 public class MenuController {
 
     @Autowired
     MenuService service;
 
-    @PostMapping("/{restaurant_id}")
-    public MenuResponseDto Create(@PathVariable long restaurant_id, MenuRequestDto request)
+    @PostMapping(value = "/{id}",name = "id is restaurant identity")
+    public MenuResponseDto Create(@PathVariable long id, @RequestBody MenuRequestDto request)
     {
-         return service.Create(restaurant_id,request);
+         return service.Create(id,request);
     }
-    @GetMapping("/{restaurant_id}")
-    public List<MenuResponseDto> getAll(@PathVariable long restaurant_id)
+    @GetMapping(value = "/{id}",name = "id is restaurant identity")
+    public List<MenuResponseDto> getAll(@PathVariable long id)
     {
-        return service.GetById(restaurant_id);
+        return service.GetById(id);
     }
 
     @PutMapping("/{id}")
-    public MenuResponseDto update(@PathVariable long id,MenuRequestDto request){
+    public MenuResponseDto update(@PathVariable long id,@RequestBody MenuRequestDto request){
         return service.Update(id,request);
     }
 
     @DeleteMapping("/{id}")
-    public void update(@PathVariable long id){
-         service.Delete(id);
+    public void update(@PathVariable long id)
+    {
+        service.Delete(id);
     }
 }

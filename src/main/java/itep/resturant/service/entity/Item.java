@@ -1,37 +1,39 @@
 package itep.resturant.service.entity;
+
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
 
 import java.time.LocalDateTime;
-import java.util.Set;
 
 @Entity
 @Builder
 @Data
 @AllArgsConstructor
-public class Menu {
+public class Item {
 
-    @Id
-    @Column(name = "id")
-    @GeneratedValue(strategy=GenerationType.AUTO)
-    private long id;
-    @ManyToOne
-    @JoinColumn(name="restaurant_id", nullable=false)
-    private Restaurant restaurant;
+    @EmbeddedId
+    private CompositeKeyItem id;
     private String name;
     private String image;
-    private String description;
+    private double price;
     private LocalDateTime CreatedAt;
     private LocalDateTime CreatedBy;
     private LocalDateTime UpdateAt;
     private LocalDateTime UpdateBy;
 
-    @OneToMany(mappedBy = "menu")
-    private Set<Item> items;
+    @ManyToOne
+    @MapsId("restaurantId")
+    @JoinColumn(name = "restaurant_id")
+    private Restaurant restaurant;
 
-    public Menu() {
+    @ManyToOne
+    @MapsId("menuId")
+    @JoinColumn(name = "menu_id")
+    private Menu menu;
 
+    public Item() {
     }
+
 }
