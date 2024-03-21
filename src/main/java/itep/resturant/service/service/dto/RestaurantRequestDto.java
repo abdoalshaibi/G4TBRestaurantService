@@ -1,24 +1,19 @@
 package itep.resturant.service.service.dto;
 
-import java.time.LocalDateTime;
-
-import lombok.AllArgsConstructor;
+import jakarta.validation.constraints.*;
 import lombok.Data;
-import lombok.NoArgsConstructor;
+import org.springframework.web.multipart.MultipartFile;
 
 @Data
-@NoArgsConstructor
-@AllArgsConstructor
-public class RestaurantRequestDto {
+public class  RestaurantRequestDto {
 
-    private String name;
-    private String location;
-    private int phone;
-    private String latitude;
-    private String longitude;
-    private boolean isOnline;
-    private LocalDateTime createdAt;
-    private LocalDateTime updatedAt;
-
- 
+    @NotBlank(message = "name is required")
+   public String name;
+    public String location;
+    public MultipartFile image;
+    public String email;
+    public int phone;
+    public String latitude;
+    public String longitude;
+    public boolean isOnline;
 }

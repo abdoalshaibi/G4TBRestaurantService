@@ -7,28 +7,37 @@ import java.util.Set;
 import jakarta.persistence.*;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
+import lombok.Data;
 
 @Entity
 @Builder
+@Data
 @AllArgsConstructor
 public class Restaurant{
 
     public Restaurant() {
     }
-   
+
     @Id
+    @Column(name = "id")
     @GeneratedValue(strategy=GenerationType.AUTO)
-    public long Id;
+    public long id;
     public String name;
     public String location;
+    public String email;
+    public byte[] logo;
     public int phone;
     public String latitude;
     public String longitude;
     public boolean isOnline;
-    public int CreatedBy;
-    public int UpdatedBy;
+    public LocalDateTime CreatedBy;
+    public LocalDateTime UpdatedBy;
     public LocalDateTime CreatedAt ;
     public LocalDateTime UpdatedAt;
+
     @OneToMany(mappedBy = "restaurant")
     private Set<Menu> menu;
+
+    @OneToMany(mappedBy = "restaurant")
+    private Set<Item> items;
 }

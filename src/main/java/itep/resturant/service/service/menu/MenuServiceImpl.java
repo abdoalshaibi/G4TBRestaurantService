@@ -18,6 +18,7 @@ public class MenuServiceImpl implements MenuService {
     MenuRepository repository;
     @Autowired
     RestaurantRepository restaurantRepository;
+    @Autowired
     ModelMapper mapper;
 
     @Override
@@ -30,7 +31,7 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public List<MenuResponseDto> GetById(long id) {
 
-        return repository.findById(id)
+        return repository.findAllByRestaurantId(id)
                 .stream()
                 .map(e->mapper.map(e,MenuResponseDto.class))
                 .toList();
@@ -41,14 +42,14 @@ public class MenuServiceImpl implements MenuService {
 
         var menu = repository.findById(id).get();
         mapper.map(request,menu);
-        menu.setRestaurant(restaurantRepository.findById(id).get());
+        //menu.setRestaurant(restaurantRepository.findById(id).get());
         return mapper.map(repository.save(menu),MenuResponseDto.class);
     }
 
     @Override
     public void Delete(long id) {
 
-        var menu = repository.findById(id).orElseThrow();
+        var menu = repository.findById(id).get();
          repository.delete(menu);
     }
 

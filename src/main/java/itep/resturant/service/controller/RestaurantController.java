@@ -3,24 +3,24 @@ package itep.resturant.service.controller;
 import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.dto.RestaurantResponstDto;
 import itep.resturant.service.service.restaurant.RestaurantService;
+import jakarta.validation.Valid;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
 
 @RestController
-@RequestMapping("/api/v1/Restaurants")
+@RequestMapping("/api/v1/restaurant")
 public class RestaurantController {
 
     @Autowired
      private  RestaurantService service;
 
-
-
      @PostMapping
-    public RestaurantResponstDto Creat(@RequestBody RestaurantRequestDto request) {
+    public ResponseEntity<RestaurantResponstDto> Creat(@RequestBody  RestaurantRequestDto request) {
 
-         return service.Create(request);
+         return ResponseEntity.ok(service.Create(request));
     }
 
    @GetMapping
