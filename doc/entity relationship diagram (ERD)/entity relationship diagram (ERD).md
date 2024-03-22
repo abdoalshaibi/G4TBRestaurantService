@@ -10,7 +10,8 @@ erDiagram
         LocalDateTime updated_at
     }
     
-    Restaurant ||--o{ Menu : has 
+    Restaurant ||--o{ Menu : places 
+    Restaurant ||--o{ User : has 
     Restaurant {
         long id
         String name
@@ -29,6 +30,41 @@ erDiagram
         LocalTime opening_at
         LocalTime closing_at
     }
+
+    User ||--o{ UserRole : has 
+    User {
+        long id
+        String user_name
+        String password
+        String name
+        String location
+        String email
+        int mobile
+        boolean isEnable
+        long created_by
+        long updated_by
+        LocalDateTime created_at 
+        LocalDateTime updated_at
+    }
+     UserRole ||--o{ Role : has 
+     UserRole {
+        long user_id
+        long role_id
+        long created_by
+        long updated_by
+        LocalDateTime created_at 
+        LocalDateTime updated_at
+    }
+
+    Role {
+        long id
+        String name
+        long created_by
+        long updated_by
+        LocalDateTime created_at 
+        LocalDateTime updated_at
+    }
+
     Menu ||--|{ Item : contains
     Menu {
      long id
@@ -42,7 +78,7 @@ erDiagram
      LocalDateTime updated_at
     }
     Item {
-     long restaurantId
+     long id
      long menuId
      String name
      String image

@@ -1,16 +1,15 @@
 package itep.resturant.service.entity;
 
 
-import java.time.LocalDateTime;
-import java.time.LocalTime;
-import java.util.Set;
-
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
-import org.springframework.beans.factory.annotation.Autowired;
+
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.util.Set;
 
 @Entity
 @Builder
