@@ -6,7 +6,7 @@ import itep.resturant.service.service.dto.RestaurantResponseDto;
 import java.util.List;
 
 public interface RestaurantService {
-    RestaurantResponseDto Create(RestaurantRequestDto request);
+    RestaurantResponseDto Create(long id ,RestaurantRequestDto request);
     List<RestaurantResponseDto> GetAll();
     RestaurantResponseDto Update(long id, RestaurantRequestDto request);
     RestaurantResponseDto ChangeStatus(long id, boolean status);

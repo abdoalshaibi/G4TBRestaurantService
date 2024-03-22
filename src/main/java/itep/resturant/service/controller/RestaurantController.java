@@ -21,11 +21,11 @@ public class RestaurantController {
         this.service = service;
     }
 
-    @PostMapping
-    public ResponseEntity<Object> Creat(@Valid @RequestBody RestaurantRequestDto request) {
+    @PostMapping("/{id}")
+    public ResponseEntity<Object> Creat(@PathVariable long id ,@Valid @RequestBody RestaurantRequestDto request) {
 
         try {
-            var restaurant = service.Create(request);
+            var restaurant = service.Create(id,request);
 
             if (restaurant != null) return ResponseEntity.ok(restaurant);
 

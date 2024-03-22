@@ -1,8 +1,7 @@
 ```mermaid
 erDiagram
-    Restautant ||--o{ Menu : places 
-
-    Restautant {
+    Restaurant ||--o{ Menu : places 
+    Restaurant {
         long id
         String name
         String location

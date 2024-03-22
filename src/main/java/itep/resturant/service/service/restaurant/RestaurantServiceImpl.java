@@ -1,6 +1,7 @@
 package itep.resturant.service.service.restaurant;
 
 import itep.resturant.service.entity.Restaurant;
+import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.dto.RestaurantResponseDto;
@@ -15,20 +16,28 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     RestaurantRepository repository;
+    CuisineRepository cuisineRepository;
     ModelMapper mapper;
 
-    public RestaurantServiceImpl(RestaurantRepository repository, ModelMapper mapper) {
+    public RestaurantServiceImpl(RestaurantRepository repository, CuisineRepository cuisineRepository, ModelMapper mapper) {
         this.repository = repository;
+        this.cuisineRepository = cuisineRepository;
         this.mapper = mapper;
     }
 
-    @Override
-    public RestaurantResponseDto Create(RestaurantRequestDto request) {
 
+    @Override
+    public RestaurantResponseDto Create(long id,RestaurantRequestDto request) {
+
+        var cuisine =cuisineRepository.findById(id).
+                orElseThrow(()-> new IllegalArgumentException("No data found in id " + id));
 
             var restaurant = mapper.map(request, Restaurant.class);
-            restaurant.createdAt = LocalDateTime.now();
-            restaurant.createdBy = 1;
+
+            restaurant.setCreatedAt(LocalDateTime.now());
+            restaurant.setCreatedBy(1);
+            restaurant.setCuisine(cuisine);
+
             var rest =repository.save(restaurant);
             return mapper.map(rest, RestaurantResponseDto.class);
 
@@ -41,7 +50,6 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .stream()
                 .map(e->mapper.map(e, RestaurantResponseDto.class))
                 .toList();
-
 
     }
 

@@ -10,12 +10,14 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.springframework.beans.factory.annotation.Autowired;
 
 @Entity
 @Builder
 @Data
 @AllArgsConstructor
 public class Restaurant{
+
 
     public Restaurant() {
     }
@@ -44,7 +46,12 @@ public class Restaurant{
     @NotNull(message ="CreatedBy is required" )
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
+
     @OneToMany(mappedBy = "restaurant")
     private Set<Menu> menu;
+
+    @ManyToOne
+    @JoinColumn(name="cuisine_id", nullable=false)
+    private Cuisine cuisine;
 
 }
