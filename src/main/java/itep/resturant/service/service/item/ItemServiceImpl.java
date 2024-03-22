@@ -5,7 +5,10 @@ import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.service.dto.ItemRequestDto;
 import itep.resturant.service.service.dto.ItemResponseDto;
+import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
+import org.springframework.dao.EmptyResultDataAccessException;
+import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 @Service
@@ -25,14 +28,12 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ItemResponseDto Create(long id ,ItemRequestDto request) {
 
-        var menu= menuRepository.findById(id);
-
-        if (menu.isEmpty())
-             throw new IllegalArgumentException("Item not found with ID: " + id);
+        var menu= menuRepository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Item not found with ID: " + id));
 
         var item = mapper.map(request, Item.class);
 
-         item.setMenu(menu.get());
+         item.setMenu(menu);
         return mapper.map(repository.save(item),ItemResponseDto.class);
     }
 

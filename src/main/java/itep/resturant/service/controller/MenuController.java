@@ -3,6 +3,11 @@ package itep.resturant.service.controller;
 import itep.resturant.service.service.dto.MenuRequestDto;
 import itep.resturant.service.service.dto.MenuResponseDto;
 import itep.resturant.service.service.menu.MenuService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.HttpStatusCode;
+import org.springframework.http.RequestEntity;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 import java.util.List;
@@ -18,25 +23,31 @@ public class MenuController {
         this.service = service;
     }
 
-    @PostMapping(value = "/{id}",name = "id is restaurant identity")
-    public MenuResponseDto Create(@PathVariable long id, @RequestBody MenuRequestDto request)
-    {
-         return service.Create(id,request);
+    @PostMapping(value = "/{id}", name = "id is restaurant identity")
+    public ResponseEntity<Object> Create(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
+        try {
+            return ResponseEntity.ok(service.Create(id, request));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.CREATED).body(ex.getMessage());
+        }
     }
-    @GetMapping(value = "/{id}",name = "id is restaurant identity")
-    public List<MenuResponseDto> getAll(@PathVariable long id)
-    {
-        return service.GetById(id);
+
+    @GetMapping(value = "/{id}", name = "id is restaurant identity")
+    public ResponseEntity<Object> getAll(@PathVariable long id) {
+        try {
+            return ResponseEntity.ok(service.GetById(id));
+        } catch (Exception ex) {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @PutMapping("/{id}")
-    public MenuResponseDto update(@PathVariable long id,@RequestBody MenuRequestDto request){
-        return service.Update(id,request);
+    public MenuResponseDto update(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
+        return service.Update(id, request);
     }
 
     @DeleteMapping("/{id}")
-    public void update(@PathVariable long id)
-    {
+    public void update(@PathVariable long id) {
         service.Delete(id);
     }
 }

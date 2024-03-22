@@ -25,9 +25,13 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public RestaurantResponseDto Create(RestaurantRequestDto request) {
 
-        var restaurant = mapper.map(request, Restaurant.class);
-        restaurant.CreatedAt = LocalDateTime.now();
-        return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
+
+            var restaurant = mapper.map(request, Restaurant.class);
+            restaurant.createdAt = LocalDateTime.now();
+            restaurant.createdBy = 1;
+            var rest =repository.save(restaurant);
+            return mapper.map(rest, RestaurantResponseDto.class);
+
     }
 
     @Override
@@ -44,26 +48,22 @@ public class RestaurantServiceImpl implements RestaurantService {
     @Override
     public RestaurantResponseDto Update(long id, RestaurantRequestDto request) {
 
-        var restaurant = repository.findById(id);
-
-        if (restaurant.isEmpty())
-            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
-
+        var restaurant = repository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("No data found in id :"+id));
 
         mapper.map(request,restaurant);
-        restaurant.get().UpdatedAt=LocalDateTime.now();
-         return mapper.map(repository.save(restaurant.get()), RestaurantResponseDto.class);
+        restaurant.updatedAt =LocalDateTime.now();
+         return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
     }
 
     @Override
     public RestaurantResponseDto ChangeStatus(long id, boolean status) {
-        var restaurant = repository.findById(id);
+        var restaurant = repository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("\"No data found in id :\"+id"));
 
-        if (restaurant.isEmpty())
-            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
 
-        restaurant.get().isOnline = status;
+        restaurant.isOnline = status;
 
-        return mapper.map(repository.save(restaurant.get()), RestaurantResponseDto.class);
+        return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
     }
 }

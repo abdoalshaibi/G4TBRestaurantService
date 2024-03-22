@@ -3,6 +3,9 @@ package itep.resturant.service.controller;
 import itep.resturant.service.service.dto.ItemRequestDto;
 import itep.resturant.service.service.dto.ItemResponseDto;
 import itep.resturant.service.service.item.ItemService;
+import jakarta.validation.Valid;
+import org.springframework.http.HttpStatus;
+import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -17,13 +20,17 @@ public class ItemController {
     }
 
     @PostMapping("/{id}")
-    public ItemResponseDto Create(@PathVariable long id,@RequestBody ItemRequestDto request)
-    {
-        return service.Create(id,request);
+    public ResponseEntity<ItemResponseDto> Create(@PathVariable long id,@Valid @RequestBody ItemRequestDto request) {
+
+        var item = service.Create(id, request);
+        if (item != null)
+            return ResponseEntity.ok(item);
+
+        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
     }
 
     @PutMapping("/{id}")
-    public ItemResponseDto Update(@PathVariable long id,@RequestBody ItemRequestDto request)
+    public ItemResponseDto Update(@PathVariable long id,@Valid @RequestBody ItemRequestDto request)
     {
         return service.Update(id,request);
     }

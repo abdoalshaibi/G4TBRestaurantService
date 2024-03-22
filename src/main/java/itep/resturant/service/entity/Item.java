@@ -1,6 +1,7 @@
 package itep.resturant.service.entity;
 
 import jakarta.persistence.*;
+import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
@@ -16,13 +17,17 @@ public class Item {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
     private long id;
-    private String name;
-    private String image;
+    @NotNull(message = "")
+    public String name;
+    private byte[] image;
     private double price;
-    private LocalDateTime CreatedAt;
-    private LocalDateTime CreatedBy;
-    private LocalDateTime UpdateAt;
-    private LocalDateTime UpdateBy;
+    public String description;
+    @NotNull
+    public long createdBy;
+    public long updatedBy;
+    @NotNull
+    public LocalDateTime createdAt;
+    public LocalDateTime updatedAt;
 
 
     @ManyToOne
