@@ -1,6 +1,6 @@
 ```mermaid
 erDiagram
- Cuisine ||--o{ Restautant : places 
+ Cuisine ||--o{ Restaurant : places 
     Cuisine {
         long id
         String name
@@ -10,8 +10,8 @@ erDiagram
         LocalDateTime updated_at
     }
     
-    Restautant ||--o{ Menu : places 
-    Restautant {
+    Restaurant ||--o{ Menu : has 
+    Restaurant {
         long id
         String name
         String location
