@@ -40,6 +40,17 @@ public class RestaurantController {
         return service.GetAll();
     }
 
+    @GetMapping("/{id}")
+    public ResponseEntity<Object> getByCuisine(@PathVariable long id) {
+
+        try {
+            return ResponseEntity.ok( service.getByCuisineId(id));
+        } catch (Exception ex) {
+            return ResponseEntity
+                    .status(HttpStatus.NOT_MODIFIED)
+                    .body(ex.getMessage());
+        }
+    }
 
     @PutMapping("/{id}")
     public ResponseEntity<Object> update(@PathVariable long id, @Valid @RequestBody RestaurantRequestDto request) {

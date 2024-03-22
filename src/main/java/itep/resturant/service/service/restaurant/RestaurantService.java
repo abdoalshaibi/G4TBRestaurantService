@@ -10,5 +10,5 @@ public interface RestaurantService {
     List<RestaurantResponseDto> GetAll();
     RestaurantResponseDto Update(long id, RestaurantRequestDto request);
     RestaurantResponseDto ChangeStatus(long id, boolean status);
-
+    List<RestaurantResponseDto> getByCuisineId(long id);
 }

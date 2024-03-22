@@ -74,4 +74,14 @@ public class RestaurantServiceImpl implements RestaurantService {
 
         return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
     }
+
+    @Override
+    public List<RestaurantResponseDto> getByCuisineId(long id) {
+         var restaurant = repository.findByCuisineId(id)
+                 .orElseThrow(()-> new IllegalArgumentException("No data found in id" + id));
+
+        return restaurant.stream()
+                .map(e-> mapper.map(e,RestaurantResponseDto.class))
+                .toList();
+    }
 }
