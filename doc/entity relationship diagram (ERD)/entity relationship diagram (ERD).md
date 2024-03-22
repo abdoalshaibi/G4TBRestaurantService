@@ -1,7 +1,17 @@
 ```mermaid
 erDiagram
-    Restaurant ||--o{ Menu : places 
-    Restaurant {
+ Cuisine ||--o{ Restautant : places 
+    Cuisine {
+        long id
+        String name
+        long created_by
+        long updated_by
+        LocalDateTime created_at 
+        LocalDateTime updated_at
+    }
+    
+    Restautant ||--o{ Menu : places 
+    Restautant {
         long id
         String name
         String location
