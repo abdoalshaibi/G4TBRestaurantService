@@ -12,7 +12,7 @@ public class MenuRequestDto {
     @NotNull(message ="name is required" )
     @Size(min = 5, max = 50, message = "The field must be between {min} and {max} characters long")
     private String name;
-    private MultipartFile image;
+    private String  image;
     @Size(min = 150, max = 2000, message = "The field must be between {min} and {max} characters long")
     private String description;
 }

@@ -1,5 +1,8 @@
 package itep.resturant.service.service.cuisine;
 
+import itep.resturant.service.service.dto.CuisineRequestDto;
+import itep.resturant.service.service.dto.CuisineResponseDto;
+
 import java.util.List;
 
 public interface CuisineService {

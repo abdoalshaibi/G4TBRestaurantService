@@ -1,4 +1,4 @@
-package itep.resturant.service.service.cuisine;
+package itep.resturant.service.service.dto;
 
 import lombok.Data;
 

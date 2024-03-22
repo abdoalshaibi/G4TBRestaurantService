@@ -8,6 +8,7 @@ import itep.resturant.service.service.dto.MenuResponseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
 import java.util.List;
 
 @Service
@@ -26,13 +27,15 @@ public class MenuServiceImpl implements MenuService {
 
     @Override
     public MenuResponseDto Create(long id,MenuRequestDto request) {
+
+        var restaurant=restaurantRepository.findById(id)
+                .orElseThrow(()-> new IllegalArgumentException("Restaurant not found with ID: " + id));
+
         var menu = mapper.map(request, Menu.class);
 
-        var restaurant=restaurantRepository.findById(id);
-        if (restaurant.isEmpty())
-                throw new IllegalArgumentException("Restaurant not found with ID: " + id);
-        menu.setRestaurant(restaurant.get());
-
+        menu.setRestaurant(restaurant);
+        menu.setCreatedBy(1);
+        menu.setCreatedAt(LocalDateTime.now());
         return mapper.map(repository.save(menu),MenuResponseDto.class);
     }
 

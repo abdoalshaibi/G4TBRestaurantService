@@ -1,9 +1,9 @@
 package itep.resturant.service.service.cuisine;
 
 import itep.resturant.service.entity.Cuisine;
-import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
-import itep.resturant.service.service.dto.RestaurantResponseDto;
+import itep.resturant.service.service.dto.CuisineRequestDto;
+import itep.resturant.service.service.dto.CuisineResponseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

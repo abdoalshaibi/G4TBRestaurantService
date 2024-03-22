@@ -20,13 +20,17 @@ public class ItemController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<ItemResponseDto> Create(@PathVariable long id,@Valid @RequestBody ItemRequestDto request) {
+    public ResponseEntity<Object> Create(@PathVariable long id,@Valid @RequestBody ItemRequestDto request) {
 
-        var item = service.Create(id, request);
-        if (item != null)
-            return ResponseEntity.ok(item);
+        try
+        {
+            return ResponseEntity.ok( service.Create(id, request));
 
-        return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+        }
+        catch (Exception ex)
+        {
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @PutMapping("/{id}")

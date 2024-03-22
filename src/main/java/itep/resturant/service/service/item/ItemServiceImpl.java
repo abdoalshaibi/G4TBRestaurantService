@@ -11,6 +11,8 @@ import org.springframework.dao.EmptyResultDataAccessException;
 import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
+import java.time.LocalDateTime;
+
 @Service
 public class ItemServiceImpl implements ItemService{
 
@@ -34,6 +36,8 @@ public class ItemServiceImpl implements ItemService{
         var item = mapper.map(request, Item.class);
 
          item.setMenu(menu);
+         item.setCreatedBy(1);
+         item.setCreatedAt(LocalDateTime.now());
         return mapper.map(repository.save(item),ItemResponseDto.class);
     }
 

@@ -1,6 +1,6 @@
 package itep.resturant.service.controller;
 
-import itep.resturant.service.service.cuisine.CuisineRequestDto;
+import itep.resturant.service.service.dto.CuisineRequestDto;
 import itep.resturant.service.service.cuisine.CuisineService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;

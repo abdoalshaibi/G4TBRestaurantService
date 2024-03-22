@@ -23,7 +23,7 @@ public class MenuController {
         this.service = service;
     }
 
-    @PostMapping(value = "/{id}", name = "id is restaurant identity")
+    @PostMapping("/{id}")
     public ResponseEntity<Object> Create(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
         try {
             return ResponseEntity.ok(service.Create(id, request));
