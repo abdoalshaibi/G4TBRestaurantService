@@ -2,6 +2,7 @@ package itep.resturant.service.controller;
 
 import itep.resturant.service.service.dto.CuisineRequestDto;
 import itep.resturant.service.service.cuisine.CuisineService;
+import itep.resturant.service.service.dto.CuisineResponseDto;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
@@ -24,7 +25,8 @@ public class CuisineController {
 
         try {
 
-            return ResponseEntity.ok(service.Create( request));
+
+            return ResponseEntity.status(HttpStatus.OK).body(service.Create( request));
 
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());

@@ -6,25 +6,23 @@ import itep.resturant.service.service.dto.ItemRequestDto;
 import itep.resturant.service.service.dto.ItemResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
 
-/**
- * Unit tests for the ItemServiceImpl class.
- */
+@ExtendWith(MockitoExtension.class)
 class ItemServiceImplTest {
 
     @Mock
     private ItemRepository repository;
-
     @Mock
     private MenuRepository menuRepository;
-
     @Mock
     private ModelMapper mapper;
 

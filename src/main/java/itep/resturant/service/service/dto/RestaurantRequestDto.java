@@ -1,6 +1,7 @@
 package itep.resturant.service.service.dto;
 
 import jakarta.validation.constraints.*;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
@@ -8,6 +9,7 @@ import java.time.LocalDateTime;
 import java.time.LocalTime;
 
 @Data
+@Builder
 public class  RestaurantRequestDto {
 
     @NotBlank(message = "name is required")

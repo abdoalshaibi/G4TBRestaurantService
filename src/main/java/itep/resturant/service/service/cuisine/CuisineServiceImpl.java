@@ -24,11 +24,16 @@ public class CuisineServiceImpl implements CuisineService {
 
     @Override
     public CuisineResponseDto Create(CuisineRequestDto request) {
-        var cuisine = mapper.map(request, Cuisine.class);
-        cuisine.createdAt = LocalDateTime.now();
-        cuisine.createdBy = 1;
-        var rest = repository.save(cuisine);
-        return mapper.map(rest, CuisineResponseDto.class);
+       try {
+           var cuisine = mapper.map(request, Cuisine.class);
+           cuisine.createdAt = LocalDateTime.now();
+           cuisine.createdBy = 1;
+           var rest = repository.save(cuisine);
+           return mapper.map(rest, CuisineResponseDto.class);
+       }catch (Exception ex)
+       {
+           return null;
+       }
     }
 
     @Override

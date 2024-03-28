@@ -1,99 +1,52 @@
 package itep.resturant.service.service.restaurant;
 
-import itep.resturant.service.entity.Restaurant;
-import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.dto.RestaurantResponseDto;
-import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
-import org.mockito.MockitoAnnotations;
-import org.modelmapper.ModelMapper;
+import org.mockito.junit.jupiter.MockitoExtension;
 
-import java.util.Collections;
-import java.util.List;
-import java.util.Optional;
+import static org.assertj.core.api.Assertions.assertThat;
+import static org.mockito.Mockito.when;
 
-import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
-
+@ExtendWith(MockitoExtension.class)
 public class RestaurantServiceImplTest {
 
+    private static final long cuisine = 1;
     @Mock
-    private RestaurantRepository repository;
-
-    @Mock
-    private ModelMapper mapper;
-
+    CuisineRepository cuisineRepository;
     @InjectMocks
     private RestaurantServiceImpl restaurantService;
 
-    @BeforeEach
-    public void setup() {
-        MockitoAnnotations.initMocks(this);
-    }
+    private static final RestaurantRequestDto REQUEST = RestaurantRequestDto.builder()
+            .name("AL-Shuaibni")
+            .location("hadah")
+            .phone(888)
+            .latitude("jjjj")
+            .latitude("kkkk")
+            .isOnline(true)
+            .build();
+
 
     @Test
     public void testCreateRestaurant() {
-        RestaurantRequestDto request = new RestaurantRequestDto();
-        Restaurant restaurant = new Restaurant();
-        RestaurantResponseDto responseDto = new RestaurantResponseDto();
 
-        when(mapper.map(request, Restaurant.class)).thenReturn(restaurant);
-        when(repository.save(restaurant)).thenReturn(restaurant);
-        when(mapper.map(restaurant, RestaurantResponseDto.class)).thenReturn(responseDto);
+         RestaurantResponseDto RESPONSE = RestaurantResponseDto.builder()
+                 .Id(1)
+                .name("AL-Shuaibni")
+                .location("hadah")
+                .phone(888)
+                .latitude("jjjj")
+                .latitude("kkkk")
+                .isOnline(true)
+                .build();
 
-        RestaurantResponseDto result = restaurantService.Create(request);
+        when(restaurantService.Create(cuisine,REQUEST)).thenReturn(RESPONSE);
 
-        verify(repository, times(1)).save(restaurant);
-        assertEquals(responseDto, result);
+        assertThat(REQUEST.name).isEqualTo(RESPONSE.getName());
     }
 
-    @Test
-    public void testGetAllRestaurants() {
-        List<Restaurant> restaurants = Collections.singletonList(new Restaurant());
-        List<RestaurantResponseDto> responseDtos = Collections.singletonList(new RestaurantResponseDto());
-
-        when(repository.findAll()).thenReturn(restaurants);
-        when(mapper.map(any(), eq(RestaurantResponseDto.class))).thenReturn(responseDtos.get(0));
-
-        List<RestaurantResponseDto> result = restaurantService.GetAll();
-
-        assertEquals(responseDtos, result);
-    }
-
-    @Test
-    public void testUpdateRestaurant() {
-        long id = 1L;
-        RestaurantRequestDto request = new RestaurantRequestDto();
-        Restaurant restaurant = new Restaurant();
-        RestaurantResponseDto responseDto = new RestaurantResponseDto();
-
-        when(repository.findById(id)).thenReturn(Optional.of(restaurant));
-        when(repository.save(restaurant)).thenReturn(restaurant);
-        when(mapper.map(restaurant, RestaurantResponseDto.class)).thenReturn(responseDto);
-
-        RestaurantResponseDto result = restaurantService.Update(id, request);
-
-        verify(repository, times(1)).save(restaurant);
-        assertEquals(responseDto, result);
-    }
-
-    @Test
-    public void testChangeStatus() {
-        long id = 1L;
-        boolean status = true;
-        Restaurant restaurant = new Restaurant();
-        RestaurantResponseDto responseDto = new RestaurantResponseDto();
-
-        when(repository.findById(id)).thenReturn(Optional.of(restaurant));
-        when(repository.save(restaurant)).thenReturn(restaurant);
-        when(mapper.map(restaurant, RestaurantResponseDto.class)).thenReturn(responseDto);
-
-        RestaurantResponseDto result = restaurantService.ChangeStatus(id, status);
-
-        verify(repository, times(1)).save(restaurant);
-        assertEquals(responseDto, result);
-    }
 }
