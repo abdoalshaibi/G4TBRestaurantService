@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-
     MenuRepository repository;
     RestaurantRepository restaurantRepository;
     ModelMapper mapper;
@@ -51,25 +50,21 @@ public class MenuServiceImpl implements MenuService {
     @Override
     public MenuResponseDto Update(long id, MenuRequestDto request) {
 
-        var menu = repository.findById(id);
-
-        if (menu.isEmpty())
-            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
+        var menu = repository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
 
         mapper.map(request,menu);
 
-        return mapper.map(repository.save(menu.get()),MenuResponseDto.class);
+        return mapper.map(repository.save(menu),MenuResponseDto.class);
     }
 
     @Override
     public void Delete(long id) {
 
-        var menu = repository.findById(id);
+        var menu = repository.findById(id)
+                .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
 
-        if (menu.isEmpty())
-            throw new IllegalArgumentException("Restaurant not found with ID: " + id);
-
-        repository.delete(menu.get());
+        repository.delete(menu);
     }
 
 }

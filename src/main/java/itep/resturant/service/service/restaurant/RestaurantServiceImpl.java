@@ -14,7 +14,6 @@ import java.util.List;
 @Service
 public class RestaurantServiceImpl implements RestaurantService {
 
-
     RestaurantRepository repository;
     CuisineRepository cuisineRepository;
     ModelMapper mapper;
