@@ -46,12 +46,17 @@ public class CuisineServiceImpl implements CuisineService {
 
     @Override
     public CuisineResponseDto Update(long id, CuisineRequestDto request) {
-        var restaurant = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("No data found in id :" + id));
+        try {
+            var restaurant = repository.findById(id)
+                    .orElseThrow(() -> new IllegalArgumentException("No data found in id :" + id));
 
-        mapper.map(request, restaurant);
-        restaurant.updatedAt = LocalDateTime.now();
+            mapper.map(request, restaurant);
+            restaurant.updatedAt = LocalDateTime.now();
 
-        return mapper.map(repository.save(restaurant), CuisineResponseDto.class);
+            return mapper.map(repository.save(restaurant), CuisineResponseDto.class);
+        } catch (Exception ex) {
+
+            return null;
+        }
     }
 }

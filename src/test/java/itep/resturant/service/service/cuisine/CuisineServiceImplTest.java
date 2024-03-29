@@ -13,18 +13,16 @@ import org.mockito.Mock;
 import org.mockito.Mockito;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
-import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.test.context.junit.jupiter.SpringExtension;
 
 import java.time.LocalDateTime;
+import java.util.List;
 import java.util.Optional;
 
 import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.ArgumentMatchers.any;
-import static org.mockito.Mockito.lenient;
 import static org.mockito.Mockito.when;
 @ExtendWith(MockitoExtension.class)
 @DataJpaTest
@@ -33,7 +31,7 @@ public class CuisineServiceImplTest {
 
     @InjectMocks
     CuisineServiceImpl service;
-    @Autowired
+    @Mock
     CuisineRepository repository;
     @Mock
     private ModelMapper mapper;
@@ -66,16 +64,46 @@ public class CuisineServiceImplTest {
     }
 
 
-    @DisplayName("JUnit test for CreateCuisine method")
+    @DisplayName("JUnit test for Create Cuisine method")
     @Test
     void testCreate() {
-
 
         when(repository.save(any())).thenReturn(cuisine);
 
         CuisineResponseDto test = service.Create(CUISINE_REQUEST);
 
         assertEquals(test.getName(), CUISINE_REQUEST.getName());
+
+    }
+
+    @DisplayName("JUnit test for Update Cuisine method")
+    @Test
+    void testUpdate() {
+
+        long Id = 0L;
+
+        when(repository.findById(0L)).thenReturn(Optional.of(cuisine));
+        when(repository.save(cuisine)).thenReturn(cuisine);
+
+        CUISINE_REQUEST.setName("ereee");
+
+        CuisineResponseDto test = service.Update(Id,CUISINE_REQUEST);
+
+        assertEquals(test.getName(), CUISINE_REQUEST.getName());
+
+    }
+
+
+    @DisplayName("JUnit test for Get All Cuisine method")
+    @Test
+    void testGetAll() {
+
+        when(repository.findAll()).thenReturn(List.of(cuisine));
+
+
+        var test = service.GetAll();
+
+        assertThat(test.size()).isEqualTo(1);
 
     }
 }

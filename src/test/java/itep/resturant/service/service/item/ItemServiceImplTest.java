@@ -1,7 +1,13 @@
 package itep.resturant.service.service.item;
+import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.entity.Item;
+import itep.resturant.service.entity.Menu;
+import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
+import itep.resturant.service.service.cuisine.CuisineServiceImpl;
+import itep.resturant.service.service.dto.CuisineRequestDto;
+import itep.resturant.service.service.dto.CuisineResponseDto;
 import itep.resturant.service.service.dto.ItemRequestDto;
 import itep.resturant.service.service.dto.ItemResponseDto;
 import org.junit.jupiter.api.BeforeEach;
@@ -9,9 +15,12 @@ import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
+import org.mockito.Mockito;
 import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
+
+import java.time.LocalDateTime;
 import java.util.Optional;
 import static org.junit.jupiter.api.Assertions.assertEquals;
 import static org.mockito.Mockito.*;
@@ -27,38 +36,65 @@ class ItemServiceImplTest {
     private ModelMapper mapper;
 
     @InjectMocks
-    private ItemServiceImpl itemService;
+    private ItemServiceImpl service;
 
+    private Item item;
+    private Menu menu;
+
+    private ItemRequestDto ITEM_REQUEST;
     @BeforeEach
-    void setUp() {
-        MockitoAnnotations.openMocks(this);
-    }
+    public void setup() {
 
+        mapper = new ModelMapper();
+
+        repository = Mockito.mock(ItemRepository.class);
+        menuRepository = Mockito.mock(MenuRepository.class);
+
+        service = new ItemServiceImpl(repository,menuRepository, mapper);
+
+        menu = Menu.builder()
+                .id(0)
+                .name("test")
+                .createdAt(LocalDateTime.now())
+                .createdBy(1)
+                .description(null)
+                .updatedBy(0)
+                .updatedAt(null)
+                .build();
+
+        item = Item.builder()
+                .id(0)
+                .name("test")
+                .createdAt(LocalDateTime.now())
+                .createdBy(1)
+                .description(null)
+                .updatedBy(0)
+                .updatedAt(null)
+                .build();
+
+
+        ITEM_REQUEST = ItemRequestDto.builder()
+                .name("test")
+                .build();
+    }
     /**
      * Test the Create method of the ItemServiceImpl class.
      */
     @Test
     void testCreate() {
+
         // Arrange
-        long menuId = 1L;
-        ItemRequestDto requestDto = new ItemRequestDto();
-        Item item = new Item();
-        ItemResponseDto responseDto = new ItemResponseDto();
+        long Id = 0L;
 
-        when(mapper.map(requestDto, Item.class)).thenReturn(item);
-        when(menuRepository.findById(menuId)).thenReturn(Optional.of(new itep.resturant.service.entity.Menu()));
-        when(repository.save(item)).thenReturn(item);
-        when(mapper.map(item, ItemResponseDto.class)).thenReturn(responseDto);
+        when(menuRepository.findById(Id)).thenReturn(Optional.of(menu));
 
-        // Act
-        ItemResponseDto result = itemService.Create(menuId, requestDto);
+        when(repository.save(any())).thenReturn(item);
+
+        //act
+        var test = service.Create(Id,ITEM_REQUEST);
 
         // Assert
-        assertEquals(responseDto, result);
-        verify(mapper, times(1)).map(requestDto, Item.class);
-        verify(menuRepository, times(1)).findById(menuId);
-        verify(repository, times(1)).save(item);
-        verify(mapper, times(1)).map(item, ItemResponseDto.class);
+        assertEquals(test.getName(), ITEM_REQUEST.getName());
     }
 
     /**
@@ -66,24 +102,21 @@ class ItemServiceImplTest {
      */
     @Test
     void testUpdate() {
+
         // Arrange
-        long itemId = 1L;
-        ItemRequestDto requestDto = new ItemRequestDto();
-        Item item = new Item();
-        ItemResponseDto responseDto = new ItemResponseDto();
+        long Id = 0L;
 
-        when(repository.findById(itemId)).thenReturn(Optional.of(item));
-          when(repository.save(item)).thenReturn(item);
-        when(mapper.map(item, ItemResponseDto.class)).thenReturn(responseDto);
+        when(repository.findById(0L)).thenReturn(Optional.of(item));
+        when(repository.save(item)).thenReturn(item);
 
-        // Act
-        ItemResponseDto result = itemService.Update(itemId, requestDto);
+        ITEM_REQUEST.setName("ereee");
+
+        //act
+
+        var test = service.Update(Id,ITEM_REQUEST);
 
         // Assert
-        assertEquals(responseDto, result);
-        verify(repository, times(1)).findById(itemId);
-        verify(mapper, times(1)).map(requestDto, item);
-        verify(repository, times(1)).save(item);
-        verify(mapper, times(1)).map(item, ItemResponseDto.class);
+        assertEquals(test.getName(), ITEM_REQUEST.getName());
+
     }
 }

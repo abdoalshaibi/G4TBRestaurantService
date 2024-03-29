@@ -43,13 +43,12 @@ public class ItemServiceImpl implements ItemService{
 
     @Override
     public ItemResponseDto Update(long id,ItemRequestDto request) {
-        var item= repository.findById(id);
+        var item= repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + id));;
 
-        if (item.isEmpty())
-            throw new IllegalArgumentException("Item not found with ID: " + id);
 
         mapper.map(request,item);
-        return mapper.map(repository.save(item.get()),ItemResponseDto.class);
+        return mapper.map(repository.save(item),ItemResponseDto.class);
     }
 
 }

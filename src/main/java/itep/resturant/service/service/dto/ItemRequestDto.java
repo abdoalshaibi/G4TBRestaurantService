@@ -4,10 +4,12 @@ import jakarta.validation.constraints.Digits;
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;
 import jakarta.validation.constraints.Size;
+import lombok.Builder;
 import lombok.Data;
 import org.springframework.web.multipart.MultipartFile;
 
 @Data
+@Builder
 public class ItemRequestDto {
     @NotBlank(message = "name is required")
     @NotNull(message ="name is required" )
