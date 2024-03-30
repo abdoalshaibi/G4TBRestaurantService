@@ -27,9 +27,9 @@ public class RestaurantController {
         try {
             var restaurant = service.Create(id,request);
 
-            if (restaurant != null) return ResponseEntity.ok(restaurant);
+             return ResponseEntity.ok(restaurant);
 
-            return new ResponseEntity<>(HttpStatus.NOT_FOUND);
+
         } catch (Exception ex) {
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
