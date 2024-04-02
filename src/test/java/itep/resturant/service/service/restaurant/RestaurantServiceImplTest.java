@@ -1,52 +1,157 @@
 package itep.resturant.service.service.restaurant;
 
+import itep.resturant.service.entity.Cuisine;
+import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
+import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponseDto;
+import org.assertj.core.api.Assertions;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.junit.jupiter.MockitoExtension;
+import org.modelmapper.ModelMapper;
 
-import static org.assertj.core.api.Assertions.assertThat;
+import java.time.LocalDateTime;
+import java.util.List;
+import java.util.Optional;
+
+import static org.assertj.core.api.AssertionsForClassTypes.assertThat;
+import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.junit.jupiter.api.Assertions.assertFalse;
+import static org.mockito.ArgumentMatchers.any;
+import static org.mockito.Mockito.mock;
 import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 public class RestaurantServiceImplTest {
 
-    private static final long cuisine = 1;
     @Mock
     CuisineRepository cuisineRepository;
+    @Mock
+    RestaurantRepository restaurantRepository;
     @InjectMocks
-    private RestaurantServiceImpl restaurantService;
+    private RestaurantServiceImpl service;
+    @Mock
+    ModelMapper mapper;
 
-    private static final RestaurantRequestDto REQUEST = RestaurantRequestDto.builder()
-            .name("AL-Shuaibni")
-            .location("hadah")
-            .phone(888)
-            .latitude("jjjj")
-            .latitude("kkkk")
-            .isOnline(true)
-            .build();
+    private static  Restaurant restaurant ;
+    private Cuisine cuisine;
+    private static RestaurantRequestDto request;
 
 
-    @Test
-    public void testCreateRestaurant() {
+    @BeforeEach
+    public void setup() {
 
-         RestaurantResponseDto RESPONSE = RestaurantResponseDto.builder()
-                 .Id(1)
-                .name("AL-Shuaibni")
-                .location("hadah")
-                .phone(888)
-                .latitude("jjjj")
-                .latitude("kkkk")
+        this.mapper = new ModelMapper();
+
+        cuisineRepository = mock(CuisineRepository.class);
+        restaurantRepository =mock(RestaurantRepository.class);
+
+        service = new RestaurantServiceImpl(restaurantRepository,cuisineRepository,mapper);
+
+        cuisine = Cuisine.builder()
+                .id(0)
+                .name("test")
+                .createdAt(LocalDateTime.now())
+                .createdBy(1)
+                .description(null)
+                .updatedBy(0)
+                .updatedAt(null)
+                .restaurants(null)
+                .build();
+
+        restaurant = Restaurant.builder()
+                .name("Ballhaus Watzke")
+                .location("Dresden")
+                .phone("0351852920")
+                .email("verkauf@watzke.de")
+                .cuisine(cuisine)
+                .latitude("31.5048719")
+                .latitude("47.1257121")
                 .isOnline(true)
                 .build();
 
-        when(restaurantService.Create(cuisine,REQUEST)).thenReturn(RESPONSE);
+        request = RestaurantRequestDto.builder()
+                .name("Ballhaus Watzke")
+                .phone("0351852920")
+                .email("verkauf@watzke.de")
+                .build();
 
-        assertThat(REQUEST.name).isEqualTo(RESPONSE.getName());
+
+    }
+    @Test
+    public void testCreate() {
+
+        long id = 0L;
+        when(cuisineRepository.findById(id)).thenReturn(Optional.of(cuisine));
+        when(restaurantRepository.save(any())).thenReturn(restaurant);
+
+        var test = service.Create(id,request);
+
+        assertThat(test.name).isEqualTo(request.getName());
     }
 
+    @Test
+    void testUpdate() {
+
+        // Arrange
+        long Id = 0L;
+
+        when(restaurantRepository.findById(0L)).thenReturn(Optional.of(restaurant));
+        when(restaurantRepository.save(restaurant)).thenReturn(restaurant);
+
+        request.setName("ereee");
+
+        //act
+        var test = service.Update(Id,request);
+
+        // Assert
+        assertEquals(test.getName(), request.getName());
+    }
+    @DisplayName("JUnit test for Get All restaurant method")
+    @Test
+    void testGetAll() {
+
+        when(restaurantRepository.findAll()).thenReturn(List.of(restaurant));
+
+
+        var test = service.GetAll();
+
+        Assertions.assertThat(test.size()).isEqualTo(1);
+
+    }
+
+    @DisplayName("JUnit test for Get All restaurant method")
+    @Test
+    void testGetByCuisine() {
+
+        long id = 0L;
+
+        when(restaurantRepository.findByCuisineId(id)).thenReturn((Optional.of(List.of(restaurant))));
+
+
+        var test = service.getByCuisineId(0L);
+
+        Assertions.assertThat(test.size()).isEqualTo(1);
+    }
+
+    @Test
+    void testChangeStatus() {
+
+        // Arrange
+        long Id = 0L;
+
+        when(restaurantRepository.findById(0L)).thenReturn(Optional.of(restaurant));
+        when(restaurantRepository.save(restaurant)).thenReturn(restaurant);
+
+        //act
+        var test = service.ChangeStatus(Id,false);
+
+        // Assert
+        assertFalse(test.isOnline());
+    }
 }

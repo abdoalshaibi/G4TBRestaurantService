@@ -2,6 +2,6 @@ spring:
   datasource:
     url: jdbc:postgresql://localhost:5432/restaurant_db
     username: postgres
-    password: postgres
+    password: Abd06420803
   jpa.hibernate.ddl-auto: create
   jpa.properties.hibernate.dialect: org.hibernate.dialect.PostgreSQLDialect

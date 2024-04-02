@@ -117,6 +117,5 @@ class ItemServiceImplTest {
 
         // Assert
         assertEquals(test.getName(), ITEM_REQUEST.getName());
-
     }
 }

@@ -6,6 +6,7 @@ import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
 import lombok.Builder;
 import lombok.Data;
+import org.hibernate.validator.constraints.UniqueElements;
 
 import java.time.LocalDateTime;
 import java.time.LocalTime;
@@ -28,9 +29,12 @@ public class Restaurant{
     public String name;
     public String description;
     public String location;
+    @Column(unique = true)
     public String email;
     public byte[] logo;
-    public int phone;
+    @Column(unique = true)
+    public String phone;
+    @Column(unique = true)
     public int mobile;
     public String latitude;
     public String longitude;

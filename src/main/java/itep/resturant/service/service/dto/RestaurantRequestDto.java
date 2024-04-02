@@ -23,7 +23,7 @@ public class  RestaurantRequestDto {
     @Email(message = "Invalid email address")
     @NotBlank(message = "Email is required")
     public String email;
-    public int phone;
+    public String phone;
     public int mobile;
     @NotBlank(message = "Latitude is required")
     @NotNull(message ="Latitude is required" )

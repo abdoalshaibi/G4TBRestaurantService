@@ -48,7 +48,7 @@ public class CuisineServiceImplTest {
 
         cuisine = Cuisine.builder()
                 .id(0)
-                .name("test")
+                .name("Japanese")
                 .createdAt(LocalDateTime.now())
                 .createdBy(1)
                 .description(null)
@@ -59,7 +59,7 @@ public class CuisineServiceImplTest {
 
 
         CUISINE_REQUEST = CuisineRequestDto.builder()
-                .name("test")
+                .name("Japanese")
                 .build();
     }
 
@@ -85,7 +85,7 @@ public class CuisineServiceImplTest {
         when(repository.findById(0L)).thenReturn(Optional.of(cuisine));
         when(repository.save(cuisine)).thenReturn(cuisine);
 
-        CUISINE_REQUEST.setName("ereee");
+        CUISINE_REQUEST.setName("Italian");
 
         CuisineResponseDto test = service.Update(Id,CUISINE_REQUEST);
 

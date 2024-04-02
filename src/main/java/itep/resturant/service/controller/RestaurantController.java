@@ -4,10 +4,12 @@ import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.dto.RestaurantResponseDto;
 import itep.resturant.service.service.restaurant.RestaurantService;
 import jakarta.validation.Valid;
+import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
 
+import java.sql.SQLException;
 import java.util.List;
 
 @RestController
@@ -30,8 +32,16 @@ public class RestaurantController {
              return ResponseEntity.ok(restaurant);
 
 
-        } catch (Exception ex) {
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
+        }
+        catch (DataIntegrityViolationException ex) {
+            if(ex.getMessage().contains("restaurant_mobile_key"))
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mobile already exist");
+            if(ex.getMessage().contains("restaurant_phone_key"))
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("phone already exist");
+            if(ex.getMessage().contains("restaurant_email_key"))
+                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email already exist");
+
+            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unknown Error");
         }
     }
 
