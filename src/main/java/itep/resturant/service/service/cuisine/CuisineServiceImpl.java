@@ -46,7 +46,7 @@ public class CuisineServiceImpl implements CuisineService {
 
     @Override
     public CuisineResponseDto Update(long id, CuisineRequestDto request) {
-        try {
+
             var restaurant = repository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("No data found in id :" + id));
 
@@ -54,9 +54,5 @@ public class CuisineServiceImpl implements CuisineService {
             restaurant.updatedAt = LocalDateTime.now();
 
             return mapper.map(repository.save(restaurant), CuisineResponseDto.class);
-        } catch (Exception ex) {
-
-            return null;
-        }
     }
 }

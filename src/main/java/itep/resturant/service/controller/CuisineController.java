@@ -12,19 +12,16 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/cuisine")
 public class CuisineController {
 
-
     private final CuisineService service;
 
     public CuisineController(CuisineService service) {
         this.service = service;
     }
 
-
     @PostMapping
     public ResponseEntity<Object> Create(@Valid @RequestBody CuisineRequestDto request) {
 
         try {
-
 
             return ResponseEntity.status(HttpStatus.OK).body(service.Create( request));
 

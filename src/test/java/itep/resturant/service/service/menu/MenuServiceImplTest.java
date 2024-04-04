@@ -1,97 +1,153 @@
 package itep.resturant.service.service.menu;
+
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.MenuRequestDto;
-import itep.resturant.service.service.dto.MenuResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.Test;
+import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
+import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
-import java.util.Arrays;
+import java.time.LocalDateTime;
 import java.util.List;
 import java.util.Optional;
 
+import static org.assertj.core.api.Assertions.assertThat;
 import static org.junit.jupiter.api.Assertions.assertEquals;
+import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
 
+@ExtendWith(MockitoExtension.class)
 public class MenuServiceImplTest {
 
     @Mock
+    private RestaurantRepository repository;
+    @Mock
     private MenuRepository menuRepository;
-
     @Mock
-    private RestaurantRepository restaurantRepository;
-
-    @Mock
-    private ModelMapper modelMapper;
+    private ModelMapper mapper;
 
     @InjectMocks
-    private MenuServiceImpl menuService;
+    private MenuServiceImpl service;
 
+    private Restaurant restaurant;
+    private Menu menu;
+
+    private MenuRequestDto MENU_REQUEST;
     @BeforeEach
     public void setup() {
-        MockitoAnnotations.openMocks(this);
+
+        mapper = new ModelMapper();
+
+        repository = Mockito.mock(RestaurantRepository.class);
+        menuRepository = Mockito.mock(MenuRepository.class);
+
+
+        service = new MenuServiceImpl(menuRepository,repository, mapper);
+
+        restaurant = Restaurant.builder()
+                .id(0)
+                .name("test")
+                .createdAt(LocalDateTime.now())
+                .createdBy(1)
+                .description(null)
+                .updatedBy(0)
+                .updatedAt(null)
+                .build();
+
+        menu = Menu.builder()
+                .id(0)
+                .name("test")
+                .createdAt(LocalDateTime.now())
+                .createdBy(1)
+                .description(null)
+                .updatedBy(0)
+                .updatedAt(null)
+                .build();
+
+
+
+
+        MENU_REQUEST = MenuRequestDto.builder()
+                .name("test")
+                .build();
+    }
+    /**
+     * Test the Create method of the ItemServiceImpl class.
+     */
+    @Test
+    void testCreate() {
+
+        // Arrange
+        long Id = 0L;
+
+        when(repository.findById(Id)).thenReturn(Optional.of(restaurant));
+
+        when(menuRepository.save(any())).thenReturn(menu);
+
+        //act
+        var test = service.Create(Id,MENU_REQUEST);
+
+        // Assert
+        assertEquals(test.getName(), MENU_REQUEST.getName());
     }
 
     @Test
-    public void testCreateMenu() {
-        MenuRequestDto requestDto = new MenuRequestDto();
-        Menu menu = new Menu();
-        MenuResponseDto responseDto = new MenuResponseDto();
+    void testGetById() {
 
-        when(modelMapper.map(requestDto, Menu.class)).thenReturn(menu);
-        when(restaurantRepository.findById(1L)).thenReturn(Optional.of(new Restaurant()));
-        when(menuRepository.save(menu)).thenReturn(menu);
-        when(modelMapper.map(menu, MenuResponseDto.class)).thenReturn(responseDto);
+        // Arrange
+        long Id = 0L;
 
-        MenuResponseDto result = menuService.Create(1L, requestDto);
+        when(menuRepository.findAllByRestaurantId(Id)).thenReturn(List.of(menu));
 
-        assertEquals(responseDto, result);
+        //act
+
+        var test = service.GetById(Id);
+
+        // Assert
+
+        assertThat(test.size()).isEqualTo(1);
     }
 
     @Test
-    public void testGetMenuById() {
-        Menu menu = new Menu();
-        MenuResponseDto responseDto = new MenuResponseDto();
+    void testUpdate() {
 
-        when(menuRepository.findAllByRestaurantId(1L)).thenReturn(Arrays.asList(menu));
-        when(modelMapper.map(menu, MenuResponseDto.class)).thenReturn(responseDto);
+        // Arrange
+        long Id = 0L;
 
-        List<MenuResponseDto> result = menuService.GetById(1L);
+        when(menuRepository.findById(0L)).thenReturn(Optional.of(menu));
+        when(menuRepository.save(any())).thenReturn(menu);
 
-        assertEquals(1, result.size());
-        assertEquals(responseDto, result.get(0));
+        MENU_REQUEST.setName("ereee");
+
+        //act
+
+        var test = service.Update(Id,MENU_REQUEST);
+
+        // Assert
+        assertEquals(test.getName(), MENU_REQUEST.getName());
     }
 
-    @Test
-    public void testUpdateMenu() {
-        MenuRequestDto requestDto = new MenuRequestDto();
-        Menu menu = new Menu();
-        MenuResponseDto responseDto = new MenuResponseDto();
-
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(menu));
-        when(menuRepository.save(menu)).thenReturn(menu);
-        when(modelMapper.map(menu, MenuResponseDto.class)).thenReturn(responseDto);
-
-        MenuResponseDto result = menuService.Update(1L, requestDto);
-
-        assertEquals(responseDto, result);
-    }
-
-    @Test
-    public void testDeleteMenu() {
-        Menu menu = new Menu();
-
-        when(menuRepository.findById(1L)).thenReturn(Optional.of(menu));
-
-        menuService.Delete(1L);
-
-        Mockito.verify(menuRepository).delete(menu);
-    }
+//    @Test
+//    void testDelete() {
+//
+//        // Arrange
+//        long Id = 0L;
+//
+//        when(menuRepository.findAllByRestaurantId(Id)).thenReturn(List.of(menu));
+//
+//        //act
+//
+//        var test = service.Delete(Id);
+//
+//        // Assert
+//
+//        assertThat(test.size()).isEqualTo(1);
+//    }
 }

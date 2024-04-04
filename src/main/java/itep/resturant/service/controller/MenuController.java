@@ -17,7 +17,7 @@ import java.util.List;
 public class MenuController {
 
 
-    MenuService service;
+    private final MenuService service;
 
     public MenuController(MenuService service) {
         this.service = service;
