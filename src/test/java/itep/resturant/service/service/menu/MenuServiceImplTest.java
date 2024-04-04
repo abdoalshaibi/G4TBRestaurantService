@@ -53,7 +53,7 @@ public class MenuServiceImplTest {
 
         restaurant = Restaurant.builder()
                 .id(0)
-                .name("test")
+                .name("Ballhaus Watzke")
                 .createdAt(LocalDateTime.now())
                 .createdBy(1)
                 .description(null)
@@ -63,7 +63,7 @@ public class MenuServiceImplTest {
 
         menu = Menu.builder()
                 .id(0)
-                .name("test")
+                .name("pizzeria")
                 .createdAt(LocalDateTime.now())
                 .createdBy(1)
                 .description(null)
@@ -75,7 +75,7 @@ public class MenuServiceImplTest {
 
 
         MENU_REQUEST = MenuRequestDto.builder()
-                .name("test")
+                .name("pizzeria")
                 .build();
     }
     /**
