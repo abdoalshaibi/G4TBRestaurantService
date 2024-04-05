@@ -6,8 +6,8 @@ import itep.resturant.service.service.dto.MenuResponseDto;
 import java.util.List;
 
 public interface MenuService {
-    MenuResponseDto Create(long restaurant_id,MenuRequestDto request);
-    List<MenuResponseDto> GetById(long id);
-    MenuResponseDto Update(long id, MenuRequestDto request);
-    void Delete(long id);
+    MenuResponseDto create(long restaurant_id, MenuRequestDto request);
+    List<MenuResponseDto> getAllById(long id);
+    MenuResponseDto update(long id, MenuRequestDto request);
+    String delete(long id);
 }

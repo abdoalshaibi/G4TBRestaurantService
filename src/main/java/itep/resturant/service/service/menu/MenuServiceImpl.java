@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuResponseDto Create(long id,MenuRequestDto request) {
+    public MenuResponseDto create(long id, MenuRequestDto request) {
 
         var restaurant=restaurantRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Restaurant not found with ID: " + id));
@@ -39,7 +39,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public List<MenuResponseDto> GetById(long id) {
+    public List<MenuResponseDto> getAllById(long id) {
 
         return repository.findAllByRestaurantId(id)
                 .stream()
@@ -48,7 +48,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuResponseDto Update(long id, MenuRequestDto request) {
+    public MenuResponseDto update(long id, MenuRequestDto request) {
 
         var menu = repository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
@@ -59,12 +59,14 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public void Delete(long id) {
+    public String delete(long id) {
 
         var menu = repository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
 
         repository.delete(menu);
+
+        return "Menu with Id " + id + "deleted";
     }
 
 }

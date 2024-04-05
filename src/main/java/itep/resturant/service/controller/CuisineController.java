@@ -25,6 +25,7 @@ public class CuisineController {
             return ResponseEntity.status(HttpStatus.OK).body(service.Create( request));
 
         } catch (Exception ex) {
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
@@ -37,6 +38,7 @@ public class CuisineController {
             return ResponseEntity.ok(service.GetAll());
 
         } catch (Exception ex) {
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }
@@ -49,6 +51,7 @@ public class CuisineController {
             return ResponseEntity.ok(service.Update(id, request));
 
         } catch (Exception ex) {
+
             return ResponseEntity.status(HttpStatus.BAD_REQUEST).body(ex.getMessage());
         }
     }

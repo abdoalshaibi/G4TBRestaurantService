@@ -26,11 +26,11 @@ public class Menu{
     @NotNull
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="restaurant_id", nullable=false)
     private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "menu")
+    @OneToMany(mappedBy = "menu",cascade = CascadeType.PERSIST)
     private Set<Item> items;
 
     public Menu() {

@@ -17,7 +17,6 @@ import java.util.Set;
 @AllArgsConstructor
 public class Restaurant{
 
-
     public Restaurant() {
     }
 
@@ -49,10 +48,10 @@ public class Restaurant{
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "restaurant")
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.PERSIST)
     private Set<Menu> menu;
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cuisine_id", nullable=false)
     private Cuisine cuisine;
 

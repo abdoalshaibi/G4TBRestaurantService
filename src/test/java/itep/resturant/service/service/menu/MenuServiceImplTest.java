@@ -92,7 +92,7 @@ public class MenuServiceImplTest {
         when(menuRepository.save(any())).thenReturn(menu);
 
         //act
-        var test = service.Create(Id,MENU_REQUEST);
+        var test = service.create(Id,MENU_REQUEST);
 
         // Assert
         assertEquals(test.getName(), MENU_REQUEST.getName());
@@ -109,7 +109,7 @@ public class MenuServiceImplTest {
 
         //act
 
-        var test = service.GetById(Id);
+        var test = service.getAllById(Id);
 
         // Assert
 
@@ -130,7 +130,7 @@ public class MenuServiceImplTest {
 
         //act
 
-        var test = service.Update(Id,MENU_REQUEST);
+        var test = service.update(Id,MENU_REQUEST);
 
         // Assert
         assertEquals(test.getName(), MENU_REQUEST.getName());

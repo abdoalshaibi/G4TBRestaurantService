@@ -87,7 +87,7 @@ class ItemServiceImplTest {
         when(repository.save(any())).thenReturn(item);
 
         //act
-        var test = service.Create(Id,ITEM_REQUEST);
+        var test = service.create(Id,ITEM_REQUEST);
 
         // Assert
         assertEquals(test.getName(), ITEM_REQUEST.getName());
@@ -107,7 +107,7 @@ class ItemServiceImplTest {
 
         //act
 
-        var test = service.Update(Id,ITEM_REQUEST);
+        var test = service.update(Id,ITEM_REQUEST);
 
         // Assert
         assertEquals(test.getName(), ITEM_REQUEST.getName());

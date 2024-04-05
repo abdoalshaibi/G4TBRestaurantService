@@ -1,7 +1,6 @@
 package itep.resturant.service.controller;
 
 import itep.resturant.service.service.dto.MenuRequestDto;
-import itep.resturant.service.service.dto.MenuResponseDto;
 import itep.resturant.service.service.menu.MenuService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -12,7 +11,6 @@ import org.springframework.web.bind.annotation.*;
 @RequestMapping("/api/v1/menu")
 public class MenuController {
 
-
     private final MenuService service;
 
     public MenuController(MenuService service) {
@@ -20,10 +18,13 @@ public class MenuController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> Create(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
+    public ResponseEntity<Object> create(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
         try {
-            return ResponseEntity.ok(service.Create(id, request));
+
+            return ResponseEntity.ok(service.create(id, request));
+
         } catch (Exception ex) {
+
             return ResponseEntity.status(HttpStatus.CREATED).body(ex.getMessage());
         }
     }
@@ -31,19 +32,36 @@ public class MenuController {
     @GetMapping(value = "/{id}", name = "id is restaurant identity")
     public ResponseEntity<Object> getAll(@PathVariable long id) {
         try {
-            return ResponseEntity.ok(service.GetById(id));
+
+            return ResponseEntity.ok(service.getAllById(id));
+
         } catch (Exception ex) {
+
             return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
         }
     }
 
     @PutMapping("/{id}")
-    public MenuResponseDto update(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
-        return service.Update(id, request);
+    public ResponseEntity<Object> update(@PathVariable long id, @Valid @RequestBody MenuRequestDto request) {
+        try {
+
+            return ResponseEntity.ok(service.update(id, request));
+
+        } catch (Exception ex) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 
     @DeleteMapping("/{id}")
-    public void update(@PathVariable long id) {
-        service.Delete(id);
+    public ResponseEntity<Object> delete(@PathVariable long id) {
+        try {
+
+            return ResponseEntity.ok(service.delete(id));
+
+        } catch (Exception ex) {
+
+            return ResponseEntity.status(HttpStatus.NOT_FOUND).body(ex.getMessage());
+        }
     }
 }

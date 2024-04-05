@@ -30,7 +30,7 @@ public class Item {
     public LocalDateTime updatedAt;
 
 
-    @ManyToOne
+    @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name = "menu_id")
     private Menu menu;
 

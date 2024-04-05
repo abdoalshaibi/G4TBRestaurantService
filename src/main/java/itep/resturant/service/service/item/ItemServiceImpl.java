@@ -9,6 +9,7 @@ import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
+import java.util.List;
 
 @Service
 public class ItemServiceImpl implements ItemService{
@@ -25,7 +26,7 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemResponseDto Create(long id ,ItemRequestDto request) {
+    public ItemResponseDto create(long id , ItemRequestDto request) {
 
         var menu= menuRepository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Item not found with ID: " + id));
@@ -39,13 +40,32 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemResponseDto Update(long id,ItemRequestDto request) {
+    public List<ItemResponseDto> getByMenuId(long id) {
+        return  repository.findByMenuId(id)
+                .stream()
+                .map(e -> mapper.map(e,ItemResponseDto.class))
+                .toList();
+
+    }
+
+    @Override
+    public ItemResponseDto update(long id, ItemRequestDto request) {
         var item= repository.findById(id)
                 .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + id));
 
 
         mapper.map(request,item);
         return mapper.map(repository.save(item),ItemResponseDto.class);
+    }
+
+    @Override
+    public String delete(long id) {
+        var item = repository.findById(id)
+                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + id));
+
+        repository.delete(item);
+
+        return "Item with id " + id + "Deleted";
     }
 
 }

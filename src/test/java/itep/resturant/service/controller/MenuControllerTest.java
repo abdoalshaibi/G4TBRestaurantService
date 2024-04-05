@@ -58,7 +58,7 @@ class MenuControllerTest {
         result.setName("pizzeria");
         result.setDescription(null);
 
-        when(service.Create(Id,request)).thenReturn(result);
+        when(service.create(Id,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 
@@ -82,7 +82,7 @@ class MenuControllerTest {
 
 
 
-        when(service.Update(0L,request)).thenReturn(result);
+        when(service.update(0L,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 

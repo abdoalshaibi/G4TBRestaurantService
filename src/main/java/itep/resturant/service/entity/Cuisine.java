@@ -13,7 +13,6 @@ import java.util.Set;
 @Builder
 @Data
 @AllArgsConstructor
-//@NoArgsConstructor
 public class Cuisine {
     @Id
     @GeneratedValue(strategy = GenerationType.AUTO)
@@ -26,7 +25,7 @@ public class Cuisine {
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
 
-    @OneToMany(mappedBy = "cuisine")
+    @OneToMany(mappedBy = "cuisine",cascade = CascadeType.PERSIST)
     private Set<Restaurant> restaurants;
 
     public Cuisine() {
