@@ -5,12 +5,8 @@ import itep.resturant.service.service.dto.MenuResponseDto;
 import itep.resturant.service.service.menu.MenuService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
-import org.springframework.http.HttpStatusCode;
-import org.springframework.http.RequestEntity;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/menu")

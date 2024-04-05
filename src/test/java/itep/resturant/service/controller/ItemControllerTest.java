@@ -1,0 +1,98 @@
+package itep.resturant.service.controller;
+
+import com.fasterxml.jackson.databind.ObjectMapper;
+import itep.resturant.service.service.dto.ItemRequestDto;
+import itep.resturant.service.service.dto.ItemResponseDto;
+import itep.resturant.service.service.item.ItemServiceImpl;
+import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
+import org.junit.jupiter.api.Test;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.boot.test.autoconfigure.web.servlet.WebMvcTest;
+import org.springframework.boot.test.mock.mockito.MockBean;
+import org.springframework.http.MediaType;
+import org.springframework.test.web.servlet.MockMvc;
+import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
+
+import static org.hamcrest.Matchers.equalTo;
+import static org.mockito.Mockito.when;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+
+@WebMvcTest(ItemController.class)
+class ItemControllerTest {
+
+    @MockBean
+    ItemServiceImpl service;
+
+    @Autowired
+    private MockMvc mockMvc;
+    private ItemResponseDto result;
+    private ItemRequestDto request;
+    private static final ObjectMapper mapper = new ObjectMapper();
+
+
+    @BeforeEach
+    public void setup() {
+
+
+
+        request = ItemRequestDto.builder()
+                .name("Japanese")
+                .description(null)
+                .build();
+
+
+
+
+    }
+
+
+    @DisplayName("JUnit test for Create Cuisine method")
+    @Test
+    void Create() throws Exception {
+
+        long Id=0L;
+
+        result = new ItemResponseDto();
+        result.setName("Japanese");
+        result.setPrice(1000);
+
+        when(service.Create(Id,request)).thenReturn(result);
+
+        String json = mapper.writeValueAsString(request);
+
+        mockMvc.perform(MockMvcRequestBuilders.post("/api/v1/item/{id}",Id)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8")
+                        .content(json)
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.id", equalTo(0)))
+                .andExpect(jsonPath("$.name",equalTo("Japanese")));
+    }
+
+    @DisplayName("JUnit test for Update Cuisine method")
+    @Test
+    void Update() throws Exception {
+
+        result = new ItemResponseDto();
+        result.setName("italian");
+        result.setPrice(1000);
+
+
+
+        when(service.Update(0L,request)).thenReturn(result);
+
+        String json = mapper.writeValueAsString(request);
+
+        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/item/{id}",0L)
+                        .contentType(MediaType.APPLICATION_JSON)
+                        .characterEncoding("utf-8")
+                        .content(json)
+                        .accept(MediaType.APPLICATION_JSON)
+                ).andExpect(status().isOk())
+                .andExpect(jsonPath("$.id",equalTo(0)))
+                .andExpect(jsonPath("$.name").value("italian"));
+    }
+}

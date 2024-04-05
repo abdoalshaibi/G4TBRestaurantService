@@ -71,7 +71,7 @@ public class RestaurantServiceImplTest {
                 .email("verkauf@watzke.de")
                 .cuisine(cuisine)
                 .latitude("31.5048719")
-                .latitude("47.1257121")
+                .longitude("47.1257121")
                 .isOnline(true)
                 .build();
 
@@ -83,8 +83,10 @@ public class RestaurantServiceImplTest {
 
 
     }
+
+    @DisplayName("JUnit test for create restaurant method")
     @Test
-    public void testCreate() {
+    public void Create() {
 
         long id = 0L;
         when(cuisineRepository.findById(id)).thenReturn(Optional.of(cuisine));
@@ -95,8 +97,9 @@ public class RestaurantServiceImplTest {
         assertThat(test.name).isEqualTo(request.getName());
     }
 
+    @DisplayName("JUnit test for update restaurant method")
     @Test
-    void testUpdate() {
+    void Update() {
 
         // Arrange
         long Id = 0L;
@@ -104,7 +107,7 @@ public class RestaurantServiceImplTest {
         when(restaurantRepository.findById(0L)).thenReturn(Optional.of(restaurant));
         when(restaurantRepository.save(restaurant)).thenReturn(restaurant);
 
-        request.setName("ereee");
+        request.setName("Zur Letzten Instanz");
 
         //act
         var test = service.Update(Id,request);
@@ -127,7 +130,7 @@ public class RestaurantServiceImplTest {
 
     @DisplayName("JUnit test for Get All restaurant method")
     @Test
-    void testGetByCuisine() {
+    void GetByCuisine() {
 
         long id = 0L;
 
@@ -139,8 +142,9 @@ public class RestaurantServiceImplTest {
         Assertions.assertThat(test.size()).isEqualTo(1);
     }
 
+    @DisplayName("JUnit test for change status restaurant method")
     @Test
-    void testChangeStatus() {
+    void ChangeStatus() {
 
         // Arrange
         long Id = 0L;

@@ -6,6 +6,7 @@ import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.MenuRequestDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
@@ -78,11 +79,10 @@ public class MenuServiceImplTest {
                 .name("pizzeria")
                 .build();
     }
-    /**
-     * Test the Create method of the ItemServiceImpl class.
-     */
+
+    @DisplayName("JUnit test for create menu method")
     @Test
-    void testCreate() {
+    void Create() {
 
         // Arrange
         long Id = 0L;
@@ -98,8 +98,9 @@ public class MenuServiceImplTest {
         assertEquals(test.getName(), MENU_REQUEST.getName());
     }
 
+    @DisplayName("JUnit test for get menu by id method")
     @Test
-    void testGetById() {
+    void GetById() {
 
         // Arrange
         long Id = 0L;
@@ -115,8 +116,9 @@ public class MenuServiceImplTest {
         assertThat(test.size()).isEqualTo(1);
     }
 
+    @DisplayName("JUnit test for update menu method")
     @Test
-    void testUpdate() {
+    void Update() {
 
         // Arrange
         long Id = 0L;

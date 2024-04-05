@@ -5,10 +5,7 @@ import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.service.dto.ItemRequestDto;
 import itep.resturant.service.service.dto.ItemResponseDto;
-import jakarta.persistence.EntityNotFoundException;
 import org.modelmapper.ModelMapper;
-import org.springframework.dao.EmptyResultDataAccessException;
-import org.springframework.data.crossstore.ChangeSetPersister;
 import org.springframework.stereotype.Service;
 
 import java.time.LocalDateTime;
@@ -44,7 +41,7 @@ public class ItemServiceImpl implements ItemService{
     @Override
     public ItemResponseDto Update(long id,ItemRequestDto request) {
         var item= repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + id));;
+                .orElseThrow(() -> new IllegalArgumentException("Item not found with ID: " + id));
 
 
         mapper.map(request,item);

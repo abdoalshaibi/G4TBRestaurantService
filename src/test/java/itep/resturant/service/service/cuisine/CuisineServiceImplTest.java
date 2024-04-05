@@ -66,7 +66,7 @@ public class CuisineServiceImplTest {
 
     @DisplayName("JUnit test for Create Cuisine method")
     @Test
-    void testCreate() {
+    void Create() {
 
         when(repository.save(any())).thenReturn(cuisine);
 
@@ -78,7 +78,7 @@ public class CuisineServiceImplTest {
 
     @DisplayName("JUnit test for Update Cuisine method")
     @Test
-    void testUpdate() {
+    void Update() {
 
         long Id = 0L;
 
@@ -96,7 +96,7 @@ public class CuisineServiceImplTest {
 
     @DisplayName("JUnit test for Get All Cuisine method")
     @Test
-    void testGetAll() {
+    void GetAll() {
 
         when(repository.findAll()).thenReturn(List.of(cuisine));
 

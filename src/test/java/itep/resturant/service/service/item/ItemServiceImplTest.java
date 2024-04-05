@@ -1,29 +1,26 @@
 package itep.resturant.service.service.item;
-import itep.resturant.service.entity.Cuisine;
+
 import itep.resturant.service.entity.Item;
 import itep.resturant.service.entity.Menu;
-import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
-import itep.resturant.service.service.cuisine.CuisineServiceImpl;
-import itep.resturant.service.service.dto.CuisineRequestDto;
-import itep.resturant.service.service.dto.CuisineResponseDto;
 import itep.resturant.service.service.dto.ItemRequestDto;
-import itep.resturant.service.service.dto.ItemResponseDto;
 import org.junit.jupiter.api.BeforeEach;
+import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
 import org.junit.jupiter.api.extension.ExtendWith;
 import org.mockito.InjectMocks;
 import org.mockito.Mock;
 import org.mockito.Mockito;
-import org.mockito.MockitoAnnotations;
 import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 
 import java.time.LocalDateTime;
 import java.util.Optional;
+
 import static org.junit.jupiter.api.Assertions.assertEquals;
-import static org.mockito.Mockito.*;
+import static org.mockito.Mockito.any;
+import static org.mockito.Mockito.when;
 
 @ExtendWith(MockitoExtension.class)
 class ItemServiceImplTest {
@@ -77,11 +74,10 @@ class ItemServiceImplTest {
                 .name("test")
                 .build();
     }
-    /**
-     * Test the Create method of the ItemServiceImpl class.
-     */
+
+    @DisplayName("JUnit test for create item method")
     @Test
-    void testCreate() {
+    void Create() {
 
         // Arrange
         long Id = 0L;
@@ -97,11 +93,9 @@ class ItemServiceImplTest {
         assertEquals(test.getName(), ITEM_REQUEST.getName());
     }
 
-    /**
-     * Test the Update method of the ItemServiceImpl class.
-     */
+    @DisplayName("JUnit test for update item method")
     @Test
-    void testUpdate() {
+    void Update() {
 
         // Arrange
         long Id = 0L;

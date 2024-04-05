@@ -1,6 +1,5 @@
 package itep.resturant.service.service.dto;
 
-import lombok.Builder;
 import lombok.Data;
 
 @Data

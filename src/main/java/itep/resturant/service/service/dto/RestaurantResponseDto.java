@@ -1,8 +1,6 @@
 package itep.resturant.service.service.dto;
 
-import lombok.Builder;
 import lombok.Data;
-import lombok.RequiredArgsConstructor;
 
 @Data
 public class RestaurantResponseDto  {

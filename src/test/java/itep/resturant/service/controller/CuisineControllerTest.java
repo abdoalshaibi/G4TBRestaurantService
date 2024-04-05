@@ -20,8 +20,7 @@ import static org.hamcrest.Matchers.equalTo;
 import static org.hamcrest.Matchers.hasSize;
 import static org.mockito.ArgumentMatchers.any;
 import static org.mockito.Mockito.when;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 
 @WebMvcTest(CuisineController.class)
 class CuisineControllerTest {
@@ -76,17 +75,15 @@ class CuisineControllerTest {
 
     @DisplayName("JUnit test for Update Cuisine method")
     @Test
-    void testUpdate() throws Exception {
+    void Update() throws Exception {
 
 
         result = new CuisineResponseDto();
         result.setName("italian");
         result.setDescription(null);
 
-        request.setName("italian");
 
         when(service.Update(0L,request)).thenReturn(result);
-
 
 
         String json = mapper.writeValueAsString(request);
@@ -97,6 +94,7 @@ class CuisineControllerTest {
                         .content(json)
                         .accept(MediaType.APPLICATION_JSON)
                 ).andExpect(status().isOk())
+                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
                 .andExpect(jsonPath("$.id",equalTo(0)))
                 .andExpect(jsonPath("$.name",equalTo("italian")));
     }
@@ -104,7 +102,7 @@ class CuisineControllerTest {
 
     @DisplayName("JUnit test for Get All Cuisine method")
     @Test
-    void testGetAll() throws Exception {
+    void GetAll() throws Exception {
 
         CuisineResponseDto response = new CuisineResponseDto();
         response.setName("Japanese");
