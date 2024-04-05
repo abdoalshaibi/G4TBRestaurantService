@@ -1,10 +1,11 @@
-package itep.resturant.service.service.menu;
+package itep.resturant.service.service;
 
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.service.dto.MenuRequestDto;
+import itep.resturant.service.service.menu.MenuServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

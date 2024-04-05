@@ -1,7 +1,8 @@
-package itep.resturant.service.service.cuisine;
+package itep.resturant.service.service;
 
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
+import itep.resturant.service.service.cuisine.CuisineServiceImpl;
 import itep.resturant.service.service.dto.CuisineRequestDto;
 import itep.resturant.service.service.dto.CuisineResponseDto;
 import org.junit.jupiter.api.BeforeEach;
