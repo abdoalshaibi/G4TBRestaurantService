@@ -1,7 +1,7 @@
 package itep.resturant.service.service.item;
 
-import itep.resturant.service.service.dto.ItemRequestDto;
-import itep.resturant.service.service.dto.ItemResponseDto;
+import itep.resturant.service.dao.request.ItemRequestDto;
+import itep.resturant.service.dao.response.ItemResponseDto;
 
 import java.util.List;
 

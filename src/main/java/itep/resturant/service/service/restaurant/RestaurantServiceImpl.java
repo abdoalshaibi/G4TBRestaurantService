@@ -3,8 +3,8 @@ package itep.resturant.service.service.restaurant;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
-import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponseDto;
+import itep.resturant.service.dao.request.RestaurantRequestDto;
+import itep.resturant.service.dao.response.RestaurantResponseDto;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 

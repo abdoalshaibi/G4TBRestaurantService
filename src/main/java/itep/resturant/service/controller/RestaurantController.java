@@ -1,16 +1,12 @@
 package itep.resturant.service.controller;
 
-import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponseDto;
+import itep.resturant.service.dao.request.RestaurantRequestDto;
 import itep.resturant.service.service.restaurant.RestaurantService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
-
-import java.sql.SQLException;
-import java.util.List;
 
 @RestController
 @RequestMapping("/api/v1/restaurant")

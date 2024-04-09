@@ -1,10 +1,11 @@
 package itep.resturant.service.service;
 
+import itep.resturant.service.dao.request.CuisineRequestDto;
+import itep.resturant.service.dao.response.CuisineResponseDto;
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
-import itep.resturant.service.service.dto.CuisineRequestDto;
-import itep.resturant.service.service.dto.CuisineResponseDto;
+
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

@@ -2,8 +2,8 @@ package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import itep.resturant.service.service.dto.RestaurantRequestDto;
-import itep.resturant.service.service.dto.RestaurantResponseDto;
+import itep.resturant.service.dao.request.RestaurantRequestDto;
+import itep.resturant.service.dao.response.RestaurantResponseDto;
 import itep.resturant.service.service.restaurant.RestaurantServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;

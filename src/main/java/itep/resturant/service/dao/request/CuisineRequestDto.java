@@ -1,4 +1,4 @@
-package itep.resturant.service.service.dto;
+package itep.resturant.service.dao.request;
 
 import jakarta.validation.constraints.NotBlank;
 import jakarta.validation.constraints.NotNull;

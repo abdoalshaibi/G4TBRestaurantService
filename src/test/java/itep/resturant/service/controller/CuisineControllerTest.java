@@ -2,8 +2,8 @@ package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
-import itep.resturant.service.service.dto.CuisineRequestDto;
-import itep.resturant.service.service.dto.CuisineResponseDto;
+import itep.resturant.service.dao.request.CuisineRequestDto;
+import itep.resturant.service.dao.response.CuisineResponseDto;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;

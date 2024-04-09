@@ -1,10 +1,10 @@
 package itep.resturant.service.service;
 
+import itep.resturant.service.dao.request.RestaurantRequestDto;
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
-import itep.resturant.service.service.dto.RestaurantRequestDto;
 import itep.resturant.service.service.restaurant.RestaurantServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
