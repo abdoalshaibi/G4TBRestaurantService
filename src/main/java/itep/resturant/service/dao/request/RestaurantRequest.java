@@ -12,7 +12,7 @@ import java.time.LocalTime;
 
 @Data
 @Builder
-public class  RestaurantRequestDto {
+public class RestaurantRequest {
 
     @NotBlank(message = "name is required")
     @NotNull(message ="name is required" )
@@ -26,7 +26,7 @@ public class  RestaurantRequestDto {
     @NotBlank(message = "Email is required")
     public String email;
     public String phone;
-    public int mobile;
+    public String mobile;
     @NotBlank(message = "Latitude is required")
     @NotNull(message ="Latitude is required" )
     public String latitude;
@@ -41,5 +41,7 @@ public class  RestaurantRequestDto {
     public LocalTime openingAt;
     @NotNull(message ="ClosingAt is required" )
     public LocalTime closingAt;
+
+    SignUpRequest sign;
 
 }

@@ -2,10 +2,9 @@ package itep.resturant.service.service.cuisine;
 
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
-import itep.resturant.service.dao.request.CuisineRequestDto;
-import itep.resturant.service.dao.response.CuisineResponseDto;
-import itep.resturant.service.service.JwtService;
-import itep.resturant.service.service.UserService;
+import itep.resturant.service.dao.request.CuisineRequest;
+import itep.resturant.service.dao.response.CuisineResponse;
+import itep.resturant.service.service.auth.JwtService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -27,7 +26,7 @@ public class CuisineServiceImpl implements CuisineService {
 
 
     @Override
-    public CuisineResponseDto Create(CuisineRequestDto request) {
+    public CuisineResponse Create(CuisineRequest request) {
        try {
 
 
@@ -35,7 +34,7 @@ public class CuisineServiceImpl implements CuisineService {
            cuisine.createdAt = LocalDateTime.now();
            cuisine.createdBy = 1;
            var rest = repository.save(cuisine);
-           return mapper.map(rest, CuisineResponseDto.class);
+           return mapper.map(rest, CuisineResponse.class);
        }catch (Exception ex)
        {
            return null;
@@ -43,15 +42,15 @@ public class CuisineServiceImpl implements CuisineService {
     }
 
     @Override
-    public List<CuisineResponseDto> GetAll() {
+    public List<CuisineResponse> GetAll() {
         return repository.findAll()
                 .stream()
-                .map(e -> mapper.map(e, CuisineResponseDto.class))
+                .map(e -> mapper.map(e, CuisineResponse.class))
                 .toList();
     }
 
     @Override
-    public CuisineResponseDto Update(long id, CuisineRequestDto request) {
+    public CuisineResponse Update(long id, CuisineRequest request) {
 
             var restaurant = repository.findById(id)
                     .orElseThrow(() -> new IllegalArgumentException("No data found in id :" + id));
@@ -59,6 +58,6 @@ public class CuisineServiceImpl implements CuisineService {
             mapper.map(request, restaurant);
             restaurant.updatedAt = LocalDateTime.now();
 
-            return mapper.map(repository.save(restaurant), CuisineResponseDto.class);
+            return mapper.map(repository.save(restaurant), CuisineResponse.class);
     }
 }

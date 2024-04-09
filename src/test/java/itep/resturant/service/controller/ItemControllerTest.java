@@ -1,8 +1,8 @@
 package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import itep.resturant.service.dao.request.ItemRequestDto;
-import itep.resturant.service.dao.response.ItemResponseDto;
+import itep.resturant.service.dao.request.ItemRequest;
+import itep.resturant.service.dao.response.ItemResponse;
 import itep.resturant.service.service.item.ItemServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,8 +27,8 @@ class ItemControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private ItemResponseDto result;
-    private ItemRequestDto request;
+    private ItemResponse result;
+    private ItemRequest request;
     private static final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -37,7 +37,7 @@ class ItemControllerTest {
 
 
 
-        request = ItemRequestDto.builder()
+        request = ItemRequest.builder()
                 .name("Japanese")
                 .description(null)
                 .build();
@@ -54,7 +54,7 @@ class ItemControllerTest {
 
         long Id=0L;
 
-        result = new ItemResponseDto();
+        result = new ItemResponse();
         result.setName("Japanese");
         result.setPrice(1000);
 
@@ -76,7 +76,7 @@ class ItemControllerTest {
     @Test
     void Update() throws Exception {
 
-        result = new ItemResponseDto();
+        result = new ItemResponse();
         result.setName("italian");
         result.setPrice(1000);
 

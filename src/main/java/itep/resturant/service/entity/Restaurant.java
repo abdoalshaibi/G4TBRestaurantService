@@ -49,7 +49,10 @@ public class Restaurant{
     public LocalDateTime updatedAt;
 
     @OneToMany(mappedBy = "restaurant",cascade = CascadeType.PERSIST)
-    private Set<Menu> menu;
+    private Set<Menu> menus;
+
+    @OneToMany(mappedBy = "restaurant",cascade = CascadeType.PERSIST)
+    private Set<User> users;
 
     @ManyToOne(fetch = FetchType.LAZY)
     @JoinColumn(name="cuisine_id", nullable=false)

@@ -1,12 +1,12 @@
 package itep.resturant.service.service.cuisine;
 
-import itep.resturant.service.dao.request.CuisineRequestDto;
-import itep.resturant.service.dao.response.CuisineResponseDto;
+import itep.resturant.service.dao.request.CuisineRequest;
+import itep.resturant.service.dao.response.CuisineResponse;
 
 import java.util.List;
 
 public interface CuisineService {
-    CuisineResponseDto Create(CuisineRequestDto request);
-    List<CuisineResponseDto> GetAll();
-    CuisineResponseDto Update(long id, CuisineRequestDto request);
+    CuisineResponse Create(CuisineRequest request);
+    List<CuisineResponse> GetAll();
+    CuisineResponse Update(long id, CuisineRequest request);
 }

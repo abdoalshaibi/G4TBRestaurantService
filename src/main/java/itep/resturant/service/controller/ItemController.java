@@ -1,6 +1,6 @@
 package itep.resturant.service.controller;
 
-import itep.resturant.service.dao.request.ItemRequestDto;
+import itep.resturant.service.dao.request.ItemRequest;
 import itep.resturant.service.service.item.ItemService;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
@@ -18,7 +18,7 @@ public class ItemController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> create(@PathVariable long id,@Valid @RequestBody ItemRequestDto request) {
+    public ResponseEntity<Object> create(@PathVariable long id,@Valid @RequestBody ItemRequest request) {
 
         try
         {
@@ -32,7 +32,7 @@ public class ItemController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable long id,@Valid @RequestBody ItemRequestDto request)
+    public ResponseEntity<Object> update(@PathVariable long id,@Valid @RequestBody ItemRequest request)
     {
         try
         {

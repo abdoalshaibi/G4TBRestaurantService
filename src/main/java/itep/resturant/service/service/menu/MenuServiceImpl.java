@@ -3,8 +3,8 @@ package itep.resturant.service.service.menu;
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
-import itep.resturant.service.dao.request.MenuRequestDto;
-import itep.resturant.service.dao.response.MenuResponseDto;
+import itep.resturant.service.dao.request.MenuRequest;
+import itep.resturant.service.dao.response.MenuResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -25,7 +25,7 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuResponseDto create(long id, MenuRequestDto request) {
+    public MenuResponse create(long id, MenuRequest request) {
 
         var restaurant=restaurantRepository.findById(id)
                 .orElseThrow(()-> new IllegalArgumentException("Restaurant not found with ID: " + id));
@@ -35,27 +35,27 @@ public class MenuServiceImpl implements MenuService {
         menu.setRestaurant(restaurant);
         menu.setCreatedBy(1);
         menu.setCreatedAt(LocalDateTime.now());
-        return mapper.map(repository.save(menu),MenuResponseDto.class);
+        return mapper.map(repository.save(menu), MenuResponse.class);
     }
 
     @Override
-    public List<MenuResponseDto> getAllById(long id) {
+    public List<MenuResponse> getAllById(long id) {
 
         return repository.findAllByRestaurantId(id)
                 .stream()
-                .map(e->mapper.map(e,MenuResponseDto.class))
+                .map(e->mapper.map(e, MenuResponse.class))
                 .toList();
     }
 
     @Override
-    public MenuResponseDto update(long id, MenuRequestDto request) {
+    public MenuResponse update(long id, MenuRequest request) {
 
         var menu = repository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
 
         mapper.map(request,menu);
 
-        return mapper.map(repository.save(menu),MenuResponseDto.class);
+        return mapper.map(repository.save(menu), MenuResponse.class);
     }
 
     @Override

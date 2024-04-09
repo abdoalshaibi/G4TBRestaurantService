@@ -1,11 +1,8 @@
 package itep.resturant.service.Configuration;
 
-import itep.resturant.service.entity.Role;
-import itep.resturant.service.service.UserService;
-import lombok.RequiredArgsConstructor;
+import itep.resturant.service.service.auth.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
-import org.springframework.core.annotation.Order;
 import org.springframework.http.HttpMethod;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.AuthenticationProvider;
@@ -40,6 +37,7 @@ public class SecurityConfiguration {
                 .authorizeHttpRequests(request ->
                         {
                             request.requestMatchers(HttpMethod.POST,"/api/v1/auth/signup").permitAll();
+                            request.requestMatchers(HttpMethod.GET,"/swagger-ui/index.html").permitAll();
                             request.requestMatchers(HttpMethod.POST,"/api/v1/auth/signin").permitAll();
 
                             // cuisine
@@ -65,7 +63,7 @@ public class SecurityConfiguration {
                             request.requestMatchers(HttpMethod.PUT,"/api/v1/restaurant").authenticated();
 
 
-                            request.anyRequest().denyAll();
+                            request.anyRequest().permitAll();
                         }
                 )
                 .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))

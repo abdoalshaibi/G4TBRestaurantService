@@ -1,8 +1,8 @@
 package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
-import itep.resturant.service.dao.request.MenuRequestDto;
-import itep.resturant.service.dao.response.MenuResponseDto;
+import itep.resturant.service.dao.request.MenuRequest;
+import itep.resturant.service.dao.response.MenuResponse;
 import itep.resturant.service.service.menu.MenuServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -27,8 +27,8 @@ class MenuControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private MenuResponseDto result;
-    private MenuRequestDto request;
+    private MenuResponse result;
+    private MenuRequest request;
     private static final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -37,7 +37,7 @@ class MenuControllerTest {
 
 
 
-        request = MenuRequestDto.builder()
+        request = MenuRequest.builder()
                 .name("pizzeria")
                 .description(null)
                 .build();
@@ -54,7 +54,7 @@ class MenuControllerTest {
 
         long Id=0L;
 
-        result = new MenuResponseDto();
+        result = new MenuResponse();
         result.setName("pizzeria");
         result.setDescription(null);
 
@@ -76,7 +76,7 @@ class MenuControllerTest {
     @Test
     void Update() throws Exception {
 
-        result = new MenuResponseDto();
+        result = new MenuResponse();
         result.setName("brewery");
         result.setDescription(null);
 

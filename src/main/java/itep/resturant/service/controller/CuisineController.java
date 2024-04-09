@@ -1,14 +1,10 @@
 package itep.resturant.service.controller;
 
-import io.jsonwebtoken.Jwt;
 import itep.resturant.service.service.cuisine.CuisineService;
-import itep.resturant.service.dao.request.CuisineRequestDto;
+import itep.resturant.service.dao.request.CuisineRequest;
 import jakarta.validation.Valid;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
-import org.springframework.security.access.prepost.PreAuthorize;
-import org.springframework.security.core.Authentication;
-import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.web.bind.annotation.*;
 
 @RestController
@@ -23,7 +19,7 @@ public class CuisineController {
     }
 
     @PostMapping
-    public ResponseEntity<Object> Create(@Valid @RequestBody CuisineRequestDto request) {
+    public ResponseEntity<Object> Create(@Valid @RequestBody CuisineRequest request) {
 
         try {
 
@@ -49,7 +45,7 @@ public class CuisineController {
     }
 
     @PutMapping("/{id}")
-    public Object Update(@PathVariable long id, @Valid @RequestBody CuisineRequestDto request) {
+    public Object Update(@PathVariable long id, @Valid @RequestBody CuisineRequest request) {
 
         try {
 

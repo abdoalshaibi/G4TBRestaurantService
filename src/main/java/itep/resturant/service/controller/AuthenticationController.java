@@ -4,7 +4,7 @@ package itep.resturant.service.controller;
 import itep.resturant.service.dao.request.SignUpRequest;
 import itep.resturant.service.dao.request.SigninRequest;
 import itep.resturant.service.dao.response.JwtAuthenticationResponse;
-import itep.resturant.service.service.AuthenticationService;
+import itep.resturant.service.service.auth.AuthenticationService;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;

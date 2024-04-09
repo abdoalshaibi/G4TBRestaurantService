@@ -1,4 +1,4 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.auth;
 
 
 import itep.resturant.service.dao.request.SigninRequest;
@@ -7,14 +7,12 @@ import itep.resturant.service.dao.response.JwtAuthenticationResponse;
 import itep.resturant.service.entity.Role;
 import itep.resturant.service.entity.User;
 import itep.resturant.service.repository.UserRepository;
-import lombok.RequiredArgsConstructor;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.crypto.password.PasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import java.util.HashMap;
-import java.util.Map;
 
 @Service
 public class AuthenticationServiceImpl implements AuthenticationService {

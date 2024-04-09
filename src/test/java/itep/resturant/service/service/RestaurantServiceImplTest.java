@@ -1,6 +1,6 @@
 package itep.resturant.service.service;
 
-import itep.resturant.service.dao.request.RestaurantRequestDto;
+import itep.resturant.service.dao.request.RestaurantRequest;
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
@@ -41,7 +41,7 @@ public class RestaurantServiceImplTest {
 
     private static  Restaurant restaurant ;
     private Cuisine cuisine;
-    private static RestaurantRequestDto request;
+    private static RestaurantRequest request;
 
 
     @BeforeEach
@@ -76,7 +76,7 @@ public class RestaurantServiceImplTest {
                 .isOnline(true)
                 .build();
 
-        request = RestaurantRequestDto.builder()
+        request = RestaurantRequest.builder()
                 .name("Ballhaus Watzke")
                 .phone("0351852920")
                 .email("verkauf@watzke.de")

@@ -2,8 +2,8 @@ package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import com.fasterxml.jackson.datatype.jsr310.JavaTimeModule;
-import itep.resturant.service.dao.request.RestaurantRequestDto;
-import itep.resturant.service.dao.response.RestaurantResponseDto;
+import itep.resturant.service.dao.request.RestaurantRequest;
+import itep.resturant.service.dao.response.RestaurantResponse;
 import itep.resturant.service.service.restaurant.RestaurantServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -30,15 +30,15 @@ class RestaurantControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private RestaurantResponseDto result;
-    private RestaurantRequestDto request;
+    private RestaurantResponse result;
+    private RestaurantRequest request;
     private static final ObjectMapper mapper = new ObjectMapper().registerModule(new JavaTimeModule());
 
 
     @BeforeEach
     public void setup() {
 
-        request = RestaurantRequestDto.builder()
+        request = RestaurantRequest.builder()
                 .name("Ballhaus Watzke")
                 .description(null)
                 .location("Dresden")
@@ -57,7 +57,7 @@ class RestaurantControllerTest {
 
         long Id=0L;
 
-        result = new RestaurantResponseDto();
+        result = new RestaurantResponse();
         result.setName("Ballhaus Watzke");
 
         when(service.Create(Id,request)).thenReturn(result);
@@ -78,7 +78,7 @@ class RestaurantControllerTest {
     @Test
     void Update() throws Exception {
 
-        result = new RestaurantResponseDto();
+        result = new RestaurantResponse();
         result.setName("Zur Letzten Instanz");
 
 

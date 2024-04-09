@@ -1,6 +1,6 @@
 package itep.resturant.service.controller;
 
-import itep.resturant.service.dao.request.RestaurantRequestDto;
+import itep.resturant.service.dao.request.RestaurantRequest;
 import itep.resturant.service.service.restaurant.RestaurantService;
 import jakarta.validation.Valid;
 import org.springframework.dao.DataIntegrityViolationException;
@@ -20,7 +20,7 @@ public class RestaurantController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> Creat(@PathVariable long id ,@Valid @RequestBody RestaurantRequestDto request) {
+    public ResponseEntity<Object> Creat(@PathVariable long id ,@Valid @RequestBody RestaurantRequest request) {
 
         try {
 
@@ -65,7 +65,7 @@ public class RestaurantController {
     }
 
     @PutMapping("/{id}")
-    public ResponseEntity<Object> update(@PathVariable long id, @Valid @RequestBody RestaurantRequestDto request) {
+    public ResponseEntity<Object> update(@PathVariable long id, @Valid @RequestBody RestaurantRequest request) {
 
         try {
 

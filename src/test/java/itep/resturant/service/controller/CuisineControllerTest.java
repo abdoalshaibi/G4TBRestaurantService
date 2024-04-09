@@ -2,8 +2,8 @@ package itep.resturant.service.controller;
 
 import com.fasterxml.jackson.databind.ObjectMapper;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
-import itep.resturant.service.dao.request.CuisineRequestDto;
-import itep.resturant.service.dao.response.CuisineResponseDto;
+import itep.resturant.service.dao.request.CuisineRequest;
+import itep.resturant.service.dao.response.CuisineResponse;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -30,8 +30,8 @@ class CuisineControllerTest {
 
     @Autowired
     private MockMvc mockMvc;
-    private CuisineResponseDto result;
-    private CuisineRequestDto request;
+    private CuisineResponse result;
+    private CuisineRequest request;
     private static final ObjectMapper mapper = new ObjectMapper();
 
 
@@ -40,7 +40,7 @@ class CuisineControllerTest {
 
 
 
-        request = CuisineRequestDto.builder()
+        request = CuisineRequest.builder()
                 .name("Japanese")
                 .description(null)
                 .build();
@@ -55,7 +55,7 @@ class CuisineControllerTest {
     @Test
     void testCreate() throws Exception {
 
-        result = new CuisineResponseDto();
+        result = new CuisineResponse();
         result.setName("Japanese");
         result.setDescription(null);
 
@@ -78,7 +78,7 @@ class CuisineControllerTest {
     void Update() throws Exception {
 
 
-        result = new CuisineResponseDto();
+        result = new CuisineResponse();
         result.setName("italian");
         result.setDescription(null);
 
@@ -104,7 +104,7 @@ class CuisineControllerTest {
     @Test
     void GetAll() throws Exception {
 
-        CuisineResponseDto response = new CuisineResponseDto();
+        CuisineResponse response = new CuisineResponse();
         response.setName("Japanese");
         response.setDescription(null);
 

@@ -1,13 +1,13 @@
 package itep.resturant.service.service.menu;
 
-import itep.resturant.service.dao.request.MenuRequestDto;
-import itep.resturant.service.dao.response.MenuResponseDto;
+import itep.resturant.service.dao.request.MenuRequest;
+import itep.resturant.service.dao.response.MenuResponse;
 
 import java.util.List;
 
 public interface MenuService {
-    MenuResponseDto create(long restaurant_id, MenuRequestDto request);
-    List<MenuResponseDto> getAllById(long id);
-    MenuResponseDto update(long id, MenuRequestDto request);
+    MenuResponse create(long restaurant_id, MenuRequest request);
+    List<MenuResponse> getAllById(long id);
+    MenuResponse update(long id, MenuRequest request);
     String delete(long id);
 }

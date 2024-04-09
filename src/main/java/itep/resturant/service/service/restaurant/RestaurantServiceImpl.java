@@ -3,8 +3,8 @@ package itep.resturant.service.service.restaurant;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
-import itep.resturant.service.dao.request.RestaurantRequestDto;
-import itep.resturant.service.dao.response.RestaurantResponseDto;
+import itep.resturant.service.dao.request.RestaurantRequest;
+import itep.resturant.service.dao.response.RestaurantResponse;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -26,7 +26,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public RestaurantResponseDto Create(long id,RestaurantRequestDto request) {
+    public RestaurantResponse Create(long id, RestaurantRequest request) {
 
         var cuisine =cuisineRepository.findById(id).
                 orElseThrow(()-> new IllegalArgumentException("No data found in id " + id));
@@ -38,49 +38,49 @@ public class RestaurantServiceImpl implements RestaurantService {
             restaurant.setCuisine(cuisine);
 
             var rest =repository.save(restaurant);
-            return mapper.map(rest, RestaurantResponseDto.class);
+            return mapper.map(rest, RestaurantResponse.class);
 
     }
 
     @Override
-    public List<RestaurantResponseDto> GetAll() {
+    public List<RestaurantResponse> GetAll() {
 
         return repository.findAll()
                 .stream()
-                .map(e->mapper.map(e, RestaurantResponseDto.class))
+                .map(e->mapper.map(e, RestaurantResponse.class))
                 .toList();
 
     }
 
     @Override
-    public RestaurantResponseDto Update(long id, RestaurantRequestDto request) {
+    public RestaurantResponse Update(long id, RestaurantRequest request) {
 
         var restaurant = repository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("No data found in id :"+id));
 
         mapper.map(request,restaurant);
         restaurant.updatedAt =LocalDateTime.now();
-         return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
+         return mapper.map(repository.save(restaurant), RestaurantResponse.class);
     }
 
     @Override
-    public RestaurantResponseDto ChangeStatus(long id, boolean status) {
+    public RestaurantResponse ChangeStatus(long id, boolean status) {
         var restaurant = repository.findById(id)
                 .orElseThrow(()->new IllegalArgumentException("\"No data found in id :\"+id"));
 
 
         restaurant.isOnline = status;
 
-        return mapper.map(repository.save(restaurant), RestaurantResponseDto.class);
+        return mapper.map(repository.save(restaurant), RestaurantResponse.class);
     }
 
     @Override
-    public List<RestaurantResponseDto> getByCuisineId(long id) {
+    public List<RestaurantResponse> getByCuisineId(long id) {
          var restaurant = repository.findByCuisineId(id)
                  .orElseThrow(()-> new IllegalArgumentException("No data found in id" + id));
 
         return restaurant.stream()
-                .map(e-> mapper.map(e,RestaurantResponseDto.class))
+                .map(e-> mapper.map(e, RestaurantResponse.class))
                 .toList();
     }
 }

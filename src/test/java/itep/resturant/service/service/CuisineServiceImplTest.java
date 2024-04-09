@@ -1,7 +1,7 @@
 package itep.resturant.service.service;
 
-import itep.resturant.service.dao.request.CuisineRequestDto;
-import itep.resturant.service.dao.response.CuisineResponseDto;
+import itep.resturant.service.dao.request.CuisineRequest;
+import itep.resturant.service.dao.response.CuisineResponse;
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
@@ -38,7 +38,7 @@ public class CuisineServiceImplTest {
     @Mock
     private ModelMapper mapper;
     private Cuisine cuisine;
-    private CuisineRequestDto CUISINE_REQUEST;
+    private CuisineRequest CUISINE_REQUEST;
 
     @BeforeEach
     public void setup() {
@@ -60,7 +60,7 @@ public class CuisineServiceImplTest {
                 .build();
 
 
-        CUISINE_REQUEST = CuisineRequestDto.builder()
+        CUISINE_REQUEST = CuisineRequest.builder()
                 .name("Japanese")
                 .build();
     }
@@ -72,7 +72,7 @@ public class CuisineServiceImplTest {
 
         when(repository.save(any())).thenReturn(cuisine);
 
-        CuisineResponseDto test = service.Create(CUISINE_REQUEST);
+        CuisineResponse test = service.Create(CUISINE_REQUEST);
 
         assertEquals(test.getName(), CUISINE_REQUEST.getName());
 
@@ -89,7 +89,7 @@ public class CuisineServiceImplTest {
 
         CUISINE_REQUEST.setName("Italian");
 
-        CuisineResponseDto test = service.Update(Id,CUISINE_REQUEST);
+        CuisineResponse test = service.Update(Id,CUISINE_REQUEST);
 
         assertEquals(test.getName(), CUISINE_REQUEST.getName());
 

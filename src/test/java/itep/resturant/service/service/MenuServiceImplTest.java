@@ -1,6 +1,6 @@
 package itep.resturant.service.service;
 
-import itep.resturant.service.dao.request.MenuRequestDto;
+import itep.resturant.service.dao.request.MenuRequest;
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.MenuRepository;
@@ -41,7 +41,7 @@ public class MenuServiceImplTest {
     private Restaurant restaurant;
     private Menu menu;
 
-    private MenuRequestDto MENU_REQUEST;
+    private MenuRequest MENU_REQUEST;
     @BeforeEach
     public void setup() {
 
@@ -76,7 +76,7 @@ public class MenuServiceImplTest {
 
 
 
-        MENU_REQUEST = MenuRequestDto.builder()
+        MENU_REQUEST = MenuRequest.builder()
                 .name("pizzeria")
                 .build();
     }

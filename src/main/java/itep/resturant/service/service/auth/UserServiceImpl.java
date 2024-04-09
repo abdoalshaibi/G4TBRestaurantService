@@ -1,4 +1,4 @@
-package itep.resturant.service.service;
+package itep.resturant.service.service.auth;
 
 import itep.resturant.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
