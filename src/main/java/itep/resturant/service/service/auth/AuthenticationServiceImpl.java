@@ -35,9 +35,9 @@ public class AuthenticationServiceImpl implements AuthenticationService {
                 .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
                 .role(Role.USER).build();
         userRepository.save(user);
-        var cliems =new  HashMap<String,Object>();
-        cliems.put("Role",user.role);
-        var jwt = jwtService.generateToken(cliems,user);
+        var claims =new  HashMap<String,Object>();
+        claims.put("Role",user.role);
+        var jwt = jwtService.generateToken(claims,user);
         return JwtAuthenticationResponse.builder().token(jwt).build();
     }
 
