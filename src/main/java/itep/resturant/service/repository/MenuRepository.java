@@ -1,7 +1,6 @@
 package itep.resturant.service.repository;
 
 import itep.resturant.service.entity.Menu;
-import itep.resturant.service.service.dto.MenuResponseDto;
 import org.springframework.data.jpa.repository.JpaRepository;
 import org.springframework.stereotype.Repository;
 

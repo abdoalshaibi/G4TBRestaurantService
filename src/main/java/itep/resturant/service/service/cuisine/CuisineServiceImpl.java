@@ -2,8 +2,10 @@ package itep.resturant.service.service.cuisine;
 
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
-import itep.resturant.service.service.dto.CuisineRequestDto;
-import itep.resturant.service.service.dto.CuisineResponseDto;
+import itep.resturant.service.dao.request.CuisineRequestDto;
+import itep.resturant.service.dao.response.CuisineResponseDto;
+import itep.resturant.service.service.JwtService;
+import itep.resturant.service.service.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,10 +16,12 @@ import java.util.List;
 public class CuisineServiceImpl implements CuisineService {
 
     CuisineRepository repository;
+    private final JwtService jwtService;
     ModelMapper mapper;
 
-    public CuisineServiceImpl(CuisineRepository repository, ModelMapper mapper) {
+    public CuisineServiceImpl(CuisineRepository repository, JwtService jwtService, ModelMapper mapper) {
         this.repository = repository;
+        this.jwtService = jwtService;
         this.mapper = mapper;
     }
 
@@ -25,6 +29,8 @@ public class CuisineServiceImpl implements CuisineService {
     @Override
     public CuisineResponseDto Create(CuisineRequestDto request) {
        try {
+
+
            var cuisine = mapper.map(request, Cuisine.class);
            cuisine.createdAt = LocalDateTime.now();
            cuisine.createdBy = 1;

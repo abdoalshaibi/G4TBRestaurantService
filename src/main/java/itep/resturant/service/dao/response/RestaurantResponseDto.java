@@ -1,4 +1,4 @@
-package itep.resturant.service.service.dto;
+package itep.resturant.service.dao.response;
 
 import lombok.Data;
 
