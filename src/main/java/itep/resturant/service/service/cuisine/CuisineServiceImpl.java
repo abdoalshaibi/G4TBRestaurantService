@@ -15,12 +15,10 @@ import java.util.List;
 public class CuisineServiceImpl implements CuisineService {
 
     CuisineRepository repository;
-    private final JwtService jwtService;
     ModelMapper mapper;
 
-    public CuisineServiceImpl(CuisineRepository repository, JwtService jwtService, ModelMapper mapper) {
+    public CuisineServiceImpl(CuisineRepository repository, ModelMapper mapper) {
         this.repository = repository;
-        this.jwtService = jwtService;
         this.mapper = mapper;
     }
 
