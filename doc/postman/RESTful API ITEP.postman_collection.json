@@ -1,0 +1,275 @@
+{
+	"info": {
+		"_postman_id": "4eb13853-4c0c-43ae-9461-28bc1d021862",
+		"name": "RESTful API ITEP",
+		"schema": "https://schema.getpostman.com/json/collection/v2.0.0/collection.json",
+		"_exporter_id": "32878451"
+	},
+	"item": [
+		{
+			"name": "Auth",
+			"item": [
+				{
+					"name": "signup",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "signin",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/auth/signup"
+					},
+					"response": []
+				},
+				{
+					"name": "signin Copy",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/auth/signup"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "Cuisine",
+			"item": [
+				{
+					"name": "Create a new cuisine",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jjkuu\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/cuisine"
+					},
+					"response": []
+				},
+				{
+					"name": "Update cuisine",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"24323\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/cuisine/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get all cuisine",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/cuisine"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "RESTAURANT",
+			"item": [
+				{
+					"name": "Get all restaurant",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/restaurant"
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant by cuisine id",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/restaurant/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update restaurant",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"ddd\",\r\n    \"location\": \"klkjklj;lk\",\r\n    \"phone\": 788989,\r\n    \"latitude\": \"9879879087\",\r\n    \"longitude\": \"786689697\",\r\n    \"isOnline\": true,\r\n    \"openingAt\": \"09:30:00\",\r\n    \"closingAt\": \"09:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/restaurant/3"
+					},
+					"response": []
+				},
+				{
+					"name": "Create a new restaurant",
+					"request": {
+						"method": "POST",
+						"header": [
+							{
+								"key": "Content-Type",
+								"value": "application/json",
+								"type": "text"
+							}
+						],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"jjkuu\",\r\n    \"location\": \"klkjklj;lk\",\r\n    \"phone\": 88888,\r\n    \"latitude\": \"9879879087\",\r\n    \"email\": \"a@yuy.com\",\r\n    \"longitude\": \"786689697\",\r\n    \"online\": \"true\",\r\n    \"openingAt\": \"09:30:00\",\r\n    \"closingAt\": \"09:30:00\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/restaurant/1"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "MENU",
+			"item": [
+				{
+					"name": "Create restaurant's menu",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"yeeeyy\",\r\n    \"image\": \"jhghjk\"\r\n   \r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/menu/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant's menus",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "http://localhost:8080/api/v1/menu/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update restaurant's menu",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"iouiouiou\",\r\n    \"image\": \"jhghjk\",\r\n    \"description\": \"kjhkjl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/menu/2"
+					},
+					"response": []
+				}
+			]
+		},
+		{
+			"name": "ITEM",
+			"item": [
+				{
+					"name": "Create restaurant's  menu item",
+					"request": {
+						"method": "POST",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"uakljlk;\",\r\n    \"image\": \"daleiupio\",\r\n    \"price\": \"200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/item/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Update restaurant's  menu item",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"dkjhjkhdd;\",\r\n    \"image\": \"daleiupio\",\r\n    \"price\": \"200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "http://localhost:8080/api/v1/item/1"
+					},
+					"response": []
+				}
+			]
+		}
+	]
+}

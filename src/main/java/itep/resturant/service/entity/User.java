@@ -10,6 +10,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 
 import java.util.Collection;
 import java.util.List;
+import java.util.stream.Collectors;
 
 @Data
 @Builder
@@ -30,7 +31,7 @@ public class User implements UserDetails {
     public Role role;
 
     @ManyToOne(fetch = FetchType.LAZY)
-    @JoinColumn(name="restaurant_id", nullable=false)
+    @JoinColumn(name="restaurant_id", nullable=true)
     private Restaurant restaurant;
     public User() {
 
@@ -38,7 +39,13 @@ public class User implements UserDetails {
 
     @Override
     public Collection<? extends GrantedAuthority> getAuthorities() {
-        return List.of(new SimpleGrantedAuthority(role.name()));
+        List<GrantedAuthority> authorities = role.getPermissions().stream().map(
+                permissionEnum -> new SimpleGrantedAuthority(permissionEnum.name())
+        ).collect(Collectors.toList());
+
+        authorities.add(new SimpleGrantedAuthority("ROLE_" + role.name()));
+
+        return authorities;
     }
 
     @Override

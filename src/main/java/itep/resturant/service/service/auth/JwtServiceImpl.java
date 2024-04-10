@@ -5,6 +5,8 @@ import io.jsonwebtoken.Jwts;
 import io.jsonwebtoken.SignatureAlgorithm;
 import io.jsonwebtoken.io.Decoders;
 import io.jsonwebtoken.security.Keys;
+import itep.resturant.service.entity.Role;
+import itep.resturant.service.entity.User;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
@@ -26,11 +28,6 @@ public class JwtServiceImpl implements JwtService {
     }
 
     @Override
-    public String extractUserid(String token) {
-        return  extractClaim(token, Claims::getSubject);
-    }
-
-    @Override
     public String generateToken(HashMap<String,Object> hashMap,UserDetails userDetails) {
         return generateTokens(hashMap, userDetails);
     }
@@ -40,6 +37,7 @@ public class JwtServiceImpl implements JwtService {
         final String userName = extractUserName(token);
         return (userName.equals(userDetails.getUsername())) && !isTokenExpired(token);
     }
+
 
     private <T> T extractClaim(String token, Function<Claims, T> claimsResolvers) {
         final Claims claims = extractAllClaims(token);
@@ -71,4 +69,6 @@ public class JwtServiceImpl implements JwtService {
         byte[] keyBytes = Decoders.BASE64.decode(jwtSigningKey);
         return Keys.hmacShaKeyFor(keyBytes);
     }
+
+
 }

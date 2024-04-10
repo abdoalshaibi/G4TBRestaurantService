@@ -46,7 +46,7 @@ public class CuisineServiceImplTest {
         mapper = new ModelMapper();
 
         repository = Mockito.mock(CuisineRepository.class);
-        service = new CuisineServiceImpl(repository, mapper);
+        //service = new CuisineServiceImpl(repository, mapper);
 
         cuisine = Cuisine.builder()
                 .id(0)

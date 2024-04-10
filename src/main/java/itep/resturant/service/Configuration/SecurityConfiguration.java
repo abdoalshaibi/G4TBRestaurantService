@@ -1,5 +1,6 @@
 package itep.resturant.service.Configuration;
 
+import itep.resturant.service.entity.Permission;
 import itep.resturant.service.service.auth.UserService;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -32,43 +33,36 @@ public class SecurityConfiguration {
     @Bean
     public SecurityFilterChain securityFilterChain(HttpSecurity http) throws Exception {
 
-        http.cors(AbstractHttpConfigurer::disable)
-                .csrf(AbstractHttpConfigurer::disable)
-                .authorizeHttpRequests(request ->
-                        {
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/auth/signup").permitAll();
-                            request.requestMatchers(HttpMethod.GET,"/swagger-ui/index.html").permitAll();
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/auth/signin").permitAll();
+        http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> {
+            request.requestMatchers(HttpMethod.POST, "/api/v1/auth/signup").permitAll();
+            request.requestMatchers(HttpMethod.POST, "/api/v1/auth/signin").permitAll();
 
-                            // cuisine
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/cuisine").authenticated();
-                            request.requestMatchers(HttpMethod.GET,"/api/v1/cuisine").authenticated();
-                            request.requestMatchers(HttpMethod.PUT,"/api/v1/cuisine").authenticated();
+            // cuisine
+            request.requestMatchers(HttpMethod.POST, "/api/v1/cuisine").hasAuthority(Permission.SAVE_ONE_CUISINE.name());
+            request.requestMatchers(HttpMethod.GET, "/api/v1/cuisine").hasAuthority(Permission.READ_ALL_CUISINE.name());
+            request.requestMatchers(HttpMethod.DELETE, "/api/v1/cuisine").hasAuthority(Permission.DELETE_ONE_CUISINE.name());
+            request.requestMatchers(HttpMethod.PUT, "/api/v1/cuisine/{id}").hasAuthority(Permission.UPDATE_ONE_CUISINE.name());
 
-                            // Item
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/item").authenticated();
-                            request.requestMatchers(HttpMethod.PUT,"/api/v1/item").authenticated();
-                            request.requestMatchers(HttpMethod.GET,"/api/v1/item").authenticated();
-                            request.requestMatchers(HttpMethod.DELETE,"/api/v1/item").authenticated();
+            // Item
+            request.requestMatchers(HttpMethod.POST, "/api/v1/item/{id}").hasAuthority(Permission.SAVE_ONE_ITEM.name());
+            request.requestMatchers(HttpMethod.PUT, "/api/v1/item/{id}").hasAuthority(Permission.UPDATE_ONE_ITEM.name());
+            request.requestMatchers(HttpMethod.GET, "/api/v1/item/{id}").hasAuthority(Permission.READ_ALL_ITEM.name());
+            request.requestMatchers(HttpMethod.DELETE, "/api/v1/item/{id}").hasAuthority(Permission.DELETE_ONE_ITEM.name());
 
-                            // Menu
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/menu").authenticated();
-                            request.requestMatchers(HttpMethod.GET,"/api/v1/menu").authenticated();
-                            request.requestMatchers(HttpMethod.PUT,"/api/v1/menu").authenticated();
-                            request.requestMatchers(HttpMethod.DELETE,"/api/v1/menu").authenticated();
+            // Menu
+            request.requestMatchers(HttpMethod.POST, "/api/v1/menu/{id}").hasAuthority(Permission.SAVE_ONE_MENU.name());
+            request.requestMatchers(HttpMethod.GET, "/api/v1/menu/{id}").hasAuthority(Permission.READ_ALL_MENU.name());
+            request.requestMatchers(HttpMethod.PUT, "/api/v1/menu/{id}").hasAuthority(Permission.UPDATE_ONE_MENU.name());
+            request.requestMatchers(HttpMethod.DELETE, "/api/v1/menu/{id}").hasAuthority(Permission.DELETE_ONE_MENU.name());
 
-                            // Restaurant
-                            request.requestMatchers(HttpMethod.POST,"/api/v1/restaurant").authenticated();
-                            request.requestMatchers(HttpMethod.GET,"/api/v1/restaurant").authenticated();
-                            request.requestMatchers(HttpMethod.PUT,"/api/v1/restaurant").authenticated();
+            // Restaurant
+            request.requestMatchers(HttpMethod.POST, "/api/v1/restaurant/{id}").hasAuthority(Permission.SAVE_ONE_RESTAURANT.name());
+            request.requestMatchers(HttpMethod.GET, "/api/v1/restaurant").hasAuthority(Permission.READ_ALL_RESTAURANT.name());
+            request.requestMatchers(HttpMethod.PUT, "/api/v1/restaurant/{id}").hasAuthority(Permission.UPDATE_ONE_RESTAURANT.name());
 
 
-                            request.anyRequest().permitAll();
-                        }
-                )
-                .sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS))
-                .authenticationProvider(authenticationProvider()).addFilterBefore(
-                        jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
+            request.anyRequest().permitAll();
+        }).sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS)).authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();
     }
@@ -88,8 +82,7 @@ public class SecurityConfiguration {
     }
 
     @Bean
-    public AuthenticationManager authenticationManager(AuthenticationConfiguration config)
-            throws Exception {
+    public AuthenticationManager authenticationManager(AuthenticationConfiguration config) throws Exception {
         return config.getAuthenticationManager();
     }
 }

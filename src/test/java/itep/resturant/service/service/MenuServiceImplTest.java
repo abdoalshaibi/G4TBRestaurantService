@@ -51,7 +51,7 @@ public class MenuServiceImplTest {
         menuRepository = Mockito.mock(MenuRepository.class);
 
 
-        service = new MenuServiceImpl(menuRepository,repository, mapper);
+        //service = new MenuServiceImpl(menuRepository,repository, mapper);
 
         restaurant = Restaurant.builder()
                 .id(0)

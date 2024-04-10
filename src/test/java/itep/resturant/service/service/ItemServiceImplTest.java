@@ -48,7 +48,7 @@ class ItemServiceImplTest {
         repository = Mockito.mock(ItemRepository.class);
         menuRepository = Mockito.mock(MenuRepository.class);
 
-        service = new ItemServiceImpl(repository,menuRepository, mapper);
+        //service = new ItemServiceImpl(repository,menuRepository, mapper);
 
         menu = Menu.builder()
                 .id(0)

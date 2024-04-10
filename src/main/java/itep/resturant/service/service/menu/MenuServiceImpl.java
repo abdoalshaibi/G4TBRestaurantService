@@ -5,6 +5,7 @@ import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.dao.request.MenuRequest;
 import itep.resturant.service.dao.response.MenuResponse;
+import itep.resturant.service.service.auth.AuthenticationService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -14,13 +15,15 @@ import java.util.List;
 @Service
 public class MenuServiceImpl implements MenuService {
 
-    MenuRepository repository;
-    RestaurantRepository restaurantRepository;
-    ModelMapper mapper;
+    private final MenuRepository repository;
+    private final RestaurantRepository restaurantRepository;
+    private final AuthenticationService authenticationService;
+    private final ModelMapper mapper;
 
-    public MenuServiceImpl(MenuRepository repository, RestaurantRepository restaurantRepository, ModelMapper mapper) {
+    public MenuServiceImpl(MenuRepository repository, RestaurantRepository restaurantRepository, AuthenticationService authenticationService, ModelMapper mapper) {
         this.repository = repository;
         this.restaurantRepository = restaurantRepository;
+        this.authenticationService = authenticationService;
         this.mapper = mapper;
     }
 
@@ -33,8 +36,10 @@ public class MenuServiceImpl implements MenuService {
         var menu = mapper.map(request, Menu.class);
 
         menu.setRestaurant(restaurant);
-        menu.setCreatedBy(1);
+
         menu.setCreatedAt(LocalDateTime.now());
+        menu.setCreatedBy(authenticationService.extractClaims());
+
         return mapper.map(repository.save(menu), MenuResponse.class);
     }
 
@@ -54,6 +59,9 @@ public class MenuServiceImpl implements MenuService {
                 .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
 
         mapper.map(request,menu);
+
+        menu.setCreatedAt(LocalDateTime.now());
+        menu.setCreatedBy(authenticationService.extractClaims());
 
         return mapper.map(repository.save(menu), MenuResponse.class);
     }
