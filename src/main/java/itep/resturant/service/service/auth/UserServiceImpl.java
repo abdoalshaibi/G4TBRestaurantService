@@ -1,5 +1,6 @@
 package itep.resturant.service.service.auth;
 
+import itep.resturant.service.entity.User;
 import itep.resturant.service.repository.UserRepository;
 import lombok.RequiredArgsConstructor;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -20,5 +21,11 @@ public class UserServiceImpl implements UserService {
                         .orElseThrow(() -> new UsernameNotFoundException("User not found"));
             }
         };
+    }
+
+    @Override
+    public User userRestaurantIdService(long id) {
+        return  userRepository.findById(id)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 }

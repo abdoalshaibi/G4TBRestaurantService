@@ -11,55 +11,127 @@
 			"item": [
 				{
 					"name": "signup",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('token', pm.response.json().token)"
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"sssodes2024@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/auth/signup"
+						"url": "{{BaseUrl}}/v1/auth/signup"
 					},
-					"response": []
+					"response": [
+						{
+							"name": "signup",
+							"originalRequest": {
+								"method": "POST",
+								"header": [],
+								"body": {
+									"mode": "raw",
+									"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2024@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+									"options": {
+										"raw": {
+											"language": "json"
+										}
+									}
+								},
+								"url": "{{BaseUrl}}/v1/auth/signup"
+							},
+							"status": "Internal Server Error",
+							"code": 500,
+							"_postman_previewlanguage": "json",
+							"header": [
+								{
+									"key": "X-Content-Type-Options",
+									"value": "nosniff"
+								},
+								{
+									"key": "X-XSS-Protection",
+									"value": "0"
+								},
+								{
+									"key": "Cache-Control",
+									"value": "no-cache, no-store, max-age=0, must-revalidate"
+								},
+								{
+									"key": "Pragma",
+									"value": "no-cache"
+								},
+								{
+									"key": "Expires",
+									"value": "0"
+								},
+								{
+									"key": "X-Frame-Options",
+									"value": "DENY"
+								},
+								{
+									"key": "Content-Type",
+									"value": "application/json"
+								},
+								{
+									"key": "Transfer-Encoding",
+									"value": "chunked"
+								},
+								{
+									"key": "Date",
+									"value": "Thu, 11 Apr 2024 14:25:43 GMT"
+								},
+								{
+									"key": "Connection",
+									"value": "close"
+								}
+							],
+							"cookie": [],
+							"body": "{\n    \"timestamp\": \"2024-04-11T14:25:43.850+00:00\",\n    \"status\": 500,\n    \"error\": \"Internal Server Error\",\n    \"path\": \"/api/v1/auth/signup\"\n}"
+						}
+					]
 				},
 				{
 					"name": "signin",
+					"event": [
+						{
+							"listen": "test",
+							"script": {
+								"exec": [
+									"pm.collectionVariables.set('token', pm.response.json().token)\r",
+									""
+								],
+								"type": "text/javascript",
+								"packages": {}
+							}
+						}
+					],
 					"request": {
 						"method": "POST",
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
+							"raw": "{\r\n    \"email\": \"sssodes2024@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/auth/signup"
-					},
-					"response": []
-				},
-				{
-					"name": "signin Copy",
-					"request": {
-						"method": "POST",
-						"header": [],
-						"body": {
-							"mode": "raw",
-							"raw": "{\r\n    \"firstName\": \"abdulsalam\",\r\n    \"lastName\": \"alshuaibi\",\r\n    \"email\": \"ssscodes2023@gmail.com\",\r\n    \"password\": \"123456\"\r\n}",
-							"options": {
-								"raw": {
-									"language": "json"
-								}
-							}
-						},
-						"url": "http://localhost:8080/api/v1/auth/signup"
+						"url": "{{BaseUrl}}/v1/auth/signin"
 					},
 					"response": []
 				}
@@ -82,7 +154,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/cuisine"
+						"url": "{{BaseUrl}}/v1/cuisine"
 					},
 					"response": []
 				},
@@ -93,14 +165,14 @@
 						"header": [],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"24323\"\r\n}",
+							"raw": "{\r\n    \"name\": \"243235\"\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/cuisine/1"
+						"url": "{{BaseUrl}}/v1/cuisine/1"
 					},
 					"response": []
 				},
@@ -109,9 +181,37 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/cuisine"
+						"url": "{{BaseUrl}}/v1/cuisine"
 					},
 					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -123,7 +223,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/restaurant"
+						"url": "{{BaseUrl}}/v1/restaurant"
 					},
 					"response": []
 				},
@@ -132,7 +232,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/restaurant/1"
+						"url": "{{BaseUrl}}/v1/restaurant/1"
 					},
 					"response": []
 				},
@@ -150,7 +250,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/restaurant/3"
+						"url": "{{BaseUrl}}/v1/restaurant/3"
 					},
 					"response": []
 				},
@@ -167,16 +267,73 @@
 						],
 						"body": {
 							"mode": "raw",
-							"raw": "{\r\n    \"name\": \"jjkuu\",\r\n    \"location\": \"klkjklj;lk\",\r\n    \"phone\": 88888,\r\n    \"latitude\": \"9879879087\",\r\n    \"email\": \"a@yuy.com\",\r\n    \"longitude\": \"786689697\",\r\n    \"online\": \"true\",\r\n    \"openingAt\": \"09:30:00\",\r\n    \"closingAt\": \"09:30:00\"\r\n}",
+							"raw": "{\r\n    \"name\": \"jjkuu\",\r\n    \"location\": \"klkjklj;lk\",\r\n    \"phone\": 903723,\r\n    \"mobile\": 843897,\r\n    \"latitude\": \"9879879087\",\r\n    \"email\": \"a8834@yuy.com\",\r\n    \"longitude\": \"86689697\",\r\n    \"online\": \"true\",\r\n    \"openingAt\": \"09:30:00\",\r\n    \"closingAt\": \"09:30:00\",\r\n    \"sign\": {\r\n        \"firstName\": \"taqi\",\r\n        \"lastName\": \"alshuaibi\",\r\n        \"email\": \"taqi@gmail.com\",\r\n        \"password\": \"123456\"\r\n    }\r\n}",
 							"options": {
 								"raw": {
 									"language": "json"
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/restaurant/1"
+						"url": "{{BaseUrl}}/v1/restaurant/1"
 					},
 					"response": []
+				},
+				{
+					"name": "changStatus",
+					"request": {
+						"method": "PUT",
+						"header": [],
+						"url": {
+							"raw": "{{BaseUrl}}/v1/restaurant/changStatus?Id=1&status=true",
+							"host": [
+								"{{BaseUrl}}"
+							],
+							"path": [
+								"v1",
+								"restaurant",
+								"changStatus"
+							],
+							"query": [
+								{
+									"key": "Id",
+									"value": "1"
+								},
+								{
+									"key": "status",
+									"value": "true"
+								}
+							]
+						}
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -197,7 +354,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/menu/1"
+						"url": "{{BaseUrl}}/v1/menu/1"
 					},
 					"response": []
 				},
@@ -206,7 +363,7 @@
 					"request": {
 						"method": "GET",
 						"header": [],
-						"url": "http://localhost:8080/api/v1/menu/1"
+						"url": "{{BaseUrl}}/v1/menu/1"
 					},
 					"response": []
 				},
@@ -224,9 +381,55 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/menu/2"
+						"url": "{{BaseUrl}}/v1/menu/2"
 					},
 					"response": []
+				},
+				{
+					"name": "delete restaurant's menu",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"iouiouiou\",\r\n    \"image\": \"jhghjk\",\r\n    \"description\": \"kjhkjl\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/v1/menu/1"
+					},
+					"response": []
+				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
 				}
 			]
 		},
@@ -247,7 +450,7 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/item/1"
+						"url": "{{BaseUrl}}/v1/item/1"
 					},
 					"response": []
 				},
@@ -265,11 +468,99 @@
 								}
 							}
 						},
-						"url": "http://localhost:8080/api/v1/item/1"
+						"url": "{{BaseUrl}}/v1/item/1"
+					},
+					"response": []
+				},
+				{
+					"name": "Get restaurant's  menu item",
+					"request": {
+						"method": "GET",
+						"header": [],
+						"url": "{{BaseUrl}}/v1/item/1"
+					},
+					"response": []
+				},
+				{
+					"name": "delete restaurant's  menu item",
+					"request": {
+						"method": "DELETE",
+						"header": [],
+						"body": {
+							"mode": "raw",
+							"raw": "{\r\n    \"name\": \"dkjhjkhdd;\",\r\n    \"image\": \"daleiupio\",\r\n    \"price\": \"200\"\r\n}",
+							"options": {
+								"raw": {
+									"language": "json"
+								}
+							}
+						},
+						"url": "{{BaseUrl}}/v1/item/1"
 					},
 					"response": []
 				}
+			],
+			"auth": {
+				"type": "bearer",
+				"bearer": {
+					"token": "{{token}}"
+				}
+			},
+			"event": [
+				{
+					"listen": "prerequest",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				},
+				{
+					"listen": "test",
+					"script": {
+						"type": "text/javascript",
+						"packages": {},
+						"exec": [
+							""
+						]
+					}
+				}
 			]
+		}
+	],
+	"event": [
+		{
+			"listen": "prerequest",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		},
+		{
+			"listen": "test",
+			"script": {
+				"type": "text/javascript",
+				"packages": {},
+				"exec": [
+					""
+				]
+			}
+		}
+	],
+	"variable": [
+		{
+			"key": "BaseUrl",
+			"value": "http://localhost:8080/api",
+			"type": "string"
+		},
+		{
+			"key": "token",
+			"value": ""
 		}
 	]
 }

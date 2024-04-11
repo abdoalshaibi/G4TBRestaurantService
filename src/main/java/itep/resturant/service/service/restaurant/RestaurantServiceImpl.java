@@ -6,6 +6,7 @@ import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.dao.request.RestaurantRequest;
 import itep.resturant.service.dao.response.RestaurantResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
+import itep.resturant.service.service.auth.UserService;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -18,12 +19,14 @@ public class RestaurantServiceImpl implements RestaurantService {
    private final RestaurantRepository repository;
     private final CuisineRepository cuisineRepository;
     private final AuthenticationService authenticationService;
+    private final UserService userService;
     ModelMapper mapper;
 
-    public RestaurantServiceImpl(RestaurantRepository repository, CuisineRepository cuisineRepository, AuthenticationService authenticationService, ModelMapper mapper) {
+    public RestaurantServiceImpl(RestaurantRepository repository, CuisineRepository cuisineRepository, AuthenticationService authenticationService, UserService userService, ModelMapper mapper) {
         this.repository = repository;
         this.cuisineRepository = cuisineRepository;
         this.authenticationService = authenticationService;
+        this.userService = userService;
         this.mapper = mapper;
     }
 
@@ -48,6 +51,7 @@ public class RestaurantServiceImpl implements RestaurantService {
 
     }
 
+
     @Override
     public List<RestaurantResponse> GetAll() {
 
@@ -56,6 +60,15 @@ public class RestaurantServiceImpl implements RestaurantService {
                 .map(e->mapper.map(e, RestaurantResponse.class))
                 .toList();
 
+    }
+
+    @Override
+    public RestaurantResponse Get() {
+
+        var user = userService.userRestaurantIdService(authenticationService.extractClaims());
+        var restaurant = repository.findRestaurantById(user.getRestaurant().id)
+                .orElseThrow(()-> new IllegalArgumentException(""));
+        return mapper.map(restaurant,RestaurantResponse.class);
     }
 
     @Override

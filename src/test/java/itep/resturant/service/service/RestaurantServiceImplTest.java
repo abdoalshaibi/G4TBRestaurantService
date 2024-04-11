@@ -52,7 +52,7 @@ public class RestaurantServiceImplTest {
         cuisineRepository = mock(CuisineRepository.class);
         restaurantRepository =mock(RestaurantRepository.class);
 
-        service = new RestaurantServiceImpl(restaurantRepository,cuisineRepository,mapper);
+        //service = new RestaurantServiceImpl(restaurantRepository,cuisineRepository,mapper);
 
         cuisine = Cuisine.builder()
                 .id(0)

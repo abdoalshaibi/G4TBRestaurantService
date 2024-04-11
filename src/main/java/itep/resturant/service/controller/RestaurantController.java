@@ -38,7 +38,7 @@ public class RestaurantController {
         }
     }
 
-    @GetMapping
+    @GetMapping()
     public ResponseEntity<Object> getAll() {
 
         try {
@@ -50,6 +50,19 @@ public class RestaurantController {
             return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(ex.getMessage());
         }
     }
+
+//    @GetMapping
+//    public ResponseEntity<Object> get() {
+//
+//        try {
+//
+//            return ResponseEntity.ok( service.Get());
+//
+//        } catch (Exception ex) {
+//
+//            return ResponseEntity.status(HttpStatus.NOT_MODIFIED).body(ex.getMessage());
+//        }
+//    }
 
     @GetMapping("/{id}")
     public ResponseEntity<Object> getByCuisine(@PathVariable long id) {
@@ -77,7 +90,7 @@ public class RestaurantController {
         }
     }
 
-    @PutMapping()
+    @PutMapping("/changStatus")
     public ResponseEntity<Object> ChangeStatus(@RequestParam long id, @Valid @RequestParam boolean status) {
         try {
 
