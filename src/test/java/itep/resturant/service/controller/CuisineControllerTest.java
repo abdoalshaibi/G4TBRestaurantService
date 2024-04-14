@@ -45,7 +45,6 @@ class CuisineControllerTest {
     public void setup() {
 
 
-
         request = CuisineRequest.builder()
                 .name("Japanese")
                 .description(null)
