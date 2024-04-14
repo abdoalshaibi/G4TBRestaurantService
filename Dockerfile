@@ -5,7 +5,7 @@ FROM openjdk:17-alpine
 WORKDIR /app
 
 # Copy the packaged JAR file into the container
-COPY target/my-spring-boot-app.jar /app/my-spring-boot-app.jar
+COPY target/G4TBRestaurantService.jar /app/G4TBRestaurantService.jar
 
 # Expose the port that the Spring Boot application will run on
 EXPOSE 8080
