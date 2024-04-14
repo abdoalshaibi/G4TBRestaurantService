@@ -1,13 +1,14 @@
-# Use an OpenJDK runtime image as the base image
-FROM openjdk:11-jre-slim
+# Use the official OpenJDK image as a base image
+FROM adoptopenjdk/openjdk17:alpine-slim
 
+# Set the working directory in the container
 WORKDIR /app
 
-COPY .mvn/ .mvn
-COPY mvnw pom.xml ./
-RUN chmod +x mvnw
-RUN ./mvnw dependency:go-offline
+# Copy the packaged JAR file into the container
+COPY target/my-spring-boot-app.jar /app/my-spring-boot-app.jar
 
-COPY src ./src
+# Expose the port that the Spring Boot application will run on
+EXPOSE 8080
 
-CMD ["./mvnw", "spring-boot:run"]
+# Define the command to run the application when the container starts
+CMD ["java", "-jar", "my-spring-boot-app.jar"]
