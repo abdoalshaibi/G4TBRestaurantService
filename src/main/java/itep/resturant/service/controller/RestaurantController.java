@@ -1,9 +1,10 @@
 package itep.resturant.service.controller;
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.dao.request.RestaurantRequest;
+import itep.resturant.service.dao.response.RestaurantResponse;
 import itep.resturant.service.service.restaurant.RestaurantService;
 import jakarta.validation.Valid;
-import org.springframework.dao.DataIntegrityViolationException;
 import org.springframework.http.HttpStatus;
 import org.springframework.http.ResponseEntity;
 import org.springframework.web.bind.annotation.*;
@@ -20,22 +21,13 @@ public class RestaurantController {
     }
 
     @PostMapping("/{id}")
-    public ResponseEntity<Object> Creat(@PathVariable long id ,@Valid @RequestBody RestaurantRequest request) {
+    public ResponseEntity<APIResponse<RestaurantResponse>> Creat(@PathVariable long id , @Valid @RequestBody RestaurantRequest request) {
 
-        try {
 
-             return ResponseEntity.ok(service.Create(id,request));
-        }
-        catch (DataIntegrityViolationException ex) {
-            if(ex.getMessage().contains("restaurant_mobile_key"))
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("mobile already exist");
-            if(ex.getMessage().contains("restaurant_phone_key"))
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("phone already exist");
-            if(ex.getMessage().contains("restaurant_email_key"))
-                return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("email already exist");
+            var result = service.Create(id, request);
 
-            return ResponseEntity.status(HttpStatus.BAD_REQUEST).body("Unknown Error");
-        }
+           return ResponseEntity.status(HttpStatus.valueOf(result.getHttpStatus()))
+                   .body(result);
     }
 
     @GetMapping()

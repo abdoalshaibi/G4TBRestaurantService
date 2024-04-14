@@ -5,6 +5,7 @@ import itep.resturant.service.entity.Menu;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.menu.MenuServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -33,6 +34,8 @@ public class MenuServiceImplTest {
     @Mock
     private MenuRepository menuRepository;
     @Mock
+    private  AuthenticationService authenticationService;
+    @Mock
     private ModelMapper mapper;
 
     @InjectMocks
@@ -49,9 +52,10 @@ public class MenuServiceImplTest {
 
         repository = Mockito.mock(RestaurantRepository.class);
         menuRepository = Mockito.mock(MenuRepository.class);
+        authenticationService = Mockito.mock(AuthenticationService.class);
 
 
-        //service = new MenuServiceImpl(menuRepository,repository, mapper);
+        service = new MenuServiceImpl(menuRepository,repository,authenticationService, mapper);
 
         restaurant = Restaurant.builder()
                 .id(0)
@@ -96,7 +100,7 @@ public class MenuServiceImplTest {
         var test = service.create(Id,MENU_REQUEST);
 
         // Assert
-        assertEquals(test.getName(), MENU_REQUEST.getName());
+        assertEquals(test.getData().getName(), MENU_REQUEST.getName());
     }
 
     @DisplayName("JUnit test for get menu by id method")
@@ -114,7 +118,7 @@ public class MenuServiceImplTest {
 
         // Assert
 
-        assertThat(test.size()).isEqualTo(1);
+        assertThat(test.getData().size()).isEqualTo(1);
     }
 
     @DisplayName("JUnit test for update menu method")
@@ -134,23 +138,8 @@ public class MenuServiceImplTest {
         var test = service.update(Id,MENU_REQUEST);
 
         // Assert
-        assertEquals(test.getName(), MENU_REQUEST.getName());
+        assertEquals(test.getData().getName(), MENU_REQUEST.getName());
     }
 
-//    @Test
-//    void testDelete() {
-//
-//        // Arrange
-//        long Id = 0L;
-//
-//        when(menuRepository.findAllByRestaurantId(Id)).thenReturn(List.of(menu));
-//
-//        //act
-//
-//        var test = service.Delete(Id);
-//
-//        // Assert
-//
-//        assertThat(test.size()).isEqualTo(1);
-//    }
+
 }

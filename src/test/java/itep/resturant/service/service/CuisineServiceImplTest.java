@@ -4,6 +4,7 @@ import itep.resturant.service.dao.request.CuisineRequest;
 import itep.resturant.service.dao.response.CuisineResponse;
 import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.repository.CuisineRepository;
+import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
 
 import org.junit.jupiter.api.BeforeEach;
@@ -36,6 +37,8 @@ public class CuisineServiceImplTest {
     @Mock
     CuisineRepository repository;
     @Mock
+    AuthenticationService authenticationService;
+    @Mock
     private ModelMapper mapper;
     private Cuisine cuisine;
     private CuisineRequest CUISINE_REQUEST;
@@ -46,7 +49,8 @@ public class CuisineServiceImplTest {
         mapper = new ModelMapper();
 
         repository = Mockito.mock(CuisineRepository.class);
-        //service = new CuisineServiceImpl(repository, mapper);
+        authenticationService = Mockito.mock(AuthenticationService.class);
+        service = new CuisineServiceImpl(repository,mapper,authenticationService);
 
         cuisine = Cuisine.builder()
                 .id(0)
@@ -72,9 +76,9 @@ public class CuisineServiceImplTest {
 
         when(repository.save(any())).thenReturn(cuisine);
 
-        CuisineResponse test = service.Create(CUISINE_REQUEST);
+        var test = service.Create(CUISINE_REQUEST);
 
-        assertEquals(test.getName(), CUISINE_REQUEST.getName());
+        assertEquals(test.getData().getName(), CUISINE_REQUEST.getName());
 
     }
 
@@ -89,9 +93,9 @@ public class CuisineServiceImplTest {
 
         CUISINE_REQUEST.setName("Italian");
 
-        CuisineResponse test = service.Update(Id,CUISINE_REQUEST);
+        var test = service.Update(Id,CUISINE_REQUEST);
 
-        assertEquals(test.getName(), CUISINE_REQUEST.getName());
+        assertEquals(test.getData().getName(), CUISINE_REQUEST.getName());
 
     }
 
@@ -105,7 +109,7 @@ public class CuisineServiceImplTest {
 
         var test = service.GetAll();
 
-        assertThat(test.size()).isEqualTo(1);
+        assertThat(test.getData().size()).isEqualTo(1);
 
     }
 }

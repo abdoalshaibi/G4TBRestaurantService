@@ -1,11 +1,13 @@
 package itep.resturant.service.service.menu;
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.repository.RestaurantRepository;
 import itep.resturant.service.dao.request.MenuRequest;
 import itep.resturant.service.dao.response.MenuResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
+import itep.resturant.service.util.Constant;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -28,53 +30,68 @@ public class MenuServiceImpl implements MenuService {
     }
 
     @Override
-    public MenuResponse create(long id, MenuRequest request) {
+    public APIResponse<MenuResponse> create(long id, MenuRequest request) {
 
-        var restaurant=restaurantRepository.findById(id)
-                .orElseThrow(()-> new IllegalArgumentException("Restaurant not found with ID: " + id));
+        var restaurantOptional = restaurantRepository.findById(id);
+
+        if (restaurantOptional.isEmpty())
+           return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("5"));
+
 
         var menu = mapper.map(request, Menu.class);
 
-        menu.setRestaurant(restaurant);
-
+        menu.setRestaurant(restaurantOptional.get());
         menu.setCreatedAt(LocalDateTime.now());
         menu.setCreatedBy(authenticationService.extractClaims());
 
-        return mapper.map(repository.save(menu), MenuResponse.class);
+        var response = mapper.map(repository.save(menu), MenuResponse.class);
+
+        return APIResponse.ok(response, Constant.getLogResponseHashMap(),"MENU-".concat("7"));
     }
 
     @Override
-    public List<MenuResponse> getAllById(long id) {
+    public APIResponse<List<MenuResponse>> getAllById(long id) {
 
-        return repository.findAllByRestaurantId(id)
+        var menus = repository.findAllByRestaurantId(id)
                 .stream()
                 .map(e->mapper.map(e, MenuResponse.class))
                 .toList();
+
+        return APIResponse.ok(menus,Constant.getLogResponseHashMap(),"MENU-".concat("1"));
     }
 
     @Override
-    public MenuResponse update(long id, MenuRequest request) {
+    public APIResponse<MenuResponse> update(long id, MenuRequest request) {
 
-        var menu = repository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
+        var optionalMenu = repository.findById(id);
 
-        mapper.map(request,menu);
+        if (optionalMenu.isEmpty())
+           return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"MENU-".concat(""));
+
+        var menu = optionalMenu.get();
+
+         mapper.map(request,menu);
 
         menu.setCreatedAt(LocalDateTime.now());
         menu.setCreatedBy(authenticationService.extractClaims());
 
-        return mapper.map(repository.save(menu), MenuResponse.class);
+        var response =  mapper.map(repository.save(menu), MenuResponse.class);
+
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"MENU-".concat("1"));
+
     }
 
     @Override
-    public String delete(long id) {
+    public APIResponse<String> delete(long id) {
 
-        var menu = repository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("Restaurant not found with ID: " + id));
+        var menu = repository.findById(id);
 
-        repository.delete(menu);
+        if (menu.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "MENU-".concat("1"));
 
-        return "Menu with Id " + id + "deleted";
+        repository.delete(menu.get());
+
+        return APIResponse.ok(null, Constant.getLogResponseHashMap(), "MENU-".concat("3"));
+
     }
-
 }

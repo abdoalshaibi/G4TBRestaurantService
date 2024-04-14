@@ -5,6 +5,10 @@ import itep.resturant.service.entity.Cuisine;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.service.auth.AuthenticationService;
+import itep.resturant.service.service.auth.AuthenticationServiceImpl;
+import itep.resturant.service.service.auth.UserService;
+import itep.resturant.service.service.auth.UserServiceImpl;
 import itep.resturant.service.service.restaurant.RestaurantServiceImpl;
 import org.assertj.core.api.Assertions;
 import org.junit.jupiter.api.BeforeEach;
@@ -34,6 +38,10 @@ public class RestaurantServiceImplTest {
     CuisineRepository cuisineRepository;
     @Mock
     RestaurantRepository restaurantRepository;
+    @Mock
+    UserService userService;
+    @Mock
+    AuthenticationService authenticationService;
     @InjectMocks
     private RestaurantServiceImpl service;
     @Mock
@@ -51,8 +59,10 @@ public class RestaurantServiceImplTest {
 
         cuisineRepository = mock(CuisineRepository.class);
         restaurantRepository =mock(RestaurantRepository.class);
+        userService =mock(UserServiceImpl.class);
+        authenticationService =mock(AuthenticationServiceImpl.class);
 
-        //service = new RestaurantServiceImpl(restaurantRepository,cuisineRepository,mapper);
+        service = new RestaurantServiceImpl(restaurantRepository,cuisineRepository,authenticationService,userService,mapper);
 
         cuisine = Cuisine.builder()
                 .id(0)
@@ -95,7 +105,7 @@ public class RestaurantServiceImplTest {
 
         var test = service.Create(id,request);
 
-        assertThat(test.name).isEqualTo(request.getName());
+        assertThat(test.getData().name).isEqualTo(request.getName());
     }
 
     @DisplayName("JUnit test for update restaurant method")
@@ -114,7 +124,7 @@ public class RestaurantServiceImplTest {
         var test = service.Update(Id,request);
 
         // Assert
-        assertEquals(test.getName(), request.getName());
+        assertEquals(test.getData().getName(), request.getName());
     }
     @DisplayName("JUnit test for Get All restaurant method")
     @Test
@@ -125,7 +135,7 @@ public class RestaurantServiceImplTest {
 
         var test = service.GetAll();
 
-        Assertions.assertThat(test.size()).isEqualTo(1);
+        Assertions.assertThat(test.getData().size()).isEqualTo(1);
 
     }
 
@@ -140,7 +150,7 @@ public class RestaurantServiceImplTest {
 
         var test = service.getByCuisineId(0L);
 
-        Assertions.assertThat(test.size()).isEqualTo(1);
+        Assertions.assertThat(test.getData().size()).isEqualTo(1);
     }
 
     @DisplayName("JUnit test for change status restaurant method")
@@ -157,6 +167,6 @@ public class RestaurantServiceImplTest {
         var test = service.ChangeStatus(Id,false);
 
         // Assert
-        assertFalse(test.isOnline());
+        assertFalse(test.getData().isOnline());
     }
 }

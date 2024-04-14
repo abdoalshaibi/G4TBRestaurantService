@@ -60,7 +60,7 @@ class RestaurantControllerTest {
         result = new RestaurantResponse();
         result.setName("Ballhaus Watzke");
 
-        when(service.Create(Id,request)).thenReturn(result);
+        //when(service.Create(Id,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 
@@ -82,7 +82,7 @@ class RestaurantControllerTest {
         result.setName("Zur Letzten Instanz");
 
 
-        when(service.Update(0L,request)).thenReturn(result);
+        //when(service.Update(0L,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 

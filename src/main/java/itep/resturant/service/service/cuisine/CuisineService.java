@@ -1,12 +1,13 @@
 package itep.resturant.service.service.cuisine;
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.dao.request.CuisineRequest;
 import itep.resturant.service.dao.response.CuisineResponse;
 
 import java.util.List;
 
 public interface CuisineService {
-    CuisineResponse Create(CuisineRequest request);
-    List<CuisineResponse> GetAll();
-    CuisineResponse Update(long id, CuisineRequest request);
+    APIResponse<CuisineResponse> Create(CuisineRequest request);
+    APIResponse<List<CuisineResponse>> GetAll();
+    APIResponse<CuisineResponse> Update(long id, CuisineRequest request);
 }

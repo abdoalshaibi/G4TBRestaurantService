@@ -1,11 +1,13 @@
 package itep.resturant.service.service.item;
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.entity.Item;
 import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
 import itep.resturant.service.dao.request.ItemRequest;
 import itep.resturant.service.dao.response.ItemResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
+import itep.resturant.service.util.Constant;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -28,50 +30,66 @@ public class ItemServiceImpl implements ItemService{
     }
 
     @Override
-    public ItemResponse create(long id , ItemRequest request) {
+    public APIResponse<ItemResponse> create(long id , ItemRequest request) {
 
-        var menu= menuRepository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("Item not found with Id: " + id));
+        var menuOptional= menuRepository.findById(id);
+
+        if (menuOptional.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "ITEM-".concat("1"));
 
         var item = mapper.map(request, Item.class);
 
-         item.setMenu(menu);
+         item.setMenu(menuOptional.get());
          item.setCreatedBy(authenticationService.extractClaims());
          item.setCreatedAt(LocalDateTime.now());
-        return mapper.map(repository.save(item), ItemResponse.class);
+
+        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("2"));
+
     }
 
     @Override
-    public List<ItemResponse> getByMenuId(long id) {
-        return  repository.findByMenuId(id)
+    public APIResponse<List<ItemResponse>> getByMenuId(long id) {
+        var item=  repository.findByMenuId(id)
                 .stream()
                 .map(e -> mapper.map(e, ItemResponse.class))
                 .toList();
 
+        return APIResponse.ok(item, Constant.getLogResponseHashMap(), "ITEM-".concat("3"));
+
+
     }
 
     @Override
-    public ItemResponse update(long id, ItemRequest request) {
-        var item= repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found with Id: " + id));
+    public APIResponse<ItemResponse> update(long id, ItemRequest request) {
+        var itemOptional= repository.findById(id);
 
+        if (itemOptional.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "ITEM-".concat("1"));
+
+
+        var item = itemOptional.get();
 
         item.setCreatedAt(LocalDateTime.now());
         item.setCreatedBy(authenticationService.extractClaims());
 
         mapper.map(request,item);
 
-        return mapper.map(repository.save(item), ItemResponse.class);
+
+        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("3"));
+
     }
 
     @Override
-    public String delete(long id) {
-        var item = repository.findById(id)
-                .orElseThrow(() -> new IllegalArgumentException("Item not found with Id: " + id));
+    public APIResponse<String> delete(long id) {
+        var itemOptional = repository.findById(id);
 
-        repository.delete(item);
+        if (itemOptional.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "ITEM-".concat("1"));
 
-        return "Item " + id + " is deleted";
+        repository.delete(itemOptional.get());
+
+        return APIResponse.ok(null, Constant.getLogResponseHashMap(), "ITEM-".concat("9"));
+
     }
 
 }

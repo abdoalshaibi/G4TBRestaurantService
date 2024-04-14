@@ -5,6 +5,8 @@ import itep.resturant.service.entity.Item;
 import itep.resturant.service.entity.Menu;
 import itep.resturant.service.repository.ItemRepository;
 import itep.resturant.service.repository.MenuRepository;
+import itep.resturant.service.service.auth.AuthenticationService;
+import itep.resturant.service.service.auth.AuthenticationServiceImpl;
 import itep.resturant.service.service.item.ItemServiceImpl;
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
@@ -31,6 +33,9 @@ class ItemServiceImplTest {
     @Mock
     private MenuRepository menuRepository;
     @Mock
+    private AuthenticationService authenticationService;
+
+    @Mock
     private ModelMapper mapper;
 
     @InjectMocks
@@ -47,8 +52,9 @@ class ItemServiceImplTest {
 
         repository = Mockito.mock(ItemRepository.class);
         menuRepository = Mockito.mock(MenuRepository.class);
+        authenticationService=Mockito.mock(AuthenticationServiceImpl.class);
 
-        //service = new ItemServiceImpl(repository,menuRepository, mapper);
+        service = new ItemServiceImpl(repository,menuRepository,authenticationService, mapper);
 
         menu = Menu.builder()
                 .id(0)
@@ -91,7 +97,7 @@ class ItemServiceImplTest {
         var test = service.create(Id,ITEM_REQUEST);
 
         // Assert
-        assertEquals(test.getName(), ITEM_REQUEST.getName());
+        assertEquals(test.getData().getName(), ITEM_REQUEST.getName());
     }
 
     @DisplayName("JUnit test for update item method")
@@ -111,6 +117,6 @@ class ItemServiceImplTest {
         var test = service.update(Id,ITEM_REQUEST);
 
         // Assert
-        assertEquals(test.getName(), ITEM_REQUEST.getName());
+        assertEquals(test.getData().getName(), ITEM_REQUEST.getName());
     }
 }

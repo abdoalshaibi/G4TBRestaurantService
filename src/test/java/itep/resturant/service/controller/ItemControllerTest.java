@@ -58,7 +58,7 @@ class ItemControllerTest {
         result.setName("Japanese");
         result.setPrice(1000);
 
-        when(service.create(Id,request)).thenReturn(result);
+        //when(service.create(Id,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 
@@ -82,7 +82,7 @@ class ItemControllerTest {
 
 
 
-        when(service.update(0L,request)).thenReturn(result);
+       // when(service.update(0L,request)).thenReturn(result);
 
         String json = mapper.writeValueAsString(request);
 

@@ -1,5 +1,6 @@
 package itep.resturant.service.service.restaurant;
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.repository.CuisineRepository;
 import itep.resturant.service.repository.RestaurantRepository;
@@ -7,6 +8,7 @@ import itep.resturant.service.dao.request.RestaurantRequest;
 import itep.resturant.service.dao.response.RestaurantResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.auth.UserService;
+import itep.resturant.service.util.Constant;
 import org.modelmapper.ModelMapper;
 import org.springframework.stereotype.Service;
 
@@ -32,77 +34,105 @@ public class RestaurantServiceImpl implements RestaurantService {
 
 
     @Override
-    public RestaurantResponse Create(long id, RestaurantRequest request) {
+    public APIResponse<RestaurantResponse> Create(long id, RestaurantRequest request) {
 
-        var cuisine =cuisineRepository.findById(id).
-                orElseThrow(()-> new IllegalArgumentException("No data found in id " + id));
+        var cuisineOptional = cuisineRepository.findById(id);
 
-            var restaurant = mapper.map(request, Restaurant.class);
+        if (cuisineOptional.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "CUISINE-".concat("5"));
 
-            restaurant.setCreatedAt(LocalDateTime.now());
-            restaurant.setCreatedBy(authenticationService.extractClaims());
-            restaurant.setCuisine(cuisine);
+        var restaurant = mapper.map(request, Restaurant.class);
 
-            var rest =repository.save(restaurant);
+        restaurant.setCreatedAt(LocalDateTime.now());
+        restaurant.setCreatedBy(authenticationService.extractClaims());
+        restaurant.setCuisine(cuisineOptional.get());
 
-            authenticationService.signup(restaurant,request.getSign());
+        authenticationService.signup(restaurant, request.getSign());
 
-            return mapper.map(rest, RestaurantResponse.class);
+        var response = mapper.map(repository.save(restaurant), RestaurantResponse.class);
 
+        return APIResponse.ok(response, Constant.getLogResponseHashMap(), "RESTAURANT-".concat("7"));
     }
 
 
     @Override
-    public List<RestaurantResponse> GetAll() {
+    public APIResponse<List<RestaurantResponse>> GetAll() {
 
-        return repository.findAll()
+        var restaurants =  repository.findAll()
                 .stream()
                 .map(e->mapper.map(e, RestaurantResponse.class))
                 .toList();
 
+        return APIResponse.ok(restaurants,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("10"));
     }
 
     @Override
-    public RestaurantResponse Get() {
+    public APIResponse<RestaurantResponse> Get() {
 
         var user = userService.userRestaurantIdService(authenticationService.extractClaims());
+
         var restaurant = repository.findRestaurantById(user.getRestaurant().id)
                 .orElseThrow(()-> new IllegalArgumentException(""));
-        return mapper.map(restaurant,RestaurantResponse.class);
+
+        var response = mapper.map(restaurant,RestaurantResponse.class);
+
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("10"));
+
     }
 
     @Override
-    public RestaurantResponse Update(long id, RestaurantRequest request) {
+    public APIResponse<RestaurantResponse> Update(long id, RestaurantRequest request) {
 
-        var restaurant = repository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("No data found in id :"+id));
+        var restaurantOptional = repository.findById(id);
+
+        if (restaurantOptional.isEmpty())
+            return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("5"));
+
+        var restaurant = restaurantOptional.get();
 
         mapper.map(request,restaurant);
         restaurant.setUpdatedAt(LocalDateTime.now());
         restaurant.setUpdatedBy(authenticationService.extractClaims());
-         return mapper.map(repository.save(restaurant), RestaurantResponse.class);
+
+         var response = mapper.map(repository.save(restaurant), RestaurantResponse.class);
+
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("8"));
+
     }
 
     @Override
-    public RestaurantResponse ChangeStatus(long id, boolean status) {
-        var restaurant = repository.findById(id)
-                .orElseThrow(()->new IllegalArgumentException("No data found in id "+id));
+    public APIResponse<RestaurantResponse> ChangeStatus(long id, boolean status) {
+        var restaurantOptional = repository.findById(id);
 
+        if (restaurantOptional.isEmpty())
+            return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("5"));
+
+        var restaurant = restaurantOptional.get();
 
         restaurant.setOnline(status);
         restaurant.setUpdatedAt(LocalDateTime.now());
         restaurant.setUpdatedBy(authenticationService.extractClaims());
 
-        return mapper.map(repository.save(restaurant), RestaurantResponse.class);
+        var response = mapper.map(repository.save(restaurant), RestaurantResponse.class);
+
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("13"));
+
     }
 
     @Override
-    public List<RestaurantResponse> getByCuisineId(long id) {
-         var restaurant = repository.findByCuisineId(id)
-                 .orElseThrow(()-> new IllegalArgumentException("No data found in id " + id));
+    public APIResponse<List<RestaurantResponse>> getByCuisineId(long id) {
+         var restaurantOptional = repository.findByCuisineId(id);
 
-        return restaurant.stream()
+        if (restaurantOptional.isEmpty())
+            return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("5"));
+
+        var restaurant = restaurantOptional.get();
+
+        var response = restaurant.stream()
                 .map(e-> mapper.map(e, RestaurantResponse.class))
                 .toList();
+
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"RESTAURANT-".concat("10"));
+
     }
 }

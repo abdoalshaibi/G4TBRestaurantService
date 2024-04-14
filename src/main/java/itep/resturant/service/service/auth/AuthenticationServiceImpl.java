@@ -1,6 +1,7 @@
 package itep.resturant.service.service.auth;
 
 
+import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.dao.request.SigninRequest;
 import itep.resturant.service.dao.request.SignUpRequest;
 import itep.resturant.service.dao.response.JwtAuthenticationResponse;
@@ -8,6 +9,7 @@ import itep.resturant.service.entity.Restaurant;
 import itep.resturant.service.entity.Role;
 import itep.resturant.service.entity.User;
 import itep.resturant.service.repository.UserRepository;
+import itep.resturant.service.util.Constant;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
 import org.springframework.security.core.Authentication;
@@ -32,16 +34,29 @@ public class AuthenticationServiceImpl implements AuthenticationService {
         this.authenticationManager = authenticationManager;
     }
 
+
     @Override
-    public JwtAuthenticationResponse signup(SignUpRequest request) {
-        var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
-                .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
-                .role(Role.ADMIN).build();
+    public APIResponse<JwtAuthenticationResponse> signup(SignUpRequest request) {
 
-        userRepository.save(user);
+        try {
+            var user = User.builder().firstName(request.getFirstName()).lastName(request.getLastName())
+                    .email(request.getEmail()).password(passwordEncoder.encode(request.getPassword()))
+                    .role(Role.ADMIN).build();
 
-        var jwt = jwtService.generateToken(generateExtraClaims(user), user);
-        return JwtAuthenticationResponse.builder().token(jwt).build();
+            userRepository.save(user);
+
+            var jwt = jwtService.generateToken(generateExtraClaims(user), user);
+
+            return APIResponse.ok(JwtAuthenticationResponse.builder().token(jwt).build(), Constant.getLogResponseHashMap(),"USER-".concat("7"));
+
+        }catch (Exception ex)
+        {
+            if (ex.getMessage().contains("users_email_key"))
+                return APIResponse.badRequest(null, Constant.getLogResponseHashMap(),"USER-".concat("1"));
+
+            return APIResponse.badRequest(null, Constant.getLogResponseHashMap(),"USER-".concat("1"));
+
+        }
     }
 
     @Override
