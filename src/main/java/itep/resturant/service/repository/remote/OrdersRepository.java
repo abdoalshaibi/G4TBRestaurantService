@@ -32,8 +32,7 @@ public class OrdersRepository implements OrderRepository {
         this.password = password;
     }
 
-    @Override
-    public Optional<OrderAuthResponse> login(OrderAuthRequest request) {
+    private Optional<OrderAuthResponse> login(OrderAuthRequest request) {
 
         return restClient
                 .post()

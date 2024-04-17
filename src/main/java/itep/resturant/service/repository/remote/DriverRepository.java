@@ -6,7 +6,6 @@ import itep.resturant.service.entity.remote.OrderAuthResponse;
 import java.util.Optional;
 
 public interface DriverRepository {
-    Optional<OrderAuthResponse> login(OrderAuthRequest request);
 
     Optional<Object> getAll();
 }

@@ -27,8 +27,8 @@ public class DriverRepositoryImpl implements DriverRepository {
         this.password = password;
     }
 
-    @Override
-    public Optional<OrderAuthResponse> login(OrderAuthRequest request) {
+
+    private Optional<OrderAuthResponse> login(OrderAuthRequest request) {
 
         return restClient
                 .post()
