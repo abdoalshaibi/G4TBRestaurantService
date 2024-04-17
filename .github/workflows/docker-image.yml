@@ -1,8 +1,8 @@
 name: build and deploy restaurant service-api
 on:
-    push:
+    pull_request:
       branches:
-        - develop
+        - main
 
 jobs:
     build-deploy:
