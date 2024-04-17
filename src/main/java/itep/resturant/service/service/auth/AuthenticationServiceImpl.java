@@ -5,10 +5,10 @@ import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.dao.request.SigninRequest;
 import itep.resturant.service.dao.request.SignUpRequest;
 import itep.resturant.service.dao.response.JwtAuthenticationResponse;
-import itep.resturant.service.entity.Restaurant;
-import itep.resturant.service.entity.Role;
-import itep.resturant.service.entity.User;
-import itep.resturant.service.repository.UserRepository;
+import itep.resturant.service.entity.local.Restaurant;
+import itep.resturant.service.entity.local.Role;
+import itep.resturant.service.entity.local.User;
+import itep.resturant.service.repository.local.UserRepository;
 import itep.resturant.service.util.Constant;
 import org.springframework.security.authentication.AuthenticationManager;
 import org.springframework.security.authentication.UsernamePasswordAuthenticationToken;
@@ -54,7 +54,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
             if (ex.getMessage().contains("users_email_key"))
                 return APIResponse.badRequest(null, Constant.getLogResponseHashMap(),"USER-".concat("1"));
 
-            return APIResponse.badRequest(null, Constant.getLogResponseHashMap(),"USER-".concat("1"));
+            return APIResponse.badRequest(null, Constant.getLogResponseHashMap(),"USER-".concat("10"));
 
         }
     }
@@ -76,6 +76,7 @@ public class AuthenticationServiceImpl implements AuthenticationService {
     public JwtAuthenticationResponse signin(SigninRequest request) {
         authenticationManager.authenticate(
                 new UsernamePasswordAuthenticationToken(request.getEmail(), request.getPassword()));
+
         var user = userRepository.findByEmail(request.getEmail())
                 .orElseThrow(() -> new IllegalArgumentException("Invalid email or password."));
 

@@ -1,4 +1,4 @@
-package itep.resturant.service.entity;
+package itep.resturant.service.entity.local;
 
 
 import jakarta.persistence.*;

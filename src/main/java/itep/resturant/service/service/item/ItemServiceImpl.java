@@ -1,9 +1,9 @@
 package itep.resturant.service.service.item;
 
 import itep.resturant.service.dao.APIResponse;
-import itep.resturant.service.entity.Item;
-import itep.resturant.service.repository.ItemRepository;
-import itep.resturant.service.repository.MenuRepository;
+import itep.resturant.service.entity.local.Item;
+import itep.resturant.service.repository.local.ItemRepository;
+import itep.resturant.service.repository.local.MenuRepository;
 import itep.resturant.service.dao.request.ItemRequest;
 import itep.resturant.service.dao.response.ItemResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
@@ -43,7 +43,7 @@ public class ItemServiceImpl implements ItemService{
          item.setCreatedBy(authenticationService.extractClaims());
          item.setCreatedAt(LocalDateTime.now());
 
-        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("2"));
+        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("7"));
 
     }
 
@@ -75,7 +75,7 @@ public class ItemServiceImpl implements ItemService{
         mapper.map(request,item);
 
 
-        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("3"));
+        return APIResponse.ok(mapper.map(repository.save(item), ItemResponse.class), Constant.getLogResponseHashMap(), "ITEM-".concat("8"));
 
     }
 

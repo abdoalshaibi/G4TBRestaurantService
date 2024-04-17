@@ -1,10 +1,10 @@
 package itep.resturant.service.service;
 
 import itep.resturant.service.dao.request.ItemRequest;
-import itep.resturant.service.entity.Item;
-import itep.resturant.service.entity.Menu;
-import itep.resturant.service.repository.ItemRepository;
-import itep.resturant.service.repository.MenuRepository;
+import itep.resturant.service.entity.local.Item;
+import itep.resturant.service.entity.local.Menu;
+import itep.resturant.service.repository.local.ItemRepository;
+import itep.resturant.service.repository.local.MenuRepository;
 import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.auth.AuthenticationServiceImpl;
 import itep.resturant.service.service.item.ItemServiceImpl;

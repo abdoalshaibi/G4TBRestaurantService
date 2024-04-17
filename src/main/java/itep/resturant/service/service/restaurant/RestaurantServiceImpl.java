@@ -1,9 +1,9 @@
 package itep.resturant.service.service.restaurant;
 
 import itep.resturant.service.dao.APIResponse;
-import itep.resturant.service.entity.Restaurant;
-import itep.resturant.service.repository.CuisineRepository;
-import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.entity.local.Restaurant;
+import itep.resturant.service.repository.local.CuisineRepository;
+import itep.resturant.service.repository.local.RestaurantRepository;
 import itep.resturant.service.dao.request.RestaurantRequest;
 import itep.resturant.service.dao.response.RestaurantResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
@@ -47,9 +47,10 @@ public class RestaurantServiceImpl implements RestaurantService {
         restaurant.setCreatedBy(authenticationService.extractClaims());
         restaurant.setCuisine(cuisineOptional.get());
 
-        authenticationService.signup(restaurant, request.getSign());
+        var result = repository.save(restaurant);
+        authenticationService.signup(result, request.getSign());
 
-        var response = mapper.map(repository.save(restaurant), RestaurantResponse.class);
+        var response = mapper.map(result, RestaurantResponse.class);
 
         return APIResponse.ok(response, Constant.getLogResponseHashMap(), "RESTAURANT-".concat("7"));
     }

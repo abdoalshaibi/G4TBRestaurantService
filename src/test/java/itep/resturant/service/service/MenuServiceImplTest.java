@@ -1,10 +1,10 @@
 package itep.resturant.service.service;
 
 import itep.resturant.service.dao.request.MenuRequest;
-import itep.resturant.service.entity.Menu;
-import itep.resturant.service.entity.Restaurant;
-import itep.resturant.service.repository.MenuRepository;
-import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.entity.local.Menu;
+import itep.resturant.service.entity.local.Restaurant;
+import itep.resturant.service.repository.local.MenuRepository;
+import itep.resturant.service.repository.local.RestaurantRepository;
 import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.menu.MenuServiceImpl;
 import org.junit.jupiter.api.BeforeEach;

@@ -1,5 +1,4 @@
-package itep.resturant.service.entity;
-
+package itep.resturant.service.entity.local;
 import jakarta.persistence.*;
 import jakarta.validation.constraints.NotNull;
 import lombok.AllArgsConstructor;
@@ -13,24 +12,28 @@ import java.util.Set;
 @Builder
 @Data
 @AllArgsConstructor
-public class Cuisine {
+public class Menu{
+
     @Id
-    @GeneratedValue(strategy = GenerationType.AUTO)
+    @GeneratedValue(strategy=GenerationType.AUTO)
     private long id;
-    @NotNull(message = "")
     public String name;
     public String description;
+    private byte[] image;
+    @NotNull
     public long createdBy;
     public long updatedBy;
+    @NotNull
     public LocalDateTime createdAt;
     public LocalDateTime updatedAt;
+    @ManyToOne(fetch = FetchType.LAZY)
+    @JoinColumn(name="restaurant_id", nullable=false)
+    private Restaurant restaurant;
 
-    @OneToMany(mappedBy = "cuisine",cascade = CascadeType.PERSIST)
-    private Set<Restaurant> restaurants;
+    @OneToMany(mappedBy = "menu",cascade = CascadeType.PERSIST)
+    private Set<Item> items;
 
-    public Cuisine() {
+    public Menu() {
 
     }
-
-
 }

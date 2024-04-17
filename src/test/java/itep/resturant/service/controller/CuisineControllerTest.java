@@ -16,12 +16,14 @@
 //import org.springframework.test.web.servlet.MockMvc;
 //import org.springframework.test.web.servlet.request.MockMvcRequestBuilders;
 //
+//import java.util.List;
+//
 //import static org.hamcrest.Matchers.equalTo;
+//import static org.hamcrest.Matchers.hasSize;
 //import static org.mockito.ArgumentMatchers.any;
 //import static org.mockito.Mockito.when;
 //import static org.springframework.security.test.web.servlet.request.SecurityMockMvcRequestPostProcessors.jwt;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.jsonPath;
-//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.status;
+//import static org.springframework.test.web.servlet.result.MockMvcResultMatchers.*;
 //
 //@WebMvcTest(CuisineController.class)
 //class CuisineControllerTest {
@@ -31,8 +33,8 @@
 //
 //    @Autowired
 //    private MockMvc mockMvc;
-//    private APIResponse<CuisineResponse> Apiresult;
 //
+//    CuisineResponse response ;
 //    private CuisineRequest request;
 //    private static final ObjectMapper mapper = new ObjectMapper();
 //
@@ -58,9 +60,11 @@
 //        result.setName("Japanese");
 //        result.setDescription(null);
 //
-//        Apiresult.setData(result);
+//        APIResponse<CuisineResponse> Api_result = new APIResponse<>();
 //
-//        when(service.Create(any())).thenReturn(Apiresult);
+//        Api_result.setData(result);
+//
+//        when(service.Create(any())).thenReturn(Api_result);
 //
 //        String json = mapper.writeValueAsString(request);
 //
@@ -76,50 +80,56 @@
 //                .andExpect(jsonPath("$.name",equalTo("Japanese")));
 //    }
 //
-////    @DisplayName("JUnit test for Update Cuisine method")
-////    @Test
-////    void Update() throws Exception {
-////
-////
-////        result = new CuisineResponse();
-////        result.setName("italian");
-////        result.setDescription(null);
-////
-////
-////        when(service.Update(0L,request)).thenReturn(result);
-////
-////
-////        String json = mapper.writeValueAsString(request);
-////
-////        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/cuisine/{id}",0L)
-////                        .contentType(MediaType.APPLICATION_JSON)
-////                        .characterEncoding("utf-8")
-////                        .content(json)
-////                        .accept(MediaType.APPLICATION_JSON)
-////                ).andExpect(status().isOk())
-////                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
-////                .andExpect(jsonPath("$.id",equalTo(0)))
-////                .andExpect(jsonPath("$.name",equalTo("italian")));
-////    }
-////
-////
-////    @DisplayName("JUnit test for Get All Cuisine method")
-////    @Test
-////    void GetAll() throws Exception {
-////
-////        CuisineResponse response = new CuisineResponse();
-////        response.setName("Japanese");
-////        response.setDescription(null);
-////
-////        when(service.GetAll()).thenReturn(List.of(response));
-////
-////        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/cuisine")
-////                        .contentType(MediaType.APPLICATION_JSON)
-////                        .characterEncoding("utf-8")
-////                        .accept(MediaType.APPLICATION_JSON)
-////                ).andExpect(status().isOk())
-////                .andExpect(jsonPath("$.*",hasSize(1)))
-////                .andExpect(jsonPath("$..id").value(0))
-////                .andExpect(jsonPath("$..name").value("Japanese"));
-////    }
+//    @DisplayName("JUnit test for Update Cuisine method")
+//    @Test
+//    void Update() throws Exception {
+//
+//
+//        response = new CuisineResponse();
+//        response.setName("italian");
+//        response.setDescription(null);
+//
+//        APIResponse<CuisineResponse> Api_result = new APIResponse<>();
+//
+//        Api_result.setData(response);
+//        when(service.Update(0L,request)).thenReturn(Api_result);
+//
+//
+//        String json = mapper.writeValueAsString(request);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.put("/api/v1/cuisine/{id}",0L)
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .characterEncoding("utf-8")
+//                        .content(json)
+//                        .accept(MediaType.APPLICATION_JSON)
+//                ).andExpect(status().isOk())
+//                .andExpect(content().contentType(MediaType.APPLICATION_JSON))
+//                .andExpect(jsonPath("$.id",equalTo(0)))
+//                .andExpect(jsonPath("$.name",equalTo("italian")));
+//    }
+//
+//
+//    @DisplayName("JUnit test for Get All Cuisine method")
+//    @Test
+//    void GetAll() throws Exception {
+//
+//      response = new CuisineResponse();
+//        response.setName("Japanese");
+//        response.setDescription(null);
+//
+//        APIResponse<List<CuisineResponse>> Api_result = new APIResponse<>();
+//
+//        Api_result.setData(List.of(response));
+//
+//        when(service.GetAll()).thenReturn(Api_result);
+//
+//        mockMvc.perform(MockMvcRequestBuilders.get("/api/v1/cuisine")
+//                        .contentType(MediaType.APPLICATION_JSON)
+//                        .characterEncoding("utf-8")
+//                        .accept(MediaType.APPLICATION_JSON)
+//                ).andExpect(status().isOk())
+//                .andExpect(jsonPath("$.*",hasSize(1)))
+//                .andExpect(jsonPath("$..id").value(0))
+//                .andExpect(jsonPath("$..name").value("Japanese"));
+//    }
 //}

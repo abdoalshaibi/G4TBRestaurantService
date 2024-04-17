@@ -24,7 +24,7 @@ public class APIResponse <T> {
     private String message;
 
     // An internal code or identifier for the API response, aiding in error identification.
-    private String internalCode;
+    private String Code;
 
     // The data payload included in the API response, holding the actual content.
     private T data;
@@ -43,7 +43,7 @@ public class APIResponse <T> {
                 .httpStatus(HttpStatus.OK.value())
                 .success(Constant.RESULT_SUCCESS)
                 .message(responseHashMap.get(key))
-                .internalCode(key)
+                .Code(key)
                 .data(data)
                 .build();
     }
@@ -62,7 +62,7 @@ public class APIResponse <T> {
                 .httpStatus(HttpStatus.BAD_REQUEST.value())
                 .success(Constant.RESULT_FAIL)
                 .message(responseHashMap.get(key))
-                .internalCode(key)
+                .Code(key)
                 .data(data)
                 .build();
     }
@@ -81,7 +81,7 @@ public class APIResponse <T> {
                 .httpStatus(HttpStatus.NOT_FOUND.value())
                 .success(Constant.RESULT_FAIL)
                 .message(responseHashMap.get(key))
-                .internalCode(key)
+                .Code(key)
                 .data(data)
                 .build();
     }
@@ -100,7 +100,7 @@ public class APIResponse <T> {
                 .httpStatus(HttpStatus.INTERNAL_SERVER_ERROR.value())
                 .success(Constant.RESULT_FAIL)
                 .message(responseHashMap.get(key))
-                .internalCode(key)
+                .Code(key)
                 .data(data)
                 .build();
     }

@@ -6,7 +6,7 @@ spring:
     database-platform: org.hibernate.dialect.PostgreSQLDialect
     hibernate:
       # New database is created when application starts and destroyed when application is stopped
-      ddl-auto: create-drop
+      ddl-auto: create
     # Show sql when spring data jpa performs query
     show-sql: true
     properties:
@@ -23,7 +23,25 @@ spring:
   h2:
     console:
       enabled: true
+
+  security:
+    user:
+      password=password:
 token:
   signing:
     key: 413F4428472B4B6250655368566D5970337336763979244226452948404D6351
+
+external:
+  api:
+    order:
+      url: http://127.0.0.1
+      auth:
+        email: sss@gmail.com
+        password : "123456"
+    driver:
+      url: http://127.0.0.1
+      auth:
+        email: sss@gmail.com
+        password: "123456"
+
 

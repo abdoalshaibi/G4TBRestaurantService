@@ -1,9 +1,8 @@
 package itep.resturant.service.service.auth;
 
-import itep.resturant.service.entity.User;
-import itep.resturant.service.repository.UserRepository;
+import itep.resturant.service.entity.local.User;
+import itep.resturant.service.repository.local.UserRepository;
 import lombok.RequiredArgsConstructor;
-import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.core.userdetails.UserDetailsService;
 import org.springframework.security.core.userdetails.UsernameNotFoundException;
 import org.springframework.stereotype.Service;
@@ -14,13 +13,8 @@ public class UserServiceImpl implements UserService {
     private final UserRepository userRepository;
     @Override
     public UserDetailsService userDetailsService() {
-        return new UserDetailsService() {
-            @Override
-            public UserDetails loadUserByUsername(String username) {
-                return userRepository.findByEmail(username)
-                        .orElseThrow(() -> new UsernameNotFoundException("User not found"));
-            }
-        };
+        return username -> userRepository.findByEmail(username)
+                .orElseThrow(() -> new UsernameNotFoundException("User not found"));
     }
 
     @Override

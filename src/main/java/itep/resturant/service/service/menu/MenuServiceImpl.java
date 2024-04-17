@@ -1,9 +1,9 @@
 package itep.resturant.service.service.menu;
 
 import itep.resturant.service.dao.APIResponse;
-import itep.resturant.service.entity.Menu;
-import itep.resturant.service.repository.MenuRepository;
-import itep.resturant.service.repository.RestaurantRepository;
+import itep.resturant.service.entity.local.Menu;
+import itep.resturant.service.repository.local.MenuRepository;
+import itep.resturant.service.repository.local.RestaurantRepository;
 import itep.resturant.service.dao.request.MenuRequest;
 import itep.resturant.service.dao.response.MenuResponse;
 import itep.resturant.service.service.auth.AuthenticationService;
@@ -66,7 +66,7 @@ public class MenuServiceImpl implements MenuService {
         var optionalMenu = repository.findById(id);
 
         if (optionalMenu.isEmpty())
-           return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"MENU-".concat(""));
+           return APIResponse.notFound(null,Constant.getLogResponseHashMap(),"MENU-".concat("5"));
 
         var menu = optionalMenu.get();
 
@@ -77,21 +77,31 @@ public class MenuServiceImpl implements MenuService {
 
         var response =  mapper.map(repository.save(menu), MenuResponse.class);
 
-        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"MENU-".concat("1"));
+        return APIResponse.ok(response,Constant.getLogResponseHashMap(),"MENU-".concat("8"));
 
     }
 
     @Override
     public APIResponse<String> delete(long id) {
 
-        var menu = repository.findById(id);
+        try {
+            var menu = repository.findById(id);
 
-        if (menu.isEmpty())
-            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "MENU-".concat("1"));
+            if (menu.isEmpty())
+                return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "MENU-".concat("5"));
 
-        repository.delete(menu.get());
+            repository.delete(menu.get());
 
-        return APIResponse.ok(null, Constant.getLogResponseHashMap(), "MENU-".concat("3"));
+            return APIResponse.ok(null, Constant.getLogResponseHashMap(), "MENU-".concat("9"));
+
+        }catch (Exception ex)
+        {
+            if (ex.getMessage().contains("fkimdwniosg0e3m5t5qksxyd5vb"))
+                return APIResponse.ok(null, Constant.getLogResponseHashMap(), "MENU-".concat("10"));
+
+            return APIResponse.ok(null, Constant.getLogResponseHashMap(), "MENU-".concat("11"));
+
+        }
 
     }
 }

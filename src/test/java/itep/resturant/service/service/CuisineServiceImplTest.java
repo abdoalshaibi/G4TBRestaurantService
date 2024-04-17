@@ -1,12 +1,10 @@
 package itep.resturant.service.service;
 
 import itep.resturant.service.dao.request.CuisineRequest;
-import itep.resturant.service.dao.response.CuisineResponse;
-import itep.resturant.service.entity.Cuisine;
-import itep.resturant.service.repository.CuisineRepository;
+import itep.resturant.service.entity.local.Cuisine;
+import itep.resturant.service.repository.local.CuisineRepository;
 import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.service.cuisine.CuisineServiceImpl;
-
 import org.junit.jupiter.api.BeforeEach;
 import org.junit.jupiter.api.DisplayName;
 import org.junit.jupiter.api.Test;
@@ -18,7 +16,6 @@ import org.mockito.junit.jupiter.MockitoExtension;
 import org.modelmapper.ModelMapper;
 import org.springframework.boot.test.autoconfigure.jdbc.AutoConfigureTestDatabase;
 import org.springframework.boot.test.autoconfigure.orm.jpa.DataJpaTest;
-import org.springframework.boot.test.context.SpringBootTest;
 
 import java.time.LocalDateTime;
 import java.util.List;

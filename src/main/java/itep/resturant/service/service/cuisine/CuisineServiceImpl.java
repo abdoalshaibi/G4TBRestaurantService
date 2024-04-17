@@ -3,9 +3,8 @@ package itep.resturant.service.service.cuisine;
 import itep.resturant.service.dao.APIResponse;
 import itep.resturant.service.dao.request.CuisineRequest;
 import itep.resturant.service.dao.response.CuisineResponse;
-import itep.resturant.service.dao.response.ItemResponse;
-import itep.resturant.service.entity.Cuisine;
-import itep.resturant.service.repository.CuisineRepository;
+import itep.resturant.service.entity.local.Cuisine;
+import itep.resturant.service.repository.local.CuisineRepository;
 import itep.resturant.service.service.auth.AuthenticationService;
 import itep.resturant.service.util.Constant;
 import org.modelmapper.ModelMapper;
@@ -36,7 +35,7 @@ public class CuisineServiceImpl implements CuisineService {
            cuisine.createdBy = authenticationService.extractClaims();
            var rest = repository.save(cuisine);
 
-        return APIResponse.ok(mapper.map(rest, CuisineResponse.class), Constant.getLogResponseHashMap(), "CUISINE-".concat("3"));
+        return APIResponse.ok(mapper.map(rest, CuisineResponse.class), Constant.getLogResponseHashMap(), "CUISINE-".concat("7"));
 
 
     }
@@ -55,17 +54,17 @@ public class CuisineServiceImpl implements CuisineService {
     @Override
     public APIResponse<CuisineResponse> Update(long id, CuisineRequest request) {
 
-        var restaurantOptional = repository.findById(id);
+        var cuisineOptional = repository.findById(id);
 
-        if (restaurantOptional.isEmpty())
-            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "ITEM-".concat("1"));
+        if (cuisineOptional.isEmpty())
+            return APIResponse.notFound(null, Constant.getLogResponseHashMap(), "ITEM-".concat("5"));
 
-        var restaurant = restaurantOptional.get();
+        var restaurant = cuisineOptional.get();
         mapper.map(request, restaurant);
         restaurant.setUpdatedAt(LocalDateTime.now());
         restaurant.setUpdatedBy(authenticationService.extractClaims());
 
-        return APIResponse.ok(mapper.map(repository.save(restaurant), CuisineResponse.class), Constant.getLogResponseHashMap(), "CUISINE-".concat("3"));
+        return APIResponse.ok(mapper.map(repository.save(restaurant), CuisineResponse.class), Constant.getLogResponseHashMap(), "CUISINE-".concat("7"));
 
     }
 }
