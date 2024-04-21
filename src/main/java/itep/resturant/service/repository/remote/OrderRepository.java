@@ -1,8 +1,6 @@
 package itep.resturant.service.repository.remote;
 
-import itep.resturant.service.entity.remote.ChangeStatusRequest;
-import itep.resturant.service.entity.remote.OrderAuthRequest;
-import itep.resturant.service.entity.remote.OrderAuthResponse;
+import itep.resturant.service.entity.remote.order.ChangeStatusRequest;
 
 import java.util.Optional;
 import java.util.UUID;

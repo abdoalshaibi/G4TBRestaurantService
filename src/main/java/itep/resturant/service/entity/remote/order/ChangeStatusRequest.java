@@ -1,5 +1,8 @@
-package itep.resturant.service.entity.remote;
+package itep.resturant.service.entity.remote.order;
 
+import lombok.Data;
+
+@Data
 public class ChangeStatusRequest {
 
         private String status;

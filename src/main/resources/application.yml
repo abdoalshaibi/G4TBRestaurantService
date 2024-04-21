@@ -34,10 +34,10 @@ token:
 external:
   api:
     order:
-      url: http://127.0.0.1
+      url: http://localhost:8091/api
       auth:
-        email: sss@gmail.com
-        password : "123456"
+        email: restaurant@restaurant.com
+        password : "restaurant.password"
     driver:
       url: http://127.0.0.1
       auth:

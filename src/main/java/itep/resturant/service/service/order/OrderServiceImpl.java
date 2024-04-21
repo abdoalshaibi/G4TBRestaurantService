@@ -1,7 +1,7 @@
 package itep.resturant.service.service.order;
 
 import itep.resturant.service.dao.APIResponse;
-import itep.resturant.service.entity.remote.ChangeStatusRequest;
+import itep.resturant.service.entity.remote.order.ChangeStatusRequest;
 import itep.resturant.service.repository.remote.OrderRepository;
 import itep.resturant.service.util.Constant;
 import org.springframework.stereotype.Service;

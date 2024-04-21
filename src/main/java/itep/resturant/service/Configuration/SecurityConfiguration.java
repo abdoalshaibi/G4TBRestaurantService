@@ -36,31 +36,36 @@ public class SecurityConfiguration {
         http.cors(AbstractHttpConfigurer::disable).csrf(AbstractHttpConfigurer::disable).authorizeHttpRequests(request -> {
             request.requestMatchers(HttpMethod.POST, "/api/v1/auth/signup").permitAll();
             request.requestMatchers(HttpMethod.POST, "/api/v1/auth/signin").permitAll();
-            request.requestMatchers("/api/v1/orders/**").hasAuthority(Permission.GET_ALL_ORDERS.name());
+
+            //orders
+            request.requestMatchers(HttpMethod.GET,"/api/v1/orders/**").hasAuthority(Permission.GET_ALL_ORDERS.name());
+            request.requestMatchers(HttpMethod.POST,"/api/v1/orders/{restaurantId}/{orderId}").hasAuthority(Permission.Change_ORDER_Status.name());
 
 
             // cuisine
+            request.requestMatchers(HttpMethod.GET, "/api/v1/cuisine").permitAll();
             request.requestMatchers(HttpMethod.POST, "/api/v1/cuisine").hasAuthority(Permission.SAVE_ONE_CUISINE.name());
             request.requestMatchers(HttpMethod.DELETE, "/api/v1/cuisine").hasAuthority(Permission.DELETE_ONE_CUISINE.name());
             request.requestMatchers(HttpMethod.PUT, "/api/v1/cuisine/{id}").hasAuthority(Permission.UPDATE_ONE_CUISINE.name());
 
             // Item
+            request.requestMatchers(HttpMethod.GET, "/api/v1/item/{id}").permitAll();
             request.requestMatchers(HttpMethod.POST, "/api/v1/item/{id}").hasAuthority(Permission.SAVE_ONE_ITEM.name());
             request.requestMatchers(HttpMethod.PUT, "/api/v1/item/{id}").hasAuthority(Permission.UPDATE_ONE_ITEM.name());
             request.requestMatchers(HttpMethod.DELETE, "/api/v1/item/{id}").hasAuthority(Permission.DELETE_ONE_ITEM.name());
 
             // Menu
+            request.requestMatchers(HttpMethod.GET, "/api/v1/menu/{id}").permitAll();
             request.requestMatchers(HttpMethod.POST, "/api/v1/menu/{id}").hasAuthority(Permission.SAVE_ONE_MENU.name());
             request.requestMatchers(HttpMethod.PUT, "/api/v1/menu/{id}").hasAuthority(Permission.UPDATE_ONE_MENU.name());
             request.requestMatchers(HttpMethod.DELETE, "/api/v1/menu/{id}").hasAuthority(Permission.DELETE_ONE_MENU.name());
 
             // Restaurant
+            request.requestMatchers(HttpMethod.GET, "/api/v1/restaurant").permitAll();
             request.requestMatchers(HttpMethod.POST, "/api/v1/restaurant/{id}").hasAuthority(Permission.SAVE_ONE_RESTAURANT.name());
             request.requestMatchers(HttpMethod.PUT, "/api/v1/restaurant/{id}").hasAuthority(Permission.UPDATE_ONE_RESTAURANT.name());
 
-
-
-            request.anyRequest().permitAll();
+            request.anyRequest().denyAll();
         }).sessionManagement(manager -> manager.sessionCreationPolicy(STATELESS)).authenticationProvider(authenticationProvider()).addFilterBefore(jwtAuthenticationFilter, UsernamePasswordAuthenticationFilter.class);
 
         return http.build();

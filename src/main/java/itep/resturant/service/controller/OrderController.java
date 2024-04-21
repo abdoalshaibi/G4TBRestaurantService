@@ -1,7 +1,7 @@
 package itep.resturant.service.controller;
 
 import itep.resturant.service.dao.APIResponse;
-import itep.resturant.service.entity.remote.ChangeStatusRequest;
+import itep.resturant.service.entity.remote.order.ChangeStatusRequest;
 import itep.resturant.service.service.order.OrderService;
 import org.springframework.web.bind.annotation.*;
 
@@ -33,7 +33,7 @@ public class OrderController {
     @PostMapping("/{restaurant_id}/{order_id}")
     public APIResponse<Object> getAllDetails(@PathVariable UUID restaurant_id,@PathVariable UUID order_id, @RequestBody ChangeStatusRequest request)
     {
-        return orderService.changStatus(  restaurant_id,  order_id,  request);
+        return orderService.changStatus( restaurant_id,  order_id,  request);
     }
 
 }

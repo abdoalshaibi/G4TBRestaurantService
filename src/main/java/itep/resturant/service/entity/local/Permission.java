@@ -3,6 +3,7 @@ package itep.resturant.service.entity.local;
 public enum Permission {
     SAVE_ONE_CUISINE,
     GET_ALL_ORDERS,
+    Change_ORDER_Status,
     DELETE_ONE_CUISINE,
     UPDATE_ONE_CUISINE,
     SAVE_ONE_MENU,

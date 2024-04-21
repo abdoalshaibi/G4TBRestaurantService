@@ -1,7 +1,7 @@
 package itep.resturant.service.repository.remote;
 
-import itep.resturant.service.entity.remote.OrderAuthRequest;
-import itep.resturant.service.entity.remote.OrderAuthResponse;
+import itep.resturant.service.entity.remote.order.OrderAuthRequest;
+import itep.resturant.service.entity.remote.order.GenericResponse;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.core.ParameterizedTypeReference;
 import org.springframework.stereotype.Repository;
@@ -28,7 +28,7 @@ public class DriverRepositoryImpl implements DriverRepository {
     }
 
 
-    private Optional<OrderAuthResponse> login(OrderAuthRequest request) {
+    private Optional<GenericResponse> login(OrderAuthRequest request) {
 
         return restClient
                 .post()
@@ -43,13 +43,15 @@ public class DriverRepositoryImpl implements DriverRepository {
     public Optional<Object> getAll()
     {
 
-        var auth = login(new  OrderAuthRequest(email,password))
-                .orElseThrow(()-> new IllegalArgumentException(""));
+//        var auth = login(new  OrderAuthRequest(email,password))
+//                .orElseThrow(()-> new IllegalArgumentException(""));
+//
+//        return restClient.get()
+//                .uri("/api/Driver?pageNo=0&pageSize=10")
+//                .header("Authorization",auth.data().)
+//                .retrieve()
+//                .body(new ParameterizedTypeReference<>() {});
 
-        return restClient.get()
-                .uri("/api/Driver?pageNo=0&pageSize=10")
-                .header("Authorization",auth.accessToken())
-                .retrieve()
-                .body(new ParameterizedTypeReference<>() {});
+        return null;
     }
 }

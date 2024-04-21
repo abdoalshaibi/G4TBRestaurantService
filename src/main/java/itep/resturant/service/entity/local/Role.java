@@ -19,7 +19,8 @@ public enum Role {
             Permission.DELETE_ONE_MENU,
             Permission.UPDATE_ONE_MENU,
             Permission.SAVE_ONE_MENU,
-            Permission.GET_ALL_ORDERS
+            Permission.GET_ALL_ORDERS,
+            Permission.Change_ORDER_Status
     )),
 
     ADMIN(List.of(
@@ -36,7 +37,8 @@ public enum Role {
             Permission.DELETE_ONE_MENU,
             Permission.UPDATE_ONE_MENU,
             Permission.SAVE_ONE_MENU,
-            Permission.GET_ALL_ORDERS
+            Permission.GET_ALL_ORDERS,
+            Permission.Change_ORDER_Status
     ));
 
     private final List<Permission> permissions;
